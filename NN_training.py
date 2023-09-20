@@ -44,21 +44,23 @@ def cifar_train(resnet50):
         param.requires_grad = False
     try:
         # if exists try to load
-        resnet50.fc = nn.Identity()
-        resnet50.fc = nn.Linear(2048, 5)
+        resnet50.classifier[6] = nn.Identity()
+        resnet50.classifier[6] = nn.Linear(4096, 5)
         resnet50.load_state_dict(torch.load(PATH_TRAIN))
     except:
         # if not exists, start from scratch
-        resnet50.fc = nn.Identity()
-        resnet50.fc = nn.Linear(2048,5)
+        resnet50.classifier[6] = nn.Identity()
+        resnet50.classifier[6] = nn.Linear(4096,5)
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(resnet50.fc.parameters(), lr=0.001)
+    optimizer = optim.Adam(resnet50.classifier[6].parameters(), lr=0.001)
 
-    resnet50.train()
+    
+
     EPOCHS = 1000
     last_saved = ""
     for epoch in range(EPOCHS):
+        resnet50.train()
         running_loss = 0.0
         for i, data in enumerate(train_loader, 0):
             # get the inputs; data is a list of [inputs, labels]
@@ -124,7 +126,7 @@ if __name__ == "__main__":
     train_loader = get_data_for_classes(desired_classes,original_targets_train)
     test_loader = get_data_for_classes(desired_classes,original_targets_test)
 
-    resnet50 = models.resnet50().to(DEVICE)
+    resnet50 = models.alexnet().to(DEVICE)
 
     cifar_train(resnet50)
     # cifar_test(resnet50,PATH_TEST)
