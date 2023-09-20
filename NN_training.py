@@ -126,7 +126,7 @@ if __name__ == "__main__":
     train_loader = get_data_for_classes(desired_classes,original_targets_train)
     test_loader = get_data_for_classes(desired_classes,original_targets_test)
 
-    resnet50 = models.alexnet().to(DEVICE)
+    resnet50 = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained=True).to(DEVICE)
 
     cifar_train(resnet50)
     # cifar_test(resnet50,PATH_TEST)
