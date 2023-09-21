@@ -7,6 +7,7 @@ from torchvision import transforms
 import torchvision.datasets as datasets
 import torch.utils.data as data
 import torch.optim as optim
+import torchvision
 
 transform = transforms.Compose([
     transforms.Resize(256),
@@ -22,16 +23,17 @@ def sanitize(start_file_name : str = "cifar_net_5"):
 
 
 
-def get_data_for_classes(desired_classes,original_targets_tensor):
+def get_data_for_classes(desired_classes, dataset):
     # Convert desired_classes into a tensor for broadcasting
+    
     desired_classes_tensor = torch.tensor(desired_classes)[:, None]
     # Create a boolean mask indicating whether each target is in desired_classes
-    mask = (original_targets_tensor == desired_classes_tensor).any(dim=0)
+    mask = (torch.tensor(dataset.targets) == desired_classes_tensor).any(dim=0)
 
     # Extract indices where the mask is True
     indices = torch.nonzero(mask).squeeze().tolist()
 
-    filtered_data = torch.utils.data.Subset(cifar10_train, indices)
+    filtered_data = torch.utils.data.Subset(dataset, indices)
 
     # Create the DataLoader with the filtered dataset
     return data.DataLoader(filtered_data, batch_size=32, shuffle=True, num_workers=32)
@@ -40,25 +42,33 @@ def get_data_for_classes(desired_classes,original_targets_tensor):
 def cifar_train(resnet50):
     PATH_TRAIN = './cifar_net_5_CLASSES'
 
-    for param in resnet50.parameters():
-        param.requires_grad = False
-    try:
-        # if exists try to load
-        resnet50.classifier[6] = nn.Identity()
-        resnet50.classifier[6] = nn.Linear(4096, 5)
-        resnet50.load_state_dict(torch.load(PATH_TRAIN))
-    except:
-        # if not exists, start from scratch
-        resnet50.classifier[6] = nn.Identity()
-        resnet50.classifier[6] = nn.Linear(4096,5)
+    def no_grad(nn_part = None):
+        if(nn_part != None):
+            for param in nn_part.parameters():
+                param.requires_grad = False
+
+    # Remove gradients tracking on convnet and avgpool
+    #no_grad(resnet50.features)
+    #no_grad(resnet50.avgpool)
+
+    resnet50.classifier[6] = nn.Identity()
+    resnet50.classifier[6] = nn.Linear(4096, 5)
+
+    if(os.path.exists(PATH_TRAIN)):
+        try:
+            resnet50.load_state_dict(torch.load(PATH_TRAIN))
+            print(f'Training resumed from {PATH_TRAIN}')
+        except Exception as e:
+            print(e)
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(resnet50.classifier[6].parameters(), lr=0.001)
+    optimizer = optim.Adam(params=resnet50.parameters(), lr=0.001)
+    lr_scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
 
     
-
     EPOCHS = 1000
     last_saved = ""
+    total_steps = 1
     for epoch in range(EPOCHS):
         resnet50.train()
         running_loss = 0.0
@@ -78,15 +88,14 @@ def cifar_train(resnet50):
             optimizer.step()
 
             # print statistics
-            running_loss += loss.item()
             if i % 100 == 0:  # print every 2000 mini-batches
                 print(f'[{epoch + 1}, {i + 1:5d}] loss: {loss.item()}')
-                running_loss = 0.0
-
+            if total_steps % 1000 == 0:
                 sanitize()
                 last_saved = PATH_TRAIN + f'__{epoch}__epoch__{i}__batch.pth'
                 torch.save(resnet50.state_dict(), last_saved)
-        cifar_test(resnet50, last_saved)
+                cifar_test(resnet50, last_saved)
+            total_steps += 1
 
 def cifar_test(resnet50, PATH_TEST):
 
@@ -120,13 +129,11 @@ if __name__ == "__main__":
     cifar10_train = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
     cifar10_test = datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
     # Filter the dataset to only include classes 0-4
-    desired_classes = [0, 1, 2, 3, 4]
-    original_targets_train = torch.tensor(cifar10_train.targets)
-    original_targets_test = torch.tensor(cifar10_test.targets)
-    train_loader = get_data_for_classes(desired_classes,original_targets_train)
-    test_loader = get_data_for_classes(desired_classes,original_targets_test)
+    desired_classes = [0, 1, 2, 3, 4 ]
+    train_loader = get_data_for_classes(desired_classes, cifar10_train)
+    test_loader = get_data_for_classes(desired_classes, cifar10_test)
 
-    resnet50 = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained=True).to(DEVICE)
+    resnet50 = torchvision.models.alexnet().to(DEVICE)
 
     cifar_train(resnet50)
     # cifar_test(resnet50,PATH_TEST)
