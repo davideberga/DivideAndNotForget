@@ -5,6 +5,9 @@ import torchvision.models as models
 import torch.nn as nn
 from torchvision import transforms
 import torchvision.datasets as datasets
+
+
+
 import torch.utils.data as data
 import torch.optim as optim
 import torchvision
@@ -157,7 +160,7 @@ if __name__ == "__main__":
     train_loader = get_data_for_classes(desired_classes, food101_train)
     test_loader = get_data_for_classes(desired_classes,  food101_test)
 
-    resnet50 = torchvision.models.alexnet().to(DEVICE)
+    resnet50 = torchvision.models.alexnet(torchvision.models.AlexNet_Weights.IMAGENET1K_V1).to(DEVICE)
 
     cifar_train(resnet50)
     # cifar_test(resnet50,PATH_TEST)
