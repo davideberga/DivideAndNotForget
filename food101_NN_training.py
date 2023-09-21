@@ -21,6 +21,15 @@ def sanitize(start_file_name : str = "cifar_net_5"):
     for file in files_to_remove:
         os.remove(file)
 
+def force_labels_classes_to_0N(labels,n_classes):
+
+    tensor_desired_classes = torch.tensor(desired_classes)
+    # Create a dictionary to map the sorted unique numbers to 0 to 4
+    mapping = {tensor_desired_classes[i].item(): i for i in range(n_classes)}
+    # Replace elements in the tensor using the mapping
+    new_tensor = torch.tensor([mapping[x.item()] for x in labels])
+
+    return new_tensor
 
 
 def get_data_for_classes(desired_classes, dataset):
@@ -36,7 +45,7 @@ def get_data_for_classes(desired_classes, dataset):
     filtered_data = torch.utils.data.Subset(dataset, indices)
 
     # Create the DataLoader with the filtered dataset
-    return data.DataLoader(filtered_data, batch_size=8, shuffle=True, num_workers=8)
+    return data.DataLoader(filtered_data, batch_size=32, shuffle=True, num_workers=12)
 
 
 def cifar_train(resnet50):
@@ -51,8 +60,15 @@ def cifar_train(resnet50):
     #no_grad(resnet50.features)
     #no_grad(resnet50.avgpool)
 
+
+    for param in resnet50.parameters():
+        param.requires_grad = False
+
+
     resnet50.classifier[6] = nn.Identity()
     resnet50.classifier[6] = nn.Linear(4096, 5)
+
+
 
     if(os.path.exists(PATH_TRAIN)):
         try:
@@ -75,6 +91,13 @@ def cifar_train(resnet50):
         for i, data in enumerate(train_loader, 0):
             # get the inputs; data is a list of [inputs, labels]
             inputs, labels = data
+            labels = force_labels_classes_to_0N(labels,5)
+
+            # shuffle the inputs and labels in each batch
+            perm = torch.randperm(inputs.shape[0])
+            inputs = inputs[perm]
+            labels = labels[perm]
+
             inputs = inputs.to(DEVICE)
             resnet50 = resnet50.to(DEVICE)
             labels = labels.to(DEVICE)
@@ -83,7 +106,7 @@ def cifar_train(resnet50):
 
             # forward + backward + optimize
             outputs = resnet50(inputs)
-            loss = criterion(outputs, labels)
+            loss = criterion(outputs,labels)
             loss.backward()
             optimizer.step()
 
@@ -129,9 +152,8 @@ if __name__ == "__main__":
     food101_train = datasets.Food101(root='./data', split='train', download=True, transform=transform)
     food101_test = datasets.Food101(root='./data', split='test', download=True, transform=transform)
 
-
     # Filter the dataset to only include classes 0-4
-    desired_classes = [0, 1, 2, 3, 5 ]
+    desired_classes = [0, 1, 2, 3, 5]
     train_loader = get_data_for_classes(desired_classes, food101_train)
     test_loader = get_data_for_classes(desired_classes,  food101_test)
 
