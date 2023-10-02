@@ -37,6 +37,11 @@ def on_gen(ga_instance):
             images, labels = data
             images = images.to(DEVICE)
             labels = labels.to(DEVICE)
+
+            # SET label 0 to class 1, all others lables to class 0
+            labels[labels > 0] = 1
+            torch.logical_not(labels).to(torch.float32)
+
             resnet50 = resnet50.to(DEVICE)
             # calculate outputs by running images through the network
             outputs = resnet50(images)
@@ -178,26 +183,7 @@ if __name__ == "__main__":
     solution, solution_fitness, _ = ga_instance.best_solution()
     print("Best solution fitness:", solution_fitness)
 
-    # Set the model's weights to the best solution found
 
-    total = correct = 0.0
-
-    with torch.no_grad():
-        best_weights_tensor = torch.tensor(solution, dtype=torch.float32).view(1, NUM_GENES)
-        resnet50.classifier[6].weight.data = best_weights_tensor
-
-        for data in test_loader:
-            images, labels = data
-            images = images.to(DEVICE)
-            labels = labels.to(DEVICE)
-            resnet50 = resnet50.to(DEVICE)
-            # calculate outputs by running images through the network
-            outputs = resnet50(images)
-            # the class with the highest energy is what we choose as prediction
-            _, predicted = torch.max(outputs.data, 1)
-            total += labels.size(0)
-            correct += (predicted == labels).sum().item()
-        print(f'Accuracy of the network: {(correct / total):.5f} %')
 
 
     # PLOT @@@
