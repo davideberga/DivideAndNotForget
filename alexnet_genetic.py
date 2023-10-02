@@ -19,9 +19,36 @@ from utility import get_data_for_classes, sanitize, force_labels_classes_to_0N
 
 
 def on_gen(ga_instance):
+    global resnet50
     print("Generation : ", ga_instance.generations_completed)
     print("Fitness of the best solution :", ga_instance.best_solution()[1])
 
+    total = correct = 0.0
+
+    resnet50.eval()
+
+    solution, solution_fitness, _ = ga_instance.best_solution()
+
+    with torch.no_grad():
+        best_weights_tensor = torch.tensor(solution, dtype=torch.float32).view(1, NUM_GENES)
+        resnet50.classifier[6].weight.data = best_weights_tensor
+
+        for data in test_loader:
+            images, labels = data
+            images = images.to(DEVICE)
+            labels = labels.to(DEVICE)
+            resnet50 = resnet50.to(DEVICE)
+            # calculate outputs by running images through the network
+            outputs = resnet50(images)
+            # the class with the highest energy is what we choose as prediction
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+        print(f'Accuracy of the network: {(correct / total):.5f} %')
+
+
+
+    torch.save(resnet50.state_dict(),'best_alexnet_1out_weights.pth')
 
 
 # 2. Define the fitness function for PyGAD
@@ -53,8 +80,8 @@ def fitness_func(modelx, solution, solution_idx):
             _, predicted = torch.max(outputs.data, 1)
             loss = torch.nn.functional.mse_loss(outputs, labels).item()
             i += 1
-            if i % 5 == 0:
-                print(f'i:{i}\t FITNESS:{-loss}')
+            # if i % 5 == 0:
+            #     print(f'i:{i}\t FITNESS:{-loss}')
     # For PyGAD, we want to maximize the fitness, so we will take the negative of the loss
     return -loss
 
