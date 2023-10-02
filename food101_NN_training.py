@@ -6,9 +6,10 @@ import torch.nn as nn
 from torchvision import transforms
 import torchvision.datasets as datasets
 
+from utility import get_data_for_classes, sanitize, force_labels_classes_to_0N
 
 
-import torch.utils.data as data
+
 import torch.optim as optim
 import torchvision
 
@@ -18,38 +19,6 @@ transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
-
-def sanitize(start_file_name : str = "cifar_net_5"):
-    files_to_remove = [f for f in os.listdir() if os.path.isfile(f) and f.startswith(start_file_name)]
-    for file in files_to_remove:
-        os.remove(file)
-
-def force_labels_classes_to_0N(labels,n_classes):
-
-    tensor_desired_classes = torch.tensor(desired_classes)
-    # Create a dictionary to map the sorted unique numbers to 0 to 4
-    mapping = {tensor_desired_classes[i].item(): i for i in range(n_classes)}
-    # Replace elements in the tensor using the mapping
-    new_tensor = torch.tensor([mapping[x.item()] for x in labels])
-
-    return new_tensor
-
-
-def get_data_for_classes(desired_classes, dataset):
-    # Convert desired_classes into a tensor for broadcasting
-    
-    desired_classes_tensor = torch.tensor(desired_classes)[:, None]
-    # Create a boolean mask indicating whether each target is in desired_classes
-    mask = (torch.tensor(dataset._labels) == desired_classes_tensor).any(dim=0)
-
-    # Extract indices where the mask is True
-    indices = torch.nonzero(mask).squeeze().tolist()
-
-    filtered_data = torch.utils.data.Subset(dataset, indices)
-
-    # Create the DataLoader with the filtered dataset
-    return data.DataLoader(filtered_data, batch_size=32, shuffle=True, num_workers=12)
-
 
 def cifar_train(resnet50):
     PATH_TRAIN = './food101_net_5_CLASSES'
@@ -71,7 +40,15 @@ def cifar_train(resnet50):
     resnet50.classifier[6] = nn.Identity()
     resnet50.classifier[6] = nn.Linear(4096, 5)
 
+    print("FEATURES")
+    for name, module in resnet50.features.named_children():
+        for param_name, param in module.named_parameters():
+            print(f"Module: {name} ({type(module).__name__}), Parameter: {param_name}, requires_grad: {param.requires_grad}")
 
+    print("CLASSIFIER")
+    for name, module in resnet50.classifier.named_children():
+        for param_name, param in module.named_parameters():
+            print(f"Module: {name} ({type(module).__name__}), Parameter: {param_name}, requires_grad: {param.requires_grad}")
 
     if(os.path.exists(PATH_TRAIN)):
         try:
@@ -83,6 +60,11 @@ def cifar_train(resnet50):
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(params=resnet50.parameters(), lr=0.001)
     lr_scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
+
+
+    # TODO
+    # resnet50.features.eval() # in order to remove Batch norm, dropout
+
 
     
     EPOCHS = 1000
