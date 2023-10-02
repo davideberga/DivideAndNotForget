@@ -19,13 +19,13 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-
+N_SVD_FEATURES = 50
 
 import torch
 
 class KNN:
     def __init__(self):
-        self.train_data = torch.empty(0,4096).to(DEVICE)
+        self.train_data = torch.empty(0,N_SVD_FEATURES).to(DEVICE)
         self.train_labels = torch.empty(0,1).to(DEVICE)
 
     def fit(self, train_data, train_labels):
@@ -53,6 +53,62 @@ class KNN:
         predictions, _ = knn_labels.mode(dim=1)
 
         return predictions
+
+def svd(data, n_features):
+
+
+    # PCA
+    # Center the data
+    mean = torch.mean(data, dim=0)
+    centered_data = data - mean
+
+    # Compute the covariance matrix
+    covariance_matrix = torch.mm(centered_data.t(), centered_data) / centered_data.size(0)
+
+    # Compute the eigenvectors and eigenvalues
+    eigenvalues, eigenvectors = torch.linalg.eig(covariance_matrix)
+    eigenvalues = eigenvalues.real
+    # Convert eigenvectors to real and cast to float32
+    eigenvectors_real = eigenvectors.real
+
+    # Sort the eigenvectors by descending eigenvalues
+    sorted_indices = torch.argsort(eigenvalues, descending=True)
+    topk_eigenvectors = eigenvectors_real[:, sorted_indices[:n_features]]
+
+    # Transform the data to the reduced-dimensional space
+    transformed_data = torch.mm(centered_data, topk_eigenvectors.real)
+
+    return transformed_data
+    # PCA
+
+
+    # SVD
+    # n_rows = data.shape[0]
+    #
+    # # Center the data
+    # mean = torch.mean(data, dim=0)
+    # centered_data = data - mean
+    #
+    # # Compute the SVD
+    # U, S, V = torch.svd(centered_data)
+    #
+    # # Determine the number of features to retain
+    # actual_features = min(n_features, U.shape[1])
+    #
+    # # Retain only the top actual_features singular vectors/values
+    # U_k = U[:, :actual_features]
+    # S_k = torch.diag(S[:actual_features])
+    #
+    # # Compute the reduced representation
+    # transformed_data = torch.mm(U_k, S_k)
+    #
+    # # If actual_features is less than n_features, pad with zeros
+    # if actual_features < n_features:
+    #     padding = torch.zeros((n_rows, n_features - actual_features), device=data.device)
+    #     transformed_data = torch.cat([transformed_data, padding], dim=1)
+    #
+    # return transformed_data
+    # SVD
 
 
 
@@ -113,6 +169,7 @@ def knn_space_creation(resnet50):
 
 
             outputs_train = resnet50(inputs_train)
+            outputs_train = svd(outputs_train, n_features=N_SVD_FEATURES)
 
 
             # Fit to training data
@@ -134,6 +191,9 @@ def knn_computation(resnet50, model, k):
             labels_test = labels_test.to(DEVICE)
 
             outputs_test = resnet50(inputs_test)
+
+            outputs_test = svd(outputs_test, n_features=N_SVD_FEATURES)
+
             # Predict
             predictions = model.predict(outputs_test)
 
