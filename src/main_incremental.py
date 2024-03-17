@@ -16,9 +16,6 @@ from datasets.dataset_config import dataset_config
 from last_layer_analysis import last_layer_analysis
 from networks import tvmodels, allmodels, set_tvmodel_head_var
 
-
-
-
 def main(argv=None):
     tstart = time.time()
     # Arguments
@@ -132,6 +129,10 @@ def main(argv=None):
 
     # Args -- Network
     from networks.network import LLL_Net, ExtractorEnsemble
+    
+    ###### NETWORK LOADING #######
+    # Choose between a network included in torchvision (pretrained or not)
+    # or one declared in networks module
     if args.network in tvmodels:  # torchvision models
         tvnet = getattr(importlib.import_module(name='torchvision.models'), args.network)
         if args.network == 'googlenet':
@@ -143,6 +144,8 @@ def main(argv=None):
         net = getattr(importlib.import_module(name='networks'), args.network)
         # WARNING: fixed to pretrained False for other model (non-torchvision)
         init_model = net(pretrained=False)
+        
+    ###### / NETWORK LOADING #######
 
     # Args -- Continual Learning Approach
     from approach.incremental_learning import Inc_Learning_Appr
