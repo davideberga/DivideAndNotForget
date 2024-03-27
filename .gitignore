@@ -163,3 +163,4 @@ cython_debug/
 ############ Progetc specific  ###############
 data/
 cifar_net_*
+.idea/

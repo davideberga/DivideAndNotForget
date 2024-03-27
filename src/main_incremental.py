@@ -1,20 +1,23 @@
-import os
-import time
-import torch
-import argparse
-import importlib
+import logging, os, time, torch, argparse, importlib
 import numpy as np
-import random
+from rich.logging import RichHandler
+from networks.extractor_ensemble import ExtractorEnsemble
 import utils
-
 import approach
-
 from functools import reduce
 from loggers.exp_logger import MultiLogger
 from datasets.data_loader import get_loaders
 from datasets.dataset_config import dataset_config
 from last_layer_analysis import last_layer_analysis
 from networks import tvmodels, allmodels, set_tvmodel_head_var
+
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler(markup=True)]
+)
+
+log = logging.getLogger("rich")
+
 
 def main(argv=None):
     tstart = time.time()
@@ -108,28 +111,17 @@ def main(argv=None):
                        wu_lr_factor=args.warmup_lr_factor, fix_bn=args.fix_bn, eval_on_train=args.eval_on_train)
     
     utils.seed_everything(seed=args.seed)
-    print('=' * 108)
-    print('Arguments =')
-    for arg in np.sort(list(vars(args).keys())):
-        print('\t' + arg + ':', getattr(args, arg))
-    print('=' * 108)
 
     # Args -- CUDA
     if torch.cuda.is_available():
         torch.cuda.set_device(args.gpu)
         device = 'cuda'
+        log.info('[bold green blink]Cuda available, using GPU! [/]')
     else:
-        print('WARNING: [CUDA unavailable] Using CPU instead!')
+        log.error('[bold red blink]WARNING: [CUDA unavailable] Using CPU instead![/]')
         device = 'cpu'
-    # Multiple gpus
-    # if torch.cuda.device_count() > 1:
-    #     self.C = torch.nn.DataParallel(C)
-    #     self.C.to(self.device)
-    ####################################################################################################################
 
-    # Args -- Network
-    from networks.network import LLL_Net, ExtractorEnsemble
-    
+
     ###### NETWORK LOADING #######
     # Choose between a network included in torchvision (pretrained or not)
     # or one declared in networks module
@@ -144,57 +136,28 @@ def main(argv=None):
         net = getattr(importlib.import_module(name='networks'), args.network)
         # WARNING: fixed to pretrained False for other model (non-torchvision)
         init_model = net(pretrained=False)
-        
-    ###### / NETWORK LOADING #######
 
-    # Args -- Continual Learning Approach
+    # ###### CONTINUAL LEARNING APPROACH (Only seed is used) #######
     from approach.incremental_learning import Inc_Learning_Appr
-    Appr = getattr(importlib.import_module(name='approach.' + args.approach), 'Appr')
+    Appr = getattr(importlib.import_module(name='approach.seed'), 'Appr')
     assert issubclass(Appr, Inc_Learning_Appr)
     appr_args, extra_args = Appr.extra_parser(extra_args)
-    print('Approach arguments =')
-    for arg in np.sort(list(vars(appr_args).keys())):
-        print('\t' + arg + ':', getattr(appr_args, arg))
-    print('=' * 108)
-
-    # Args -- Exemplars Management
-    from datasets.exemplars_dataset import ExemplarsDataset
-    Appr_ExemplarsDataset = Appr.exemplars_dataset_class()
-    if Appr_ExemplarsDataset:
-        assert issubclass(Appr_ExemplarsDataset, ExemplarsDataset)
-        appr_exemplars_dataset_args, extra_args = Appr_ExemplarsDataset.extra_parser(extra_args)
-        print('Exemplars dataset arguments =')
-        for arg in np.sort(list(vars(appr_exemplars_dataset_args).keys())):
-            print('\t' + arg + ':', getattr(appr_exemplars_dataset_args, arg))
-        print('=' * 108)
-    else:
-        appr_exemplars_dataset_args = argparse.Namespace()
-
-    # Args -- GridSearch
-    if args.gridsearch_tasks > 0:
-        from gridsearch import GridSearch
-        gs_args, extra_args = GridSearch.extra_parser(extra_args)
-        Appr_finetuning = getattr(importlib.import_module(name='approach.finetuning'), 'Appr')
-        assert issubclass(Appr_finetuning, Inc_Learning_Appr)
-        GridSearch_ExemplarsDataset = Appr.exemplars_dataset_class()
-        print('GridSearch arguments =')
-        for arg in np.sort(list(vars(gs_args).keys())):
-            print('\t' + arg + ':', getattr(gs_args, arg))
-        print('=' * 108)
-
-    assert len(extra_args) == 0, "Unused args: {}".format(' '.join(extra_args))
-    ####################################################################################################################
+    log.info("[blue]Using SEED approach[/]")
 
     # Log all arguments
     full_exp_name = reduce((lambda x, y: x[0] + y[0]), args.datasets) if len(args.datasets) > 0 else args.datasets[0]
     full_exp_name += '_' + args.approach
     if args.exp_name is not None:
         full_exp_name += '_' + args.exp_name
-    logger = MultiLogger(args.results_path, full_exp_name, loggers=args.log, save_models=args.save_models)
-    logger.log_args(argparse.Namespace(**args.__dict__, **appr_args.__dict__, **appr_exemplars_dataset_args.__dict__))
 
-    # Loaders
+    # ###### Instantiate the multilogger #######
+    logger = MultiLogger(args.results_path, full_exp_name, loggers=args.log, save_models=args.save_models)
+
+    # SEED everything to reprodicibility
     utils.seed_everything(seed=args.seed)
+    
+    
+    # ###### Generate the data loaders, one for each #######
     trn_loader, val_loader, tst_loader, taskcla = get_loaders(args.datasets, args.num_tasks, args.nc_first_task,
                                                               args.batch_size, num_workers=args.num_workers,
                                                               pin_memory=args.pin_memory,
@@ -205,32 +168,24 @@ def main(argv=None):
         tst_loader = val_loader
     if args.use_test_as_val:
         val_loader = tst_loader
-    max_task = len(taskcla) if args.stop_at_task == 0 else args.stop_at_task
+    max_task = len(taskcla)
 
     # Network and Approach instances
     utils.seed_everything(seed=args.seed)
-    if args.approach == "seed":
-        net = ExtractorEnsemble(init_model, taskcla, args.network, device)
-    else:
-        net = LLL_Net(init_model, taskcla, remove_existing_head=not args.keep_existing_head)
-    utils.seed_everything(seed=args.seed)
+
+    # ###### Instantiate the complete model for training #######
+    # intit_model is used as backbone
+    net = ExtractorEnsemble(init_model, taskcla, args.network, device)
+   
+
     # taking transformations and class indices from first train dataset
     first_train_ds = trn_loader[0].dataset
     transform, class_indices = first_train_ds.transform, first_train_ds.class_indices
-    appr_kwargs = {**base_kwargs, **dict(logger=logger, **appr_args.__dict__)}
-    if Appr_ExemplarsDataset:
-        appr_kwargs['exemplars_dataset'] = Appr_ExemplarsDataset(transform, class_indices,
-                                                                 **appr_exemplars_dataset_args.__dict__)
+    appr_kwargs = {**base_kwargs, **dict(logger=log, **appr_args.__dict__)}
+
     utils.seed_everything(seed=args.seed)
     appr = Appr(net, device, **appr_kwargs)
 
-    # GridSearch
-    if args.gridsearch_tasks > 0:
-        ft_kwargs = {**base_kwargs, **dict(logger=logger,
-                                           exemplars_dataset=GridSearch_ExemplarsDataset(transform, class_indices))}
-        appr_ft = Appr_finetuning(net, device, **ft_kwargs)
-        gridsearch = GridSearch(appr_ft, args.seed, gs_args.gridsearch_config, gs_args.gridsearch_acc_drop_thr,
-                                gs_args.gridsearch_hparam_decay, gs_args.gridsearch_max_num_searches)
 
     # Loop tasks
     print(taskcla)
@@ -243,9 +198,9 @@ def main(argv=None):
         if t >= max_task:
             continue
 
-        print('*' * 108)
-        print('Task {:2d}'.format(t))
-        print('*' * 108)
+        log.info('*' * 108)
+        log.info('Task {:2d}'.format(t))
+        log.info('*' * 108)
 
         # Add head for current task
         net.add_head(taskcla[t][1])
@@ -276,7 +231,7 @@ def main(argv=None):
 
         # Train
         appr.train(t, trn_loader[t], val_loader[t])
-        print('-' * 108)
+        log.info('-' * 108)
 
         # Test
         for u in range(t + 1):

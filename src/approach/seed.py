@@ -1,4 +1,5 @@
 import copy
+import logging
 import random
 import torch
 
@@ -12,13 +13,17 @@ from .mvgb import ClassMemoryDataset, ClassDirectoryDataset
 from .gmm import GaussianMixture
 from .incremental_learning import Inc_Learning_Appr
 
+from rich.logging import RichHandler
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler(markup=True)]
+)
+
+log = logging.getLogger("rich")
+
 torch.backends.cuda.matmul.allow_tf32 = False
-
-
 def softmax_temperature(x, dim, tau=1.0):
     return torch.softmax(x / tau, dim=dim)
-
-
 
 class Appr(Inc_Learning_Appr):
     """Class implementing the joint baseline"""
