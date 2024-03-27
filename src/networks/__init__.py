@@ -1,8 +1,5 @@
 from torchvision import models
 
-from .lenet import LeNet
-from .vggnet import VggNet
-from .resnet32 import resnet32, resnet20
 
 # available torchvision models
 tvmodels = ['alexnet',

@@ -3,6 +3,8 @@ from torch import Tensor
 import torch.nn as nn
 from typing import Type, Any, Callable, Union, List, Optional
 
+import networks
+
 
 __all__ = ['ResNet', 'resnet18', 'resnet34', 'resnet50', 'resnet101',
            'resnet152']
@@ -152,7 +154,6 @@ class Bottleneck(nn.Module):
 
     def forward(self, x: Tensor) -> Tensor:
         identity = x
-
         out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu(out)
@@ -214,6 +215,7 @@ class NoReLUBottleneck(nn.Module):
         out = self.bn2(out)
         out = self.relu(out)
 
+        # Not relu at the
         out = self.conv3(out)
         out = self.bn3(out)
 
@@ -241,6 +243,7 @@ class ResNet(nn.Module):
         norm_layer: Optional[Callable[..., nn.Module]] = None
     ) -> None:
         super(ResNet, self).__init__()
+
         if norm_layer is None:
             norm_layer = nn.BatchNorm2d
         self._norm_layer = norm_layer
@@ -268,7 +271,12 @@ class ResNet(nn.Module):
                                        dilate=replace_stride_with_dilation[1])
         self.layer4 = self._make_layer(last_block, 512, layers[3], stride=2,
                                        dilate=replace_stride_with_dilation[2])
-        self.bottleneck = nn.Conv2d(512, num_features, 1, stride=1)
+        
+        if last_block == NoReLUBottleneck:
+            self.bottleneck = nn.Conv2d(2048, num_features, 1, stride=1)
+        else:
+            self.bottleneck = nn.Conv2d(512, num_features, 1, stride=1)
+
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.fc = nn.Linear(num_features, num_classes)
 
