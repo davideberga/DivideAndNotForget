@@ -3,6 +3,7 @@ import random
 from itertools import compress
 
 import numpy as np
+import cv2
 from torch.utils import data
 import torchvision.transforms as transforms
 from torchvision.datasets import MNIST as TorchVisionMNIST
@@ -74,7 +75,18 @@ def get_datasets(dataset, path, num_tasks, nc_first_task, validation, trn_transf
 
     trn_dset, val_dset, tst_dset = [], [], []
 
-    if 'mnist' in dataset:
+    if 'car_parts' == dataset:
+
+        # Custom dataset
+        trn_data, tst_data = load_car_parts(path)
+        # compute splits
+        all_data, taskcla, class_indices = memd.get_data(trn_data, tst_data, validation=validation,
+                                                         num_tasks=num_tasks, nc_first_task=nc_first_task,
+                                                         shuffle_classes=class_order is None, class_order=class_order)
+        # set dataset type
+        Dataset = memd.MemoryDataset
+
+    elif 'mnist' in dataset:
         tvmnist_trn = TorchVisionMNIST(path, train=True, download=True)
         tvmnist_tst = TorchVisionMNIST(path, train=False, download=True)
         trn_data = {'x': tvmnist_trn.data.numpy(), 'y': tvmnist_trn.targets.tolist()}
@@ -267,3 +279,39 @@ def _ensure_domainnet_prepared(path, classes_per_domain=50, num_tasks=6):
         with open(f"{path}/{set_type}.txt", 'wt') as f:
             for sample in samples:
                 f.write(f"{sample}\n")
+
+def load_car_parts(path: str):
+    assert os.path.exists(path), f"Please first download car parts into: {path}"
+    csv_path = os.path.join(path, 'car_parts.csv')
+
+    import csv
+    import csv
+    with open(csv_path, newline='') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=',')
+
+        trn_data = {'x': [], 'y': []}
+        tst_data = {'x': [], 'y': []}
+
+        header_row = True
+        for row in spamreader:
+            if header_row:
+                header_row = False
+                continue
+            class_index, image_path, class_str, split = row[0], row[1], row[2], row[3]
+            class_index = int(class_index)
+            image_path = os.path.join(path, image_path)
+            im = cv2.imread(image_path)
+                
+            if split == 'train' or split == 'valid':
+                trn_data['x'].append(im)
+                trn_data['y'].append(class_index)
+            else:
+                tst_data['x'].append(im)
+                tst_data['y'].append(class_index)
+        
+        trn_data['x'] = np.array(trn_data['x'])
+        # trn_data['y'] = np.array(trn_data['y'])
+        tst_data['x'] = np.array(tst_data['x'])
+        # tst_data['y'] = np.array(tst_data['y'])
+        return trn_data, tst_data
+
