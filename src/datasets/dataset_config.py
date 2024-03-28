@@ -1,8 +1,16 @@
 from os.path import join
 
-_BASE_DATA_PATH = "../data" #"/raid/NFS_SHARE/datasets/"
+_BASE_DATA_PATH = "./data" #"/raid/NFS_SHARE/datasets/"
 
 dataset_config = {
+    'car_parts': {
+        'path': join(_BASE_DATA_PATH, 'car_parts_50'),
+        'resize': None,
+        'pad': 4,
+        'crop': 32,
+        'flip': True,
+        'normalize': ((0.5071, 0.4866, 0.4409), (0.2009, 0.1984, 0.2023))
+    },
     'mnist': {
         'path': join(_BASE_DATA_PATH, 'mnist'),
         'normalize': ((0.1307,), (0.3081,)),

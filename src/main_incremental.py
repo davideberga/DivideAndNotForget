@@ -206,29 +206,6 @@ def main(argv=None):
         net.add_head(taskcla[t][1])
         net.to(device)
 
-        # GridSearch
-        if t < args.gridsearch_tasks:
-
-            # Search for best finetuning learning rate -- Maximal Plasticity Search
-            print('LR GridSearch')
-            best_ft_acc, best_ft_lr = gridsearch.search_lr(appr.model, t, trn_loader[t], val_loader[t])
-            # Apply to approach
-            appr.lr = best_ft_lr
-            gen_params = gridsearch.gs_config.get_params('general')
-            for k, v in gen_params.items():
-                if not isinstance(v, list):
-                    setattr(appr, k, v)
-
-            # Search for best forgetting/intransigence tradeoff -- Stability Decay
-            print('Trade-off GridSearch')
-            best_tradeoff, tradeoff_name = gridsearch.search_tradeoff(args.approach, appr,
-                                                                      t, trn_loader[t], val_loader[t], best_ft_acc)
-            # Apply to approach
-            if tradeoff_name is not None:
-                setattr(appr, tradeoff_name, best_tradeoff)
-
-            print('-' * 108)
-
         # Train
         appr.train(t, trn_loader[t], val_loader[t])
         log.info('-' * 108)
