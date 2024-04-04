@@ -1,10 +1,8 @@
 #!/bin/bash
-for NUM_EXPERTS in 5
-do
-  python src/main_incremental.py \
+python src/main_incremental.py \
     --approach seed \
     --gmms 1 \
-    --max-experts $NUM_EXPERTS \
+    --max-experts 5 \
     --use-multivariate \
     --nepochs 500 \
     --tau 3 \
@@ -23,7 +21,6 @@ do
     --momentum 0.9 \
     --exp-name exp1 \
     --seed 0
-done
 
 
 
