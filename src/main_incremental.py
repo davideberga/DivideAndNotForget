@@ -22,99 +22,63 @@ log = logging.getLogger("rich")
 def main(argv=None):
     tstart = time.time()
     # Arguments
-    parser = argparse.ArgumentParser(description='FACIL - Framework for Analysis of Class Incremental Learning')
+    parser = argparse.ArgumentParser(description='DivideAndNotForget - Berga - Righetti')
 
     # miscellaneous args
-    parser.add_argument('--gpu', type=int, default=0,
-                        help='GPU (default=%(default)s)')
     parser.add_argument('--results-path', type=str, default='../results',
                         help='Results path (default=%(default)s)')
     parser.add_argument('--exp-name', default=None, type=str,
                         help='Experiment name (default=%(default)s)')
-    parser.add_argument('--seed', type=int, default=0,
-                        help='Random seed (default=%(default)s)')
-    parser.add_argument('--log', default=['disk'], type=str, choices=['disk', 'tensorboard'],
-                        help='Loggers used (disk, tensorboard) (default=%(default)s)', nargs='*', metavar="LOGGER")
     parser.add_argument('--save-models', action='store_true',
                         help='Save trained models (default=%(default)s)')
-    parser.add_argument('--last-layer-analysis', action='store_true',
-                        help='Plot last layer analysis (default=%(default)s)')
-    parser.add_argument('--no-cudnn-deterministic', action='store_true',
-                        help='Disable CUDNN deterministic (default=%(default)s)')
+    
     # dataset args
     parser.add_argument('--datasets', default=['cifar100'], type=str, choices=list(dataset_config.keys()),
                         help='Dataset or datasets used (default=%(default)s)', nargs='+', metavar="DATASET")
-    parser.add_argument('--num-workers', default=4, type=int, required=False,
-                        help='Number of subprocesses to use for dataloader (default=%(default)s)')
-    parser.add_argument('--pin-memory', default=False, type=bool, required=False,
-                        help='Copy Tensors into CUDA pinned memory before returning them (default=%(default)s)')
     parser.add_argument('--batch-size', default=64, type=int, required=False,
                         help='Number of samples per batch to load (default=%(default)s)')
     parser.add_argument('--num-tasks', default=4, type=int, required=False,
                         help='Number of tasks per dataset (default=%(default)s)')
     parser.add_argument('--nc-first-task', default=None, type=int, required=False,
                         help='Number of classes of the first task (default=%(default)s)')
-    parser.add_argument('--use-valid-only', action='store_true',
-                        help='Use validation split instead of test (default=%(default)s)')
-    parser.add_argument('--stop-at-task', default=0, type=int, required=False,
-                        help='Stop training after specified task (default=%(default)s)')
     # model args
     parser.add_argument('--network', default='resnet32', type=str, choices=allmodels,
                         help='Network architecture used (default=%(default)s)', metavar="NETWORK")
-    parser.add_argument('--keep-existing-head', action='store_true',
-                        help='Disable removing classifier last layer (default=%(default)s)')
     parser.add_argument('--pretrained', action='store_true',
                         help='Use pretrained backbone (default=%(default)s)')
     # training args
-    parser.add_argument('--approach', default='finetuning', type=str, choices=approach.__all__,
-                        help='Learning approach used (default=%(default)s)', metavar="APPROACH")
     parser.add_argument('--nepochs', default=200, type=int, required=False,
                         help='Number of epochs per training session (default=%(default)s)')
     parser.add_argument('--lr', default=0.1, type=float, required=False,
                         help='Starting learning rate (default=%(default)s)')
-    parser.add_argument('--lr-min', default=1e-4, type=float, required=False,
-                        help='Minimum learning rate (default=%(default)s)')
-    parser.add_argument('--lr-factor', default=3, type=float, required=False,
-                        help='Learning rate decreasing factor (default=%(default)s)')
-    parser.add_argument('--lr-patience', default=5, type=int, required=False,
-                        help='Maximum patience to wait before decreasing learning rate (default=%(default)s)')
     parser.add_argument('--clipping', default=1, type=float, required=False,
                         help='Clip gradient norm (default=%(default)s)')
     parser.add_argument('--momentum', default=0.9, type=float, required=False,
                         help='Momentum factor (default=%(default)s)')
     parser.add_argument('--weight-decay', default=0.0, type=float, required=False,
                         help='Weight decay (L2 penalty) (default=%(default)s)')
-    parser.add_argument('--warmup-nepochs', default=0, type=int, required=False,
-                        help='Number of warm-up epochs (default=%(default)s)')
-    parser.add_argument('--warmup-lr-factor', default=1.0, type=float, required=False,
-                        help='Warm-up learning rate factor (default=%(default)s)')
+    
+    # To understand
     parser.add_argument('--multi-softmax', action='store_true',
                         help='Apply separate softmax for each task (default=%(default)s)')
     parser.add_argument('--fix-bn', action='store_true',
                         help='Fix batch normalization after first task (default=%(default)s)')
-    parser.add_argument('--eval-on-train', action='store_true',
-                        help='Show train loss and accuracy (default=%(default)s)')
-    parser.add_argument('--use-test-as-val', action='store_true',
-                        help='Use test set as a validation set, common practice in other benchmarks')
-    parser.add_argument('--extra-aug', default='', type=str, choices=['', 'fetril'],
-                        help='Additional data augmentations (default=%(default)s)')
-    # gridsearch args
-    parser.add_argument('--gridsearch-tasks', default=-1, type=int,
-                        help='Number of tasks to apply GridSearch (-1: all tasks) (default=%(default)s)')
+    
 
     # Args -- Incremental Learning Framework
     args, extra_args = parser.parse_known_args(argv)
     args.results_path = os.path.expanduser(args.results_path)
-    base_kwargs = dict(nepochs=args.nepochs, lr=args.lr, lr_min=args.lr_min, lr_factor=args.lr_factor,
-                       lr_patience=args.lr_patience, clipgrad=args.clipping, momentum=args.momentum,
-                       wd=args.weight_decay, multi_softmax=args.multi_softmax, wu_nepochs=args.warmup_nepochs,
-                       wu_lr_factor=args.warmup_lr_factor, fix_bn=args.fix_bn, eval_on_train=args.eval_on_train)
+    base_kwargs = dict(nepochs=args.nepochs, lr=args.lr, clipgrad=args.clipping, momentum=args.momentum,
+                       wd=args.weight_decay, multi_softmax=args.multi_softmax, fix_bn=args.fix_bn)
     
-    utils.seed_everything(seed=args.seed)
+    SEED = 99
+    GPU = 0
+    utils.seed_everything(seed=SEED)
+    
 
     # Args -- CUDA
     if torch.cuda.is_available():
-        torch.cuda.set_device(args.gpu)
+        torch.cuda.set_device(GPU)
         device = 'cuda'
         log.info('[bold green blink]Cuda available, using GPU! [/]')
     else:
@@ -146,32 +110,24 @@ def main(argv=None):
 
     # Log all arguments
     full_exp_name = reduce((lambda x, y: x[0] + y[0]), args.datasets) if len(args.datasets) > 0 else args.datasets[0]
-    full_exp_name += '_' + args.approach
+    full_exp_name += '_seed'
     if args.exp_name is not None:
         full_exp_name += '_' + args.exp_name
 
     # ###### Instantiate the multilogger #######
-    logger = MultiLogger(args.results_path, full_exp_name, loggers=args.log, save_models=args.save_models)
+    logger = MultiLogger(args.results_path, full_exp_name, loggers=['disk'], save_models=args.save_models)
 
     # SEED everything to reprodicibility
-    utils.seed_everything(seed=args.seed)
+    utils.seed_everything(seed=SEED)
     
     
     # ###### Generate the data loaders, one for each #######
-    trn_loader, val_loader, tst_loader, taskcla = get_loaders(args.datasets, args.num_tasks, args.nc_first_task,
-                                                              args.batch_size, num_workers=args.num_workers,
-                                                              pin_memory=args.pin_memory,
-                                                              validation=0.0 if args.use_test_as_val else 0.1,
-                                                              extra_aug = args.extra_aug)
-    # Apply arguments for loaders
-    if args.use_valid_only:
-        tst_loader = val_loader
-    if args.use_test_as_val:
-        val_loader = tst_loader
+    trn_loader, val_loader, tst_loader, taskcla = get_loaders(args.datasets, args.num_tasks, 
+                                                              args.nc_first_task, args.batch_size)
     max_task = len(taskcla)
 
     # Network and Approach instances
-    utils.seed_everything(seed=args.seed)
+    utils.seed_everything(seed=SEED)
 
     # ###### Instantiate the complete model for training #######
     # intit_model is used as backbone
@@ -183,7 +139,7 @@ def main(argv=None):
     transform, class_indices = first_train_ds.transform, first_train_ds.class_indices
     appr_kwargs = {**base_kwargs, **dict(logger=log, **appr_args.__dict__)}
 
-    utils.seed_everything(seed=args.seed)
+    utils.seed_everything(seed=SEED)
     appr = Appr(net, device, **appr_kwargs)
 
 

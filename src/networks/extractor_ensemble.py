@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from .resnet_linear_turbo import resnet18, resnet34, resnet50, resnet101, resnet152
+from .resnet_linear_turbo import resnet18, resnet50, resnet101
 from networks.network import LLL_Net
 
 
@@ -13,14 +13,10 @@ class ExtractorEnsemble(LLL_Net):
         self.network_type = network_type
         if network_type == "resnet18":
             self.bb_fun = resnet18
-        elif network_type == "resnet34":
-            self.bb_fun = resnet34
         elif network_type == "resnet50":
             self.bb_fun = resnet50
         elif network_type == "resnet101":
             self.bb_fun = resnet101
-        elif network_type == "resnet152":
-            self.bb_fun = resnet152
         else:
             raise RuntimeError("Network not supported")
 
