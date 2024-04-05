@@ -1,15 +1,16 @@
-import logging, os, time, torch, argparse, importlib
+import logging, os, time, torch, argparse
 import numpy as np
 from rich.logging import RichHandler
 from networks.extractor_ensemble import ExtractorEnsemble
 import utils
-import approach
 from functools import reduce
 from loggers.exp_logger import MultiLogger
 from datasets.data_loader import get_loaders
 from datasets.dataset_config import dataset_config
 from last_layer_analysis import last_layer_analysis
-from networks import tvmodels, allmodels, set_tvmodel_head_var
+from torchvision import models
+from approach.seed import SeedAppr
+from approach.joint import JointAppr
 
 FORMAT = "%(message)s"
 logging.basicConfig(
@@ -42,7 +43,7 @@ def main(argv=None):
     parser.add_argument('--nc-first-task', default=None, type=int, required=False,
                         help='Number of classes of the first task (default=%(default)s)')
     # model args
-    parser.add_argument('--network', default='resnet32', type=str, choices=allmodels,
+    parser.add_argument('--network', default='resnet32', type=str, choices=['resnet50'],
                         help='Network architecture used (default=%(default)s)', metavar="NETWORK")
     parser.add_argument('--pretrained', action='store_true',
                         help='Use pretrained backbone (default=%(default)s)')
@@ -57,6 +58,8 @@ def main(argv=None):
                         help='Momentum factor (default=%(default)s)')
     parser.add_argument('--weight-decay', default=0.0, type=float, required=False,
                         help='Weight decay (L2 penalty) (default=%(default)s)')
+    parser.add_argument('--approach', default='seed', type=str, choices=['seed', 'joint'],
+                        help='Learning approach used (default=%(default)s)', metavar="APPROACH")
     
     # To understand
     parser.add_argument('--multi-softmax', action='store_true',
@@ -75,7 +78,6 @@ def main(argv=None):
     GPU = 0
     utils.seed_everything(seed=SEED)
     
-
     # Args -- CUDA
     if torch.cuda.is_available():
         torch.cuda.set_device(GPU)
@@ -85,43 +87,36 @@ def main(argv=None):
         log.error('[bold red blink]WARNING: [CUDA unavailable] Using CPU instead![/]')
         device = 'cpu'
 
-
     ###### NETWORK LOADING #######
-    # Choose between a network included in torchvision (pretrained or not)
-    # or one declared in networks module
-    if args.network in tvmodels:  # torchvision models
-        tvnet = getattr(importlib.import_module(name='torchvision.models'), args.network)
-        if args.network == 'googlenet':
-            init_model = tvnet(pretrained=args.pretrained, aux_logits=False)
-        else:
-            init_model = tvnet(pretrained=args.pretrained)
-        set_tvmodel_head_var(init_model)
-    else:  # other models declared in networks package's init
-        net = getattr(importlib.import_module(name='networks'), args.network)
-        # WARNING: fixed to pretrained False for other model (non-torchvision)
-        init_model = net(pretrained=False)
+    if args.network == 'resnet18':
+        init_model = models.resnet18(weights='IMAGENET1K_V1')
+    elif args.network == 'resnet50':
+        init_model = models.resnet50(weights='IMAGENET1K_V1')
+    elif args.network == 'resnet101':
+        init_model = models.resnet101(weights='IMAGENET1K_V1')
+    # Set explicitly classifier variable in Resnet models
+    init_model.head_var = 'fc'
 
-    # ###### CONTINUAL LEARNING APPROACH (Only seed is used) #######
-    from approach.incremental_learning import Inc_Learning_Appr
-    Appr = getattr(importlib.import_module(name='approach.seed'), 'Appr')
-    assert issubclass(Appr, Inc_Learning_Appr)
-    appr_args, extra_args = Appr.extra_parser(extra_args)
-    log.info("[blue]Using SEED approach[/]")
+    # ###### CONTINUAL LEARNING APPROACH (SEED) #######
+    if args.approach == 'seed':
+        approach = SeedAppr
+    elif args.approach == 'joint':
+        approach = JointAppr
+    appr_args, extra_args = approach.extra_parser(extra_args)
+    log.info("[blue]Using {app} approach[/]".format(app=args.approach))
 
     # Log all arguments
     full_exp_name = reduce((lambda x, y: x[0] + y[0]), args.datasets) if len(args.datasets) > 0 else args.datasets[0]
-    full_exp_name += '_seed'
+    full_exp_name += '_' + args.approach
     if args.exp_name is not None:
         full_exp_name += '_' + args.exp_name
-
     # ###### Instantiate the multilogger #######
     logger = MultiLogger(args.results_path, full_exp_name, loggers=['disk'], save_models=args.save_models)
 
     # SEED everything to reprodicibility
     utils.seed_everything(seed=SEED)
     
-    
-    # ###### Generate the data loaders, one for each #######
+    # ###### Generate the data loaders, one for each task #######
     trn_loader, val_loader, tst_loader, taskcla = get_loaders(args.datasets, args.num_tasks, 
                                                               args.nc_first_task, args.batch_size)
     max_task = len(taskcla)
@@ -133,14 +128,13 @@ def main(argv=None):
     # intit_model is used as backbone
     net = ExtractorEnsemble(init_model, taskcla, args.network, device)
    
-
     # taking transformations and class indices from first train dataset
     first_train_ds = trn_loader[0].dataset
     transform, class_indices = first_train_ds.transform, first_train_ds.class_indices
     appr_kwargs = {**base_kwargs, **dict(logger=log, **appr_args.__dict__)}
 
     utils.seed_everything(seed=SEED)
-    appr = Appr(net, device, **appr_kwargs)
+    appr = approach(net, device, **appr_kwargs)
 
 
     # Loop tasks
