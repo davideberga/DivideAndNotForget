@@ -5,7 +5,6 @@ python src/main_incremental.py \
     --max-experts 5 \
     --use-multivariate \
     --nepochs 500 \
-    --tau 3 \
     --batch-size 128 \
     --num-workers 4 \
     --datasets car_parts \
@@ -19,7 +18,7 @@ python src/main_incremental.py \
     --network resnet50 \
     --pretrained \
     --momentum 0.9 \
-    --exp-name exp1 \
+    --exp-name exp_imagenette_res50 \
     --seed 0
 
 
