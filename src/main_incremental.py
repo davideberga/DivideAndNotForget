@@ -7,7 +7,6 @@ from functools import reduce
 from loggers.exp_logger import MultiLogger
 from datasets.data_loader import get_loaders
 from datasets.dataset_config import dataset_config
-from last_layer_analysis import last_layer_analysis
 from torchvision import models
 from approach.seed import SeedAppr
 from approach.joint import JointAppr
@@ -189,16 +188,6 @@ def main(argv=None):
             logger.log_result((acc_taw * aux).sum(1) / aux.sum(1), name="wavg_accs_taw", step=t)
             logger.log_result((acc_tag * aux).sum(1) / aux.sum(1), name="wavg_accs_tag", step=t)
 
-        # Last layer analysis
-        if args.last_layer_analysis:
-            weights, biases = last_layer_analysis(net.heads, t, taskcla, y_lim=True)
-            logger.log_figure(name='weights', iter=t, figure=weights)
-            logger.log_figure(name='bias', iter=t, figure=biases)
-
-            # Output sorted weights and biases
-            weights, biases = last_layer_analysis(net.heads, t, taskcla, y_lim=True, sort_weights=True)
-            logger.log_figure(name='weights', iter=t, figure=weights)
-            logger.log_figure(name='bias', iter=t, figure=biases)
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
     print('[Elapsed time = {:.1f} h]'.format((time.time() - tstart) / (60 * 60)))

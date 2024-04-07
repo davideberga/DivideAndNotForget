@@ -2,6 +2,7 @@ from PIL import Image, ImageEnhance, ImageOps
 import random
 import torch
 import numpy as np
+
 class Cutout(object):
     def __init__(self, n_holes, length):
         self.n_holes = n_holes

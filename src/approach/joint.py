@@ -3,28 +3,18 @@ from argparse import ArgumentParser
 from torch.utils.data import DataLoader, Dataset
 
 from .incremental_learning import Inc_Learning_Appr
-from datasets.exemplars_dataset import ExemplarsDataset
-
 
 class JointAppr(Inc_Learning_Appr):
     """Class implementing the joint baseline"""
 
     def __init__(self, model, device, nepochs=100, lr=0.05, lr_min=1e-4, lr_factor=3, lr_patience=5, clipgrad=10000,
                  momentum=0, wd=0, multi_softmax=False, wu_nepochs=0, wu_lr_factor=1, fix_bn=False, eval_on_train=False,
-                 logger=None, exemplars_dataset=None, freeze_after=-1):
+                 logger=None, freeze_after=-1):
         super(JointAppr, self).__init__(model, device, nepochs, lr, lr_min, lr_factor, lr_patience, clipgrad, momentum, wd,
-                                   multi_softmax, wu_nepochs, wu_lr_factor, fix_bn, eval_on_train, logger,
-                                   exemplars_dataset)
+                                   multi_softmax, wu_nepochs, wu_lr_factor, fix_bn, eval_on_train, logger)
         self.trn_datasets = []
         self.val_datasets = []
         self.freeze_after = freeze_after
-
-        have_exemplars = self.exemplars_dataset.max_num_exemplars + self.exemplars_dataset.max_num_exemplars_per_class
-        assert (have_exemplars == 0), 'Warning: Joint does not use exemplars. Comment this line to force it.'
-
-    @staticmethod
-    def exemplars_dataset_class():
-        return ExemplarsDataset
         
     @staticmethod
     def extra_parser(args):

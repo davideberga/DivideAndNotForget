@@ -4,7 +4,7 @@ python src/main_incremental.py \
     --gmms 1 \
     --max-experts 5 \
     --use-multivariate \
-    --nepochs 500 \
+    --nepochs 100 \
     --batch-size 128 \
     --num-workers 4 \
     --datasets car_parts \

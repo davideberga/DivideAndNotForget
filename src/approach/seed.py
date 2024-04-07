@@ -1,17 +1,13 @@
 import copy
 import logging
-import random
 import torch
-
 from argparse import ArgumentParser
 from itertools import compress
 from torch import nn
-from torch.utils.data import Dataset
 from torch.distributions import MultivariateNormal
-
-from .mvgb import ClassMemoryDataset, ClassDirectoryDataset
 from .gmm import GaussianMixture
 from .incremental_learning import Inc_Learning_Appr
+from PIL import Image
 
 from rich.logging import RichHandler
 FORMAT = "%(message)s"
@@ -25,6 +21,35 @@ torch.backends.cuda.matmul.allow_tf32 = False
 def softmax_temperature(x, dim, tau=1.0):
     return torch.softmax(x / tau, dim=dim)
 
+class ClassMemoryDataset(torch.utils.data.Dataset):
+    """ Dataset consisting of samples of only one class """
+    def __init__(self, images, transforms):
+        self.images = images
+        self.transforms = transforms
+
+    def __len__(self):
+        return self.images.shape[0]
+
+    def __getitem__(self, index):
+        image = Image.fromarray(self.images[index])
+        image = self.transforms(image)
+        return image
+
+
+class ClassDirectoryDataset(torch.utils.data.Dataset):
+    """ Dataset consisting of samples of only one class loaded from disc """
+    def __init__(self, images, transforms):
+        self.images = images
+        self.transforms = transforms
+
+    def __len__(self):
+        return len(self.images)
+
+    def __getitem__(self, index):
+        image = Image.open(self.images[index]).convert('RGB')
+        image = self.transforms(image)
+        return image
+
 class SeedAppr(Inc_Learning_Appr):
     """Class implementing the Seed approach"""
 
@@ -33,8 +58,7 @@ class SeedAppr(Inc_Learning_Appr):
                  logger=None, max_experts=999, gmms=1, alpha=1.0, tau=3.0, shared=0, use_multivariate=False, use_nmc=False,
                  initialization_strategy="first", compensate_drifts=False):
         super(SeedAppr, self).__init__(model, device, nepochs, lr, lr_min, lr_factor, lr_patience, clipgrad, momentum, wd,
-                                   multi_softmax, wu_nepochs, wu_lr_factor, fix_bn, eval_on_train, logger,
-                                   exemplars_dataset=None)
+                                   multi_softmax, wu_nepochs, wu_lr_factor, fix_bn, eval_on_train, logger)
         self.max_experts = max_experts
         self.model.bbs = self.model.bbs[:max_experts]
         self.gmms = gmms
@@ -111,6 +135,9 @@ class SeedAppr(Inc_Learning_Appr):
                             default=False)
         return parser.parse_known_args(args)
 
+    ## Perform the train loop with SEED
+    # During the first tasks [0, max_experts) the expert that will be trained is deterministic
+    # When t >= max_experts the expert will be choosen based on distribution of old and new task classes
     def train_loop(self, t, trn_loader, val_loader):
         if t < self.max_experts:
             print(f"Training backbone on task {t}:")
@@ -126,10 +153,13 @@ class SeedAppr(Inc_Learning_Appr):
         self.create_distributions(t, trn_loader, val_loader)
 
     def train_backbone(self, t, trn_loader, val_loader):
+
+        # Note: the bb_fun is the selected Resnet Model
         if self.initialization_strategy == "random" or t==0:
             self.model.bbs.append(self.model.bb_fun(num_classes=self.model.taskcla[t][1], num_features=self.model.num_features))
         else:
             self.model.bbs.append(copy.deepcopy(self.model.bbs[0]))
+
         model = self.model.bbs[t]
         model.fc = nn.Linear(self.model.num_features, self.model.taskcla[t][1])
         if t == 0:
@@ -156,12 +186,14 @@ class SeedAppr(Inc_Learning_Appr):
                 targets -= self.model.task_offset[t]
                 bsz = images.shape[0]
                 images, targets = images.to(self.device), targets.to(self.device)
+
                 optimizer.zero_grad()
                 out = model(images)
                 loss = self.criterion(t, out, targets)
                 loss.backward()
                 torch.nn.utils.clip_grad_norm_(model.parameters(), self.clipgrad)
                 optimizer.step()
+
                 train_hits += float(torch.sum((torch.argmax(out, dim=1) == targets)))
                 train_loss.append(float(bsz * loss))
             lr_scheduler.step()
@@ -174,7 +206,6 @@ class SeedAppr(Inc_Learning_Appr):
                     images, targets = images.to(self.device), targets.to(self.device)
                     out = model(images)
                     loss = self.criterion(t, out, targets)
-
                     val_hits += float(torch.sum((torch.argmax(out, dim=1) == targets)))
                     valid_loss.append(float(bsz * loss))
 
@@ -189,28 +220,10 @@ class SeedAppr(Inc_Learning_Appr):
         self.model.bbs[t] = model
         # torch.save(self.model.state_dict(), f"{self.logger.exp_path}/model_{t}.pth")
 
-    @torch.no_grad()
-    def _choose_backbone_to_finetune(self, t, trn_loader, val_loader):
-        self.create_distributions(t, trn_loader, val_loader)
-        expert_overlap = torch.zeros(self.max_experts, device=self.device)
-        for bb_num in range(self.max_experts):
-            classes_in_t = self.model.taskcla[t][1]
-            new_distributions = self.experts_distributions[bb_num][-classes_in_t:]
-            kl_matrix = torch.zeros((len(new_distributions), len(new_distributions)), device=self.device)
-            for o, old_gauss_ in enumerate(new_distributions):
-                old_gauss = MultivariateNormal(old_gauss_.mu.data[0][0], covariance_matrix=old_gauss_.var.data[0][0])
-                for n, new_gauss_ in enumerate(new_distributions):
-                    new_gauss = MultivariateNormal(new_gauss_.mu.data[0][0], covariance_matrix=new_gauss_.var.data[0][0])
-                    kl_matrix[n, o] = torch.distributions.kl_divergence(new_gauss, old_gauss)
-            expert_overlap[bb_num] = torch.mean(kl_matrix)
-            self.experts_distributions[bb_num] = self.experts_distributions[bb_num][:-classes_in_t]
-        print(f"Expert overlap:{expert_overlap}")
-        bb_to_finetune = torch.argmax(expert_overlap)
-        self.model.task_offset = self.model.task_offset[:-1]
-        return int(bb_to_finetune)
-
-
+    # The only difference with train_backbone is  
+    # saving the current model to perform the complete loss
     def finetune_backbone(self, t, bb_to_finetune, trn_loader, val_loader):
+        # Save the current model in old_model and freeze it
         old_model = copy.deepcopy(self.model.bbs[bb_to_finetune])
         for name, param in old_model.named_parameters():
             param.requires_grad = False
@@ -222,6 +235,8 @@ class SeedAppr(Inc_Learning_Appr):
             for layer_not_to_train in self.shared_layers:
                 if layer_not_to_train in name:
                     param.requires_grad = False
+
+        # Attach a linear classifier to the new model
         model.fc = nn.Linear(self.model.num_features, self.model.taskcla[t][1])
         model.to(self.device)
         print(f'The expert has {sum(p.numel() for p in model.parameters() if p.requires_grad):,} trainable parameters')
@@ -237,7 +252,7 @@ class SeedAppr(Inc_Learning_Appr):
                     m.eval()
             for images, targets in trn_loader:
                 targets -= self.model.task_offset[t]
-                bsz = images.shape[0]
+                bsz = images.shape[0] # Batch size
                 images, targets = images.to(self.device), targets.to(self.device)
                 optimizer.zero_grad()
                 with torch.no_grad():
@@ -274,10 +289,31 @@ class SeedAppr(Inc_Learning_Appr):
             print(f"Epoch: {epoch} Train loss: {train_loss:.2f} Val loss: {valid_loss:.2f} "
                   f"Train acc: {100 * train_acc:.2f} Val acc: {100 * val_acc:.2f}")
 
+        # Put identity as fc layer for next training
         model.fc = nn.Identity()
         self.model.bbs[bb_to_finetune] = model
         # torch.save(self.model.state_dict(), f"{self.logger.exp_path}/model_{t}.pth")
         return old_model
+
+    @torch.no_grad()
+    def _choose_backbone_to_finetune(self, t, trn_loader, val_loader):
+        self.create_distributions(t, trn_loader, val_loader)
+        expert_overlap = torch.zeros(self.max_experts, device=self.device)
+        for bb_num in range(self.max_experts):
+            classes_in_t = self.model.taskcla[t][1]
+            new_distributions = self.experts_distributions[bb_num][-classes_in_t:]
+            kl_matrix = torch.zeros((len(new_distributions), len(new_distributions)), device=self.device)
+            for o, old_gauss_ in enumerate(new_distributions):
+                old_gauss = MultivariateNormal(old_gauss_.mu.data[0][0], covariance_matrix=old_gauss_.var.data[0][0])
+                for n, new_gauss_ in enumerate(new_distributions):
+                    new_gauss = MultivariateNormal(new_gauss_.mu.data[0][0], covariance_matrix=new_gauss_.var.data[0][0])
+                    kl_matrix[n, o] = torch.distributions.kl_divergence(new_gauss, old_gauss)
+            expert_overlap[bb_num] = torch.mean(kl_matrix)
+            self.experts_distributions[bb_num] = self.experts_distributions[bb_num][:-classes_in_t]
+        print(f"Expert overlap:{expert_overlap}")
+        bb_to_finetune = torch.argmax(expert_overlap)
+        self.model.task_offset = self.model.task_offset[:-1]
+        return int(bb_to_finetune)
 
 
     @torch.no_grad()
@@ -287,6 +323,8 @@ class SeedAppr(Inc_Learning_Appr):
         classes = self.model.taskcla[t][1]
         self.model.task_offset.append(self.model.task_offset[-1] + classes)
         transforms = val_loader.dataset.transform
+
+        # Update distribution for every expert for every class
         for bb_num in range(min(self.max_experts, t+1)):
             eps = 1e-8
             model = self.model.bbs[bb_num]
@@ -301,6 +339,8 @@ class SeedAppr(Inc_Learning_Appr):
                     ds = ClassMemoryDataset(ds, transforms)
                 loader = torch.utils.data.DataLoader(ds, batch_size=128, num_workers=trn_loader.num_workers, shuffle=False)
                 from_ = 0
+
+                # Class features matrix (2 * num_images) * features length
                 class_features = torch.full((2 * len(ds), self.model.num_features), fill_value=-999999999.0, device=self.model.device)
                 for images in loader:
                     bsz = images.shape[0]
@@ -316,6 +356,7 @@ class SeedAppr(Inc_Learning_Appr):
                 is_ok = False
                 while not is_ok:
                     try:
+                        # Generate the gaussian mixture based on features
                         gmm = GaussianMixture(self.gmms, class_features.shape[1], covariance_type=cov_type, eps=eps).to(self.device)
                         gmm.fit(class_features, delta=1e-3, n_iter=100)
                     except RuntimeError:
@@ -379,11 +420,12 @@ class SeedAppr(Inc_Learning_Appr):
 
     def criterion(self, t, outputs, targets, features=None, old_features=None):
         """Returns the loss value"""
+        # During the first t tasks only cross entropy is used
+        # We do not have old features
         ce_loss = nn.functional.cross_entropy(outputs, targets, label_smoothing=0.0)
         if old_features is not None:  # Knowledge distillation loss on features
             kd_loss = nn.functional.mse_loss(features, old_features)
-            total_loss = (1 - self.alpha) * ce_loss + self.alpha * kd_loss
-            return total_loss
+            return (1 - self.alpha) * ce_loss + self.alpha * kd_loss
         return ce_loss
 
     def _get_optimizer(self, num, wd, milestones=[60, 120, 160]):
