@@ -7,7 +7,7 @@ python src/main_incremental.py \
     --nepochs 100 \
     --batch-size 128 \
     --num-workers 4 \
-    --datasets car_parts \
+    --datasets cifar100 \
     --num-tasks 10 \
     --nc-first-task 10 \
     --lr 0.05 \
