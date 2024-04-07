@@ -10,8 +10,7 @@ tvmodels = ['alexnet',
             'shufflenet_v2_x0_5', 'shufflenet_v2_x1_0', 'shufflenet_v2_x1_5', 'shufflenet_v2_x2_0',
             'squeezenet1_0', 'squeezenet1_1',
             'vgg11', 'vgg11_bn', 'vgg13', 'vgg13_bn', 'vgg16', 'vgg16_bn', 'vgg19_bn', 'vgg19',
-            'wide_resnet50_2', 'wide_resnet101_2'
-            ]
+            'wide_resnet50_2', 'wide_resnet101_2']
 
 allmodels = tvmodels + ['resnet32', 'resnet20', 'LeNet', 'VggNet']
 

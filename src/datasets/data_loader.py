@@ -1,15 +1,11 @@
 import os, glob
-import random
 from itertools import compress
 
 import numpy as np
 import cv2
 from torch.utils import data
 import torchvision.transforms as transforms
-from torchvision.datasets import MNIST as TorchVisionMNIST
 from torchvision.datasets import CIFAR100 as TorchVisionCIFAR100
-from torchvision.datasets import SVHN as TorchVisionSVHN
-
 from . import base_dataset as basedat
 from . import memory_dataset as memd
 from .dataset_config import dataset_config

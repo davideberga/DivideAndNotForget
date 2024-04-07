@@ -4,7 +4,6 @@ import numpy as np
 from argparse import ArgumentParser
 
 from loggers.exp_logger import ExperimentLogger
-from datasets.exemplars_dataset import ExemplarsDataset
 
 
 class Inc_Learning_Appr:
@@ -12,7 +11,7 @@ class Inc_Learning_Appr:
 
     def __init__(self, model, device, nepochs=100, lr=0.05, lr_min=1e-4, lr_factor=3, lr_patience=5, clipgrad=10000,
                  momentum=0, wd=0, multi_softmax=False, wu_nepochs=0, wu_lr_factor=1, fix_bn=False,
-                 eval_on_train=False, logger: ExperimentLogger = None, exemplars_dataset: ExemplarsDataset = None):
+                 eval_on_train=False, logger: ExperimentLogger = None):
         self.model = model
         self.device = device
         self.nepochs = nepochs
@@ -25,7 +24,6 @@ class Inc_Learning_Appr:
         self.wd = wd
         self.multi_softmax = multi_softmax
         self.logger = logger
-        self.exemplars_dataset = exemplars_dataset
         self.warmup_epochs = wu_nepochs
         self.warmup_lr = lr * wu_lr_factor
         self.warmup_loss = torch.nn.CrossEntropyLoss()
