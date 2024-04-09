@@ -33,16 +33,14 @@ def main(argv=None):
                         help='Save trained models (default=%(default)s)')
     
     # dataset args
-    parser.add_argument('--datasets', default=['cifar100'], type=str, choices=list(dataset_config.keys()),
+    parser.add_argument('--datasets', default=['cifar100'], type=str, choices=['cifar100', 'food101'],
                         help='Dataset or datasets used (default=%(default)s)', nargs='+', metavar="DATASET")
     parser.add_argument('--batch-size', default=64, type=int, required=False,
                         help='Number of samples per batch to load (default=%(default)s)')
     parser.add_argument('--num-tasks', default=4, type=int, required=False,
                         help='Number of tasks per dataset (default=%(default)s)')
-    parser.add_argument('--nc-first-task', default=None, type=int, required=False,
-                        help='Number of classes of the first task (default=%(default)s)')
     # model args
-    parser.add_argument('--network', default='resnet32', type=str, choices=['resnet50'],
+    parser.add_argument('--network', default='resnet32', type=str, choices=['resnet18', 'resnet50', 'resnet101'],
                         help='Network architecture used (default=%(default)s)', metavar="NETWORK")
     parser.add_argument('--pretrained', action='store_true',
                         help='Use pretrained backbone (default=%(default)s)')
@@ -75,6 +73,7 @@ def main(argv=None):
     
     SEED = 99
     GPU = 0
+    NC_FIRST_TASK=10
     utils.seed_everything(seed=SEED)
     
     # Args -- CUDA
@@ -117,7 +116,7 @@ def main(argv=None):
     
     # ###### Generate the data loaders, one for each task #######
     trn_loader, val_loader, tst_loader, taskcla = get_loaders(args.datasets, args.num_tasks, 
-                                                              args.nc_first_task, args.batch_size)
+                                                              NC_FIRST_TASK, args.batch_size)
     max_task = len(taskcla)
 
     # Network and Approach instances
