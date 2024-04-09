@@ -24,7 +24,7 @@
                 "--tau", "3",
                 "--batch-size", "128",
                 "--num-workers", "4",
-                "--datasets", "car_parts",
+                "--datasets", "cifar100",
                 "--num-tasks", "10",
                 "--nc-first-task", "10",
                 "--lr", "0.05",
@@ -34,7 +34,6 @@
                 "--use-test-as-val",
                 "--network", "resnet50",
                 "--pretrained",
-                // "--extra-aug", "fetril",
                 "--momentum", "0.9",
                 "--exp-name", "exp1",
                 "--seed", "0"

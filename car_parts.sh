@@ -4,22 +4,19 @@ python src/main_incremental.py \
     --gmms 1 \
     --max-experts 5 \
     --use-multivariate \
-    --nepochs 100 \
+    --nepochs 50 \
     --batch-size 128 \
-    --num-workers 4 \
     --datasets cifar100 \
-    --num-tasks 10 \
-    --nc-first-task 10 \
+    --num-tasks 5 \
     --lr 0.05 \
     --weight-decay 5e-4 \
     --clipping 1 \
     --alpha 0.99 \
     --use-test-as-val \
-    --network resnet50 \
+    --network resnet18 \
     --pretrained \
     --momentum 0.9 \
-    --exp-name exp_imagenette_res50 \
-    --seed 0
+    --exp-name exp_imagenette_res50
 
 
 

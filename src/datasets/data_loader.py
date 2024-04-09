@@ -6,11 +6,13 @@ import cv2
 from torch.utils import data
 import torchvision.transforms as transforms
 from torchvision.datasets import CIFAR100 as TorchVisionCIFAR100
+from torchvision.datasets import Food101 as TorchVisionFOOD101
 from . import base_dataset as basedat
 from . import memory_dataset as memd
 from .dataset_config import dataset_config
 from .autoaugment import CIFAR10Policy, ImageNetPolicy
 from .ops import Cutout
+from PIL import Image
 
 
 def get_loaders(datasets, num_tasks, nc_first_task, batch_size, validation=.1,
@@ -68,11 +70,21 @@ def get_datasets(dataset, path, num_tasks, nc_first_task, validation, trn_transf
 
     trn_dset, val_dset, tst_dset = [], [], []
 
-    if 'car_parts' == dataset:
+    if 'food101' == dataset:
 
-        # Custom dataset
-        trn_data, tst_data = load_car_parts(path)
-        # compute splits
+        food101_train = TorchVisionFOOD101(path, split="train", download=True)
+        food101_test = TorchVisionFOOD101(path, split="test", download=True)
+
+        def loadImage(path):
+            with Image.open(path) as im: 
+                return im
+
+        trn_images = list(map(lambda x : loadImage(x) ,food101_train._image_files))
+        test_images = list(map(lambda x : loadImage(x) ,food101_train._image_files))
+
+        trn_data = {'x': trn_images, 'y': food101_train._labels}
+        tst_data = {'x': test_images, 'y': food101_test._labels}
+
         all_data, taskcla, class_indices = memd.get_data(trn_data, tst_data, validation=validation,
                                                          num_tasks=num_tasks, nc_first_task=nc_first_task,
                                                          shuffle_classes=class_order is None, class_order=class_order)
@@ -91,49 +103,6 @@ def get_datasets(dataset, path, num_tasks, nc_first_task, validation, trn_transf
         # set dataset type
         Dataset = memd.MemoryDataset
 
-    elif 'imagenet_32' in dataset:
-        import pickle
-        # load data
-        x_trn, y_trn = [], []
-        for i in range(1, 11):
-            with open(os.path.join(path, 'train_data_batch_{}'.format(i)), 'rb') as f:
-                d = pickle.load(f)
-            x_trn.append(d['data'])
-            y_trn.append(np.array(d['labels']) - 1)  # labels from 0 to 999
-        with open(os.path.join(path, 'val_data'), 'rb') as f:
-            d = pickle.load(f)
-        x_trn.append(d['data'])
-        y_tst = np.array(d['labels']) - 1  # labels from 0 to 999
-        # reshape data
-        for i, d in enumerate(x_trn, 0):
-            x_trn[i] = d.reshape(d.shape[0], 3, 32, 32).transpose(0, 2, 3, 1)
-        x_tst = x_trn[-1]
-        x_trn = np.vstack(x_trn[:-1])
-        y_trn = np.concatenate(y_trn)
-        trn_data = {'x': x_trn, 'y': y_trn}
-        tst_data = {'x': x_tst, 'y': y_tst}
-        # compute splits
-        all_data, taskcla, class_indices = memd.get_data(trn_data, tst_data, validation=validation,
-                                                         num_tasks=num_tasks, nc_first_task=nc_first_task,
-                                                         shuffle_classes=class_order is None, class_order=class_order)
-        # set dataset type
-        Dataset = memd.MemoryDataset
-
-    elif dataset == 'imagenet_subset_kaggle':
-        _ensure_imagenet_subset_prepared(path)
-        # read data paths and compute splits -- path needs to have a train.txt and a test.txt with image-label pairs
-        all_data, taskcla, class_indices = basedat.get_data(path, num_tasks=num_tasks, nc_first_task=nc_first_task,
-                                                                validation=validation, shuffle_classes=class_order is None,
-                                                                class_order=class_order)
-        Dataset = basedat.BaseDataset
-
-    elif dataset == 'domainnet':
-        _ensure_domainnet_prepared(path, classes_per_domain=nc_first_task, num_tasks=num_tasks)
-        all_data, taskcla, class_indices = basedat.get_data(path, num_tasks=num_tasks, nc_first_task=nc_first_task,
-                                                                validation=validation, shuffle_classes=False)
-        Dataset = basedat.BaseDataset
-
-    # get datasets, apply correct label offsets for each task
     offset = 0
     for task in range(num_tasks):
         all_data[task]['trn']['y'] = [label + offset for label in all_data[task]['trn']['y']]
