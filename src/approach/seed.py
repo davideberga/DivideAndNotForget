@@ -310,7 +310,7 @@ class SeedAppr(Inc_Learning_Appr):
                     kl_matrix[n, o] = torch.distributions.kl_divergence(new_gauss, old_gauss)
             expert_overlap[bb_num] = torch.mean(kl_matrix)
             self.experts_distributions[bb_num] = self.experts_distributions[bb_num][:-classes_in_t]
-        print(f"Expert overlap:{expert_overlap}")
+        print(f"Expert overlap: {expert_overlap}")
         bb_to_finetune = torch.argmax(expert_overlap)
         self.model.task_offset = self.model.task_offset[:-1]
         return int(bb_to_finetune)
@@ -398,9 +398,12 @@ class SeedAppr(Inc_Learning_Appr):
     def predict_class_bayes(self, t, features):
         log_probs = torch.full((features.shape[0], len(self.experts_distributions), len(self.experts_distributions[0])), fill_value=-1e8, device=features.device)
         mask = torch.full_like(log_probs, fill_value=False, dtype=torch.bool)
+        # For every expert
         for bb_num, _ in enumerate(self.experts_distributions):
+            # For every class distribution of that expert
             for c, class_gmm in enumerate(self.experts_distributions[bb_num]):
                 c += self.model.task_offset[bb_num]
+                # Add to log_probs the log_probs for class c of exper bb_num
                 log_probs[:, bb_num, c] = class_gmm.score_samples(features[:, bb_num])
                 mask[:, bb_num, c] = True
 
@@ -408,11 +411,14 @@ class SeedAppr(Inc_Learning_Appr):
         to_ = self.model.task_offset[t+1]
 
         # Task-Aware
+        # Only classes from from_ to to_ (only classes of the current task)
+        # We slice only the classes we need, at the end add the task offset
         taw_log_probs = log_probs[:, :t+1, from_:to_].clone()
         taw_log_probs = softmax_temperature(taw_log_probs, dim=2, tau=self.tau)
         confidences = torch.sum(taw_log_probs, dim=1)
         taw_class_id = torch.argmax(confidences, dim=1) + self.model.task_offset[t]
         # Task-Agnostic
+        # All classes seen until now are considered
         log_probs = softmax_temperature(log_probs, dim=2, tau=self.tau)
         confidences = torch.sum(log_probs, dim=1) / torch.sum(mask, dim=1)
         tag_class_id = torch.argmax(confidences, dim=1)
