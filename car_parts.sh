@@ -4,10 +4,10 @@ python src/main_incremental.py \
     --gmms 1 \
     --max-experts 5 \
     --use-multivariate \
-    --nepochs 50 \
-    --batch-size 128 \
+    --nepochs 10 \
+    --batch-size 224 \
     --datasets cifar100 \
-    --num-tasks 5 \
+    --num-tasks 10 \
     --lr 0.05 \
     --weight-decay 5e-4 \
     --clipping 1 \
