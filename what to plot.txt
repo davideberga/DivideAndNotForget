@@ -1,0 +1,19 @@
+CV
+For 3 resnet, for 2 datasets
+x = tasks
+y = mean train/validation
+Accuracy Train/Validation --> Plot
+Loss Train/Validation --> Plot
+
+
+ADVANCED
+For all tasks, for 3 resnet, for 2 datasets
+Accuracy Aware --> Table
+Accuracy Agnostic --> Table
+Forgetting Aware --> Table
+Forgetting Agnostic --> Table
+
+Both
+Confusion Matrix without numbers, only colors, for 3 resnet,
+for 2 datasets, for 2 architecture (baseline and final model)
+

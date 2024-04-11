@@ -1,13 +1,13 @@
 #!/bin/bash
-python src/main_incremental.py \
+python3 src/main_incremental.py \
     --approach seed \
     --gmms 1 \
     --max-experts 5 \
     --use-multivariate \
-    --nepochs 50 \
+    --nepochs 5 \
     --batch-size 128 \
     --datasets cifar100 \
-    --num-tasks 5 \
+    --num-tasks 3 \
     --lr 0.05 \
     --weight-decay 5e-4 \
     --clipping 1 \
@@ -17,6 +17,3 @@ python src/main_incremental.py \
     --pretrained \
     --momentum 0.9 \
     --exp-name exp_imagenette_res50
-
-
-
