@@ -17,3 +17,9 @@ Both
 Confusion Matrix without numbers, only colors, for 3 resnet,
 for 2 datasets, for 2 architecture (baseline and final model)
 
+
+WHAT NEED:
+1 - real arrays
+2 - prediction arrays
+3 - after all training, reload all test dataset to perform real accuracy on whole dataset
+
