@@ -1,8 +1,11 @@
+import logging
 import os
 import random
 import numpy as np
 from PIL import Image
 from torch.utils.data import Dataset
+
+logging.getLogger("PIL.TiffImagePlugin").propagate = False
 
 
 class BaseDataset(Dataset):

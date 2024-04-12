@@ -13,10 +13,12 @@ from approach.joint import JointAppr
 
 FORMAT = "%(message)s"
 logging.basicConfig(
-    level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler(markup=True)]
+    level="INFO", format=FORMAT, datefmt="[%X]", handlers=[RichHandler(markup=True)]
 )
 
 log = logging.getLogger("rich")
+log.setLevel(level=logging.INFO)
+logging.getLogger("rich").setLevel(logging.INFO)
 
 
 def main(argv=None):

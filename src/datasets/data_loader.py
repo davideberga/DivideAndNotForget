@@ -13,6 +13,8 @@ from .dataset_config import dataset_config
 from .autoaugment import CIFAR10Policy, ImageNetPolicy
 from .ops import Cutout
 from PIL import Image
+import shutil
+import re
 
 
 def get_loaders(datasets, num_tasks, nc_first_task, batch_size, validation=.1,
@@ -72,24 +74,16 @@ def get_datasets(dataset, path, num_tasks, nc_first_task, validation, trn_transf
 
     if 'food101' == dataset:
 
-        food101_train = TorchVisionFOOD101(path, split="train", download=True)
-        food101_test = TorchVisionFOOD101(path, split="test", download=True)
+        trn = TorchVisionFOOD101(path, split="train", download=True)
+        tst = TorchVisionFOOD101(path, split="test", download=True)
 
-        def loadImage(path):
-            with Image.open(path) as im: 
-                return im
+        _ensure_food(path, trn.class_to_idx)
 
-        trn_images = list(map(lambda x : loadImage(x) ,food101_train._image_files))
-        test_images = list(map(lambda x : loadImage(x) ,food101_train._image_files))
-
-        trn_data = {'x': trn_images, 'y': food101_train._labels}
-        tst_data = {'x': test_images, 'y': food101_test._labels}
-
-        all_data, taskcla, class_indices = memd.get_data(trn_data, tst_data, validation=validation,
+        all_data, taskcla, class_indices = basedat.get_data(path, validation=validation,
                                                          num_tasks=num_tasks, nc_first_task=nc_first_task,
                                                          shuffle_classes=class_order is None, class_order=class_order)
         # set dataset type
-        Dataset = memd.MemoryDataset
+        Dataset = basedat.BaseDataset
 
     elif 'cifar100' in dataset:
         tvcifar_trn = TorchVisionCIFAR100(path, train=True, download=True)
@@ -180,72 +174,37 @@ def get_transforms(resize, test_resize, pad, crop, flip, normalize, extend_chann
            transforms.Compose(tst_transform_list)
 
 
-def _ensure_imagenet_subset_prepared(path):
-    assert os.path.exists(path), f"Please first download and extract dataset from: https://www.kaggle.com/datasets/arjunashok33/imagenet-subset-for-inc-learn to dir: {path}"
-    ds_conf = dataset_config['imagenet_subset_kaggle']
-    clsss2idx = {c:i for i, c in enumerate(ds_conf['lbl_order'])}
-    print(f'Generating train/test splits for ImageNet-Subset directory: {path}')
-    def prepare_split(split='train', outfile='train.txt'):    
-        with open(f"{path}/{outfile}", 'wt') as f:
-            for fn in glob.glob(f"{path}/data/{split}/*/*"):
-                c = fn.split('/')[-2]    
-                lbl = clsss2idx[c]
-                relative_path = fn.replace(f"{path}/", '')
-                f.write(f"{relative_path} {lbl}\n")
-    prepare_split()
-    prepare_split('val', outfile='test.txt')
 
-def _ensure_domainnet_prepared(path, classes_per_domain=50, num_tasks=6):
-    assert os.path.exists(path), f"Please first download and extract dataset from: http://ai.bu.edu/M3SDA/#dataset into:{path}"
-    domains = ["clipart", "infograph", "painting",  "quickdraw", "real", "sketch"] * (num_tasks // 6)
-    for set_type in ["train", "test"]:
-        samples = []
-        for i, domain in enumerate(domains):
-            with open(f"{path}/{domain}_{set_type}.txt", 'r') as f:
-                lines = list(map(lambda x: x.replace("\n", "").split(" "), f.readlines()))
-            paths, classes = zip(*lines)
-            classes = np.array(list(map(float, classes)))
-            offset = classes_per_domain * i
-            for c in range(classes_per_domain):
-                is_class = classes == c + ((i // 6) * classes_per_domain)
-                class_samples = list(compress(paths, is_class))
-                samples.extend([*[f"{row} {c + offset}" for row in class_samples]])
-        with open(f"{path}/{set_type}.txt", 'wt') as f:
-            for sample in samples:
-                f.write(f"{sample}\n")
+def _ensure_food(path, class_to_idx):
+    train_txt_path = os.path.join(path, 'food-101', 'meta', 'train.txt')
+    train_txt_path_new = os.path.join(path, 'train.txt')
 
-def load_car_parts(path: str):
-    assert os.path.exists(path), f"Please first download car parts into: {path}"
-    csv_path = os.path.join(path, 'car_parts.csv')
+    if(os.path.isfile(train_txt_path_new)): return
 
-    import csv
-    import csv
-    with open(csv_path, newline='') as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=',')
+    result_lines = _extract_lines(train_txt_path, class_to_idx)
 
-        trn_data = {'x': [], 'y': []}
-        tst_data = {'x': [], 'y': []}
+    with open(train_txt_path_new, 'w+') as file:
+        file.writelines(result_lines)
 
-        header_row = True
-        for row in spamreader:
-            if header_row:
-                header_row = False
-                continue
-            class_index, image_path, class_str, split = row[0], row[1], row[2], row[3]
-            class_index = int(class_index)
-            image_path = os.path.join(path, image_path)
-            im = cv2.imread(image_path)
-                
-            if split == 'train' or split == 'valid':
-                trn_data['x'].append(im)
-                trn_data['y'].append(class_index)
-            else:
-                tst_data['x'].append(im)
-                tst_data['y'].append(class_index)
-        
-        trn_data['x'] = np.array(trn_data['x'])
-        # trn_data['y'] = np.array(trn_data['y'])
-        tst_data['x'] = np.array(tst_data['x'])
-        # tst_data['y'] = np.array(tst_data['y'])
-        return trn_data, tst_data
+    test_txt_path = os.path.join(path, 'food-101', 'meta', 'test.txt')
+    test_txt_path_new = os.path.join(path, 'test.txt')
+
+    result_lines = _extract_lines(test_txt_path, class_to_idx)
+
+    with open(test_txt_path_new, 'w+') as file:
+        file.writelines(result_lines)
+
+    
+
+def _extract_lines(path, class_to_idx):
+    result_lines = []
+    with open(path, 'r') as file:
+        lines = file.readlines()
+        for path in lines:
+            path = path.strip()
+            txt_class = re.match(r'(.+)\/\d+', path).group(1)
+            class_idx = class_to_idx[txt_class]
+            result_lines.append(f'food-101/images/{path}.jpg {class_idx}\n')
+    return result_lines
+    
 
