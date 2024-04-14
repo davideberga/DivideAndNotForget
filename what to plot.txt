@@ -2,9 +2,13 @@ CV
 For 3 resnet, for 2 datasets
 x = tasks
 y = mean train/validation
-Accuracy Train/Validation --> Plot
+(?)Accuracy Train/Validation --> Plot
 Loss Train/Validation --> Plot
 
+(1) Accuracy Agnostic --> Plot diagonal + plot last row (performance on model complete after all tasks)
+(2) Accuracy Aware    --> Plot last row (plur or minus the value is the same for each row)
+(3) Precision --> Plot test of each task (x axis)
+(4) Recall --> Plot test of each task (x axis)
 
 ADVANCED
 For all tasks, for 3 resnet, for 2 datasets
@@ -22,4 +26,20 @@ WHAT NEED:
 1 - real arrays
 2 - prediction arrays
 3 - after all training, reload all test dataset to perform real accuracy on whole dataset
+
+
+MODEL         BASELINE        DATASET
+ResNet18        yes          CIFAR100
+ResNet18        no           CIFAR100
+ResNet18        yes          FOOD101
+ResNet18        no           FOOD101
+ResNet50        yes          CIFAR100
+ResNet50        no           CIFAR100
+ResNet50        yes          FOOD101
+ResNet50        no           FOOD101
+ResNet101       yes          CIFAR100
+ResNet101       no           CIFAR100
+ResNet101       yes          FOOD101
+ResNet101       no           FOOD101
+
 
