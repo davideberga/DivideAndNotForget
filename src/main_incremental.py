@@ -11,6 +11,9 @@ from torchvision import models
 from approach.seed import SeedAppr
 from approach.joint import JointAppr
 
+import matplotlib.pyplot as plt
+from sklearn.metrics import ConfusionMatrixDisplay
+
 FORMAT = "%(message)s"
 logging.basicConfig(
     level="INFO", format=FORMAT, datefmt="[%X]", handlers=[RichHandler(markup=True)]
@@ -19,6 +22,7 @@ logging.basicConfig(
 log = logging.getLogger("rich")
 log.setLevel(level=logging.INFO)
 logging.getLogger("rich").setLevel(logging.INFO)
+logging.getLogger('matplotlib').setLevel(logging.WARNING)
 
 
 def main(argv=None):
@@ -75,7 +79,7 @@ def main(argv=None):
     
     SEED = 99
     GPU = 0
-    NC_FIRST_TASK=10
+    NC_FIRST_TASK=20
     utils.seed_everything(seed=SEED)
     
     # Args -- CUDA
@@ -117,11 +121,9 @@ def main(argv=None):
     utils.seed_everything(seed=SEED)
     
     # ###### Generate the data loaders, one for each task #######
-    trn_loader, val_loader, tst_loader, taskcla = get_loaders(args.datasets, args.num_tasks, 
+    trn_loader, val_loader, tst_loader, taskcla, txt_classes = get_loaders(args.datasets, args.num_tasks, 
                                                               NC_FIRST_TASK, args.batch_size)
     max_task = len(taskcla)
-
-    # Network and Approach instances
     utils.seed_everything(seed=SEED)
 
     # ###### Instantiate the complete model for training #######
@@ -134,6 +136,7 @@ def main(argv=None):
     appr_kwargs = {**base_kwargs, **dict(logger=log, **appr_args.__dict__)}
 
     utils.seed_everything(seed=SEED)
+    appr_kwargs['ftepochs'] = args.nepochs
     appr = approach(net, device, **appr_kwargs)
 
 
@@ -160,9 +163,21 @@ def main(argv=None):
         appr.train(t, trn_loader[t], val_loader[t])
         log.info('-' * 108)
 
+        # The following arrays contain all data from task 1 to task t
+        task_targets = np.array([])
+        task_tag_pred = np.array([])
+        task_taw_pred = np.array([])
+
         # Test
         for u in range(t + 1):
-            test_loss, acc_taw[t, u], acc_tag[t, u] = appr.eval(u, tst_loader[u])
+            test_loss, acc_taw[t, u], acc_tag[t, u], subtask_targets, subtask_tag_pred, subtask_taw_pred = appr.eval(u, tst_loader[u])
+
+            # Populate task complete test vars
+            
+            task_targets = np.concatenate((task_targets, subtask_targets.cpu().numpy()), axis=0).astype(dtype=np.int64)
+            task_tag_pred = np.concatenate((task_tag_pred, subtask_tag_pred.cpu().numpy()), axis=0).astype(dtype=np.int64)
+            task_taw_pred = np.concatenate((task_taw_pred, subtask_taw_pred.cpu().numpy()), axis=0).astype(dtype=np.int64)
+
             if u < t:
                 forg_taw[t, u] = acc_taw[:t, u].max(0) - acc_taw[t, u]
                 forg_tag[t, u] = acc_tag[:t, u].max(0) - acc_tag[t, u]
@@ -188,6 +203,22 @@ def main(argv=None):
             aux = np.tril(np.repeat([[tdata[1] for tdata in taskcla[:max_task]]], max_task, axis=0))
             logger.log_result((acc_taw * aux).sum(1) / aux.sum(1), name="wavg_accs_taw", step=t)
             logger.log_result((acc_tag * aux).sum(1) / aux.sum(1), name="wavg_accs_tag", step=t)
+
+        # Save stats data
+        logger.log_result(task_targets, name=f"task_{t}_targets_complete", step=t)
+        logger.log_result(task_tag_pred, name=f"task_{t}_tag_complete", step=t)
+        logger.log_result(task_taw_pred, name=f"task_{t}_taw_complete", step=t)
+
+        max_label = np.max(np.concatenate((task_targets, task_tag_pred)))
+
+        # Generate task confusion matrix
+        tag_cf_matrix = ConfusionMatrixDisplay.from_predictions(task_targets, task_tag_pred, display_labels=txt_classes[:max_label+1])
+        taw_cf_matrix = ConfusionMatrixDisplay.from_predictions(task_targets, task_taw_pred, display_labels=txt_classes[:max_label+1])
+
+        # Save confusion matrix
+        logger.log_figure(f'task_{t}_tag_cm', t, tag_cf_matrix.figure_)
+        logger.log_figure(f'task_{t}_taw_cm', t, taw_cf_matrix.figure_)
+    
 
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
