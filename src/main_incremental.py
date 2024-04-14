@@ -243,25 +243,6 @@ def main(argv=None):
 
 
 
-        # conf_mat = confusion_matrix(task_targets, task_tag_pred)
-        # fig_metrics = plt.figure(figsize=(8, 5))
-        # disp = ConfusionMatrixDisplay(confusion_matrix=conf_mat,
-        #                                       display_labels=txt_classes[:max_label+1])
-        # disp.plot(include_values=False)
-        # plt.title('CONFUSION MATRIX')
-        # plt.xlabel('PREDICTIONS')
-        # plt.ylabel('TRUE')
-        # plt.xticks(rotation=90, fontsize=3)
-        # plt.yticks(fontsize=3)
-        # plt.grid(False)
-        # plt.tight_layout()
-        # plt.close(fig_metrics)
-
-
-
-
-    
-
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
     print('[Elapsed time = {:.1f} h]'.format((time.time() - tstart) / (60 * 60)))
