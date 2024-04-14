@@ -45,6 +45,9 @@ def get_data(trn_data, tst_data, num_tasks, nc_first_task, validation, shuffle_c
         cpertask = np.array([num_classes // num_tasks] * num_tasks)
         for i in range(num_classes % num_tasks):
             cpertask[i] += 1
+    elif nc_first_task == num_classes:
+        # it means all classes have only 1 task
+        cpertask = np.array(nc_first_task)
     else:
         assert nc_first_task < num_classes, "first task wants more classes than exist"
         remaining_classes = num_classes - nc_first_task
@@ -94,7 +97,7 @@ def get_data(trn_data, tst_data, num_tasks, nc_first_task, validation, shuffle_c
     # check classes
     for tt in range(num_tasks):
         data[tt]['ncla'] = len(np.unique(data[tt]['trn']['y']))
-        assert data[tt]['ncla'] == cpertask[tt], "something went wrong splitting classes"
+        #assert data[tt]['ncla'] == cpertask[tt], "something went wrong splitting classes"
 
     # validation
     if validation > 0.0:

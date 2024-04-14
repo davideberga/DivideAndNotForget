@@ -79,7 +79,6 @@ def main(argv=None):
     
     SEED = 99
     GPU = 0
-    NC_FIRST_TASK=20
     utils.seed_everything(seed=SEED)
     
     # Args -- CUDA
@@ -106,7 +105,10 @@ def main(argv=None):
         approach = SeedAppr
     elif args.approach == 'joint':
         approach = JointAppr
+
     appr_args, extra_args = approach.extra_parser(extra_args)
+    NC_FIRST_TASK = 100 if appr_args.max_experts == 1 else 20
+
     log.info("[blue]Using {app} approach[/]".format(app=args.approach))
 
     # Log all arguments
