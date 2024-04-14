@@ -12,7 +12,7 @@ from approach.seed import SeedAppr
 from approach.joint import JointAppr
 
 import matplotlib.pyplot as plt
-from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 
 FORMAT = "%(message)s"
 logging.basicConfig(
@@ -212,12 +212,54 @@ def main(argv=None):
         max_label = np.max(np.concatenate((task_targets, task_tag_pred)))
 
         # Generate task confusion matrix
-        tag_cf_matrix = ConfusionMatrixDisplay.from_predictions(task_targets, task_tag_pred, display_labels=txt_classes[:max_label+1])
-        taw_cf_matrix = ConfusionMatrixDisplay.from_predictions(task_targets, task_taw_pred, display_labels=txt_classes[:max_label+1])
+        tag_cf_matrix = ConfusionMatrixDisplay.from_predictions(task_targets, task_tag_pred, display_labels=txt_classes[:max_label+1], include_values=False)
+
+
+        plt.title('CONFUSION MATRIX')
+        plt.xlabel('PREDICTIONS')
+        plt.ylabel('TRUE')
+        plt.xticks(rotation=90, fontsize=3)
+        plt.yticks(fontsize=3)
+        plt.grid(False)
+        plt.tight_layout()
 
         # Save confusion matrix
-        logger.log_figure(f'task_{t}_tag_cm', t, tag_cf_matrix.figure_)
-        logger.log_figure(f'task_{t}_taw_cm', t, taw_cf_matrix.figure_)
+        logger.log_figure(f'task_{t}_tag_cm', t, plt)
+        plt.clf()
+
+        taw_cf_matrix = ConfusionMatrixDisplay.from_predictions(task_targets, task_taw_pred, display_labels=txt_classes[:max_label+1], include_values=False)
+
+        plt.title('CONFUSION MATRIX')
+        plt.xlabel('PREDICTIONS')
+        plt.ylabel('TRUE')
+        plt.xticks(rotation=90, fontsize=3)
+        plt.yticks(fontsize=3)
+        plt.grid(False)
+        plt.tight_layout()
+
+        # Save confusion matrix
+        logger.log_figure(f'task_{t}_taw_cm', t, plt)
+        plt.clf()
+
+
+
+        # conf_mat = confusion_matrix(task_targets, task_tag_pred)
+        # fig_metrics = plt.figure(figsize=(8, 5))
+        # disp = ConfusionMatrixDisplay(confusion_matrix=conf_mat,
+        #                                       display_labels=txt_classes[:max_label+1])
+        # disp.plot(include_values=False)
+        # plt.title('CONFUSION MATRIX')
+        # plt.xlabel('PREDICTIONS')
+        # plt.ylabel('TRUE')
+        # plt.xticks(rotation=90, fontsize=3)
+        # plt.yticks(fontsize=3)
+        # plt.grid(False)
+        # plt.tight_layout()
+        # plt.close(fig_metrics)
+
+
+
+
     
 
     # Print Summary
