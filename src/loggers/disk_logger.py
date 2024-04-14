@@ -48,9 +48,9 @@ class Logger(ExperimentLogger):
     def log_figure(self, name, iter, figure, curtime=None):
         curtime = datetime.now()
         figure.savefig(os.path.join(self.exp_path, 'figures',
-                                    '{}_{}-{}.png'.format(name, iter, curtime.strftime("%Y-%m-%d-%H-%M-%S"))))
+                                    '{}_{}.png'.format(name, iter)))
         figure.savefig(os.path.join(self.exp_path, 'figures',
-                                    '{}_{}-{}.pdf'.format(name, iter, curtime.strftime("%Y-%m-%d-%H-%M-%S"))))
+                                    '{}_{}.pdf'.format(name, iter)))
 
     def save_model(self, state_dict, task):
         torch.save(state_dict, os.path.join(self.exp_path, "models", "task{}.ckpt".format(task)))
