@@ -39,7 +39,7 @@ def get_loaders(datasets, num_tasks, nc_first_task, batch_size, validation=.1,
                                                       extra_aug=extra_aug, ds_name=cur_dataset)
 
         # datasets
-        trn_dset, val_dset, tst_dset, curtaskcla = get_datasets(cur_dataset, dc['path'], num_tasks, nc_first_task,
+        trn_dset, val_dset, tst_dset, curtaskcla, txt_classes = get_datasets(cur_dataset, dc['path'], num_tasks, nc_first_task,
                                                                 validation=validation,
                                                                 trn_transform=trn_transform,
                                                                 tst_transform=tst_transform,
@@ -64,13 +64,14 @@ def get_loaders(datasets, num_tasks, nc_first_task, batch_size, validation=.1,
             trn_load.append(data.DataLoader(trn_dset[tt], batch_size=batch_size, shuffle=True ))
             val_load.append(data.DataLoader(val_dset[tt], batch_size=batch_size, shuffle=False ))
             tst_load.append(data.DataLoader(tst_dset[tt], batch_size=batch_size, shuffle=False ))
-    return trn_load, val_load, tst_load, taskcla
+    return trn_load, val_load, tst_load, taskcla, txt_classes
 
 
 def get_datasets(dataset, path, num_tasks, nc_first_task, validation, trn_transform, tst_transform, class_order=None):
     """Extract datasets and create Dataset class"""
 
     trn_dset, val_dset, tst_dset = [], [], []
+    txt_classes = []
 
     if 'food101' == dataset:
 
@@ -78,6 +79,8 @@ def get_datasets(dataset, path, num_tasks, nc_first_task, validation, trn_transf
         tst = TorchVisionFOOD101(path, split="test", download=True)
 
         _ensure_food(path, trn.class_to_idx)
+
+        txt_classes = trn.classes
 
         all_data, taskcla, class_indices = basedat.get_data(path, validation=validation,
                                                          num_tasks=num_tasks, nc_first_task=nc_first_task,
@@ -94,6 +97,7 @@ def get_datasets(dataset, path, num_tasks, nc_first_task, validation, trn_transf
         all_data, taskcla, class_indices = memd.get_data(trn_data, tst_data, validation=validation,
                                                          num_tasks=num_tasks, nc_first_task=nc_first_task,
                                                          shuffle_classes=class_order is None, class_order=class_order)
+        txt_classes = tvcifar_trn.classes
         # set dataset type
         Dataset = memd.MemoryDataset
 
@@ -107,7 +111,7 @@ def get_datasets(dataset, path, num_tasks, nc_first_task, validation, trn_transf
         tst_dset.append(Dataset(all_data[task]['tst'], tst_transform, class_indices))
         offset += taskcla[task][1]
 
-    return trn_dset, val_dset, tst_dset, taskcla
+    return trn_dset, val_dset, tst_dset, taskcla, txt_classes
 
 
 def get_transforms(resize, test_resize, pad, crop, flip, normalize, extend_channel, extra_aug="", ds_name=""):

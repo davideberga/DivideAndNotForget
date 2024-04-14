@@ -374,17 +374,26 @@ class SeedAppr(Inc_Learning_Appr):
         """Contains the evaluation code"""
         total_loss, total_acc_taw, total_acc_tag, total_num = 0, 0, 0, 0
         self.model.eval()
+        final_targets = torch.tensor([], dtype=torch.int64).to(self.device)
+        final_taw_pred = torch.tensor([], dtype=torch.int64).to(self.device)
+        final_tag_pred = torch.tensor([], dtype=torch.int64).to(self.device)
+        
         for images, targets in val_loader:
             targets = targets.to(self.device)
             # Forward current model
             features = self.model(images.to(self.device))
-            hits_taw, hits_tag = self.calculate_metrics(features, targets, t)
+            hits_taw, hits_tag, taw_pred, tag_pred = self.calculate_metrics(features, targets, t)
+            
             # Log
+            final_targets = torch.cat((final_targets, targets), 0)
+            final_taw_pred = torch.cat((final_taw_pred, taw_pred), 0)
+            final_tag_pred = torch.cat((final_tag_pred,tag_pred), 0)
+
             total_loss = 0
             total_acc_taw += hits_taw.sum().item()
             total_acc_tag += hits_tag.sum().item()
             total_num += len(targets)
-        return total_loss / total_num, total_acc_taw / total_num, total_acc_tag / total_num
+        return total_loss / total_num, total_acc_taw / total_num, total_acc_tag / total_num, final_targets, final_tag_pred, final_taw_pred
 
     @torch.no_grad()
     def calculate_metrics(self, features, targets, t):
@@ -392,7 +401,7 @@ class SeedAppr(Inc_Learning_Appr):
         taw_pred, tag_pred = self.predict_class_bayes(t, features)
         hits_taw = (taw_pred == targets).float()
         hits_tag = (tag_pred == targets).float()
-        return hits_taw, hits_tag
+        return hits_taw, hits_tag, taw_pred, tag_pred
 
     @torch.no_grad()
     def predict_class_bayes(self, t, features):
