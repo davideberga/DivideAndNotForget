@@ -31,7 +31,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description='DivideAndNotForget - Berga - Righetti')
 
     # miscellaneous args
-    parser.add_argument('--results-path', type=str, default='../results',
+    parser.add_argument('--results-path', type=str, default='results/',
                         help='Results path (default=%(default)s)')
     parser.add_argument('--exp-name', default=None, type=str,
                         help='Experiment name (default=%(default)s)')
@@ -133,7 +133,7 @@ def main(argv=None):
     # taking transformations and class indices from first train dataset
     first_train_ds = trn_loader[0].dataset
     transform, class_indices = first_train_ds.transform, first_train_ds.class_indices
-    appr_kwargs = {**base_kwargs, **dict(logger=log, **appr_args.__dict__)}
+    appr_kwargs = {**base_kwargs, **dict(logger=logger, **appr_args.__dict__)}
 
     utils.seed_everything(seed=SEED)
     appr_kwargs['ftepochs'] = args.nepochs
@@ -146,6 +146,9 @@ def main(argv=None):
     acc_tag = np.zeros((max_task, max_task))
     forg_taw = np.zeros((max_task, max_task))
     forg_tag = np.zeros((max_task, max_task))
+
+    train_losses, valid_losses, train_accs, val_accs = [], [], [], []
+    
     for t, (_, ncla) in enumerate(taskcla):
         # Early stop tasks if flag
         if t >= max_task:
@@ -155,12 +158,15 @@ def main(argv=None):
         log.info('Task {:2d}'.format(t))
         log.info('*' * 108)
 
-        # Add head for current task
-        net.add_head(taskcla[t][1])
         net.to(device)
 
         # Train
-        appr.train(t, trn_loader[t], val_loader[t])
+        train_loss, valid_loss, train_acc, val_acc = appr.train(t, trn_loader[t], val_loader[t])
+        train_losses.append(train_loss) 
+        valid_losses.append(valid_loss)
+        train_accs.append(train_acc)
+        val_accs.append(val_acc)
+
         log.info('-' * 108)
 
         # The following arrays contain all data from task 1 to task t
@@ -211,10 +217,8 @@ def main(argv=None):
 
         max_label = np.max(np.concatenate((task_targets, task_tag_pred)))
 
-        # Generate task confusion matrix
-        tag_cf_matrix = ConfusionMatrixDisplay.from_predictions(task_targets, task_tag_pred, display_labels=txt_classes[:max_label+1], include_values=False)
-
-
+        # Generate task confusion matrix and save them
+        ConfusionMatrixDisplay.from_predictions(task_targets, task_tag_pred, display_labels=txt_classes[:max_label+1], include_values=False)
         plt.title('CONFUSION MATRIX')
         plt.xlabel('PREDICTIONS')
         plt.ylabel('TRUE')
@@ -222,13 +226,10 @@ def main(argv=None):
         plt.yticks(fontsize=3)
         plt.grid(False)
         plt.tight_layout()
-
-        # Save confusion matrix
         logger.log_figure(f'task_{t}_tag_cm', t, plt)
         plt.clf()
 
-        taw_cf_matrix = ConfusionMatrixDisplay.from_predictions(task_targets, task_taw_pred, display_labels=txt_classes[:max_label+1], include_values=False)
-
+        ConfusionMatrixDisplay.from_predictions(task_targets, task_taw_pred, display_labels=txt_classes[:max_label+1], include_values=False)
         plt.title('CONFUSION MATRIX')
         plt.xlabel('PREDICTIONS')
         plt.ylabel('TRUE')
@@ -236,12 +237,28 @@ def main(argv=None):
         plt.yticks(fontsize=3)
         plt.grid(False)
         plt.tight_layout()
-
-        # Save confusion matrix
         logger.log_figure(f'task_{t}_taw_cm', t, plt)
         plt.clf()
 
+        # Generate plot of losses and accuracies
+        plt.clf()
+        plt.plot(list(range(t+1)), train_losses)
+        logger.log_figure(f'task_{t}_train_loss', t, plt)
 
+        plt.clf()
+        plt.plot(list(range(t+1)), valid_losses)
+        logger.log_figure(f'task_{t}_valid_loss', t, plt)
+
+        plt.clf()
+        plt.plot(list(range(t+1)), train_accs)
+        logger.log_figure(f'task_{t}_train_accs', t, plt)
+
+        plt.clf()
+        plt.plot(list(range(t+1)), val_accs)
+        logger.log_figure(f'task_{t}_valid_accs', t, plt)
+
+
+    
 
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)

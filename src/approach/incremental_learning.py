@@ -51,8 +51,9 @@ class Inc_Learning_Appr:
     def train(self, t, trn_loader, val_loader):
         """Main train structure"""
         self.pre_train_process(t, trn_loader)
-        self.train_loop(t, trn_loader, val_loader)
+        train_loss, valid_loss, train_acc, val_acc = self.train_loop(t, trn_loader, val_loader)
         self.post_train_process(t, trn_loader)
+        return train_loss, valid_loss, train_acc, val_acc
 
     def pre_train_process(self, t, trn_loader):
         """Runs before training all epochs of the task (before the train session)"""

@@ -139,18 +139,20 @@ class SeedAppr(Inc_Learning_Appr):
     # During the first tasks [0, max_experts) the expert that will be trained is deterministic
     # When t >= max_experts the expert will be choosen based on distribution of old and new task classes
     def train_loop(self, t, trn_loader, val_loader):
+        train_loss, valid_loss, train_acc, val_acc = 0, 0, 0, 0
         if t < self.max_experts:
             print(f"Training backbone on task {t}:")
-            self.train_backbone(t, trn_loader, val_loader)
+            train_loss, valid_loss, train_acc, val_acc = self.train_backbone(t, trn_loader, val_loader)
             self.experts_distributions.append([])
 
         if t >= self.max_experts:
             bb_to_finetune = self._choose_backbone_to_finetune(t, trn_loader, val_loader)
             print(f"Finetuning backbone {bb_to_finetune} on task {t}:")
-            self.finetune_backbone(t, bb_to_finetune, trn_loader, val_loader)
+            old_model, train_loss, valid_loss, train_acc, val_acc = self.finetune_backbone(t, bb_to_finetune, trn_loader, val_loader)
 
         print(f"Creating distributions for task {t}:")
         self.create_distributions(t, trn_loader, val_loader)
+        return train_loss, valid_loss, train_acc, val_acc
 
     def train_backbone(self, t, trn_loader, val_loader):
 
@@ -175,6 +177,8 @@ class SeedAppr(Inc_Learning_Appr):
 
         print(f'The expert has {sum(p.numel() for p in model.parameters() if p.requires_grad):,} trainable parameters')
         print(f'The expert has {sum(p.numel() for p in model.parameters() if not p.requires_grad):,} shared parameters\n')
+
+        cum_train_loss, cum_valid_loss, cum_train_acc, cum_val_acc = 0, 0, 0, 0
 
         model.to(self.device)
         optimizer, lr_scheduler = self._get_optimizer(t, self.wd)
@@ -214,11 +218,17 @@ class SeedAppr(Inc_Learning_Appr):
             train_acc = train_hits / len(trn_loader.dataset)
             val_acc = val_hits / len(val_loader.dataset)
 
+            cum_train_loss += train_loss
+            cum_valid_loss += valid_loss
+            cum_train_acc += train_acc
+            cum_val_acc += val_acc
+
             print(f"Epoch: {epoch} Train loss: {train_loss:.2f} Val loss: {valid_loss:.2f} "
                   f"Train acc: {100 * train_acc:.2f} Val acc: {100 * val_acc:.2f}")
         model.fc = nn.Identity()
         self.model.bbs[t] = model
-        # torch.save(self.model.state_dict(), f"{self.logger.exp_path}/model_{t}.pth")
+        torch.save(self.model.state_dict(), f"{self.logger.exp_path}/model_{t}.pth")
+        return cum_train_loss / self.nepochs, cum_valid_loss / self.nepochs, train_acc / self.nepochs, val_acc / self.nepochs
 
     # The only difference with train_backbone is  
     # saving the current model to perform the complete loss
@@ -241,6 +251,8 @@ class SeedAppr(Inc_Learning_Appr):
         model.to(self.device)
         print(f'The expert has {sum(p.numel() for p in model.parameters() if p.requires_grad):,} trainable parameters')
         print(f'The expert has {sum(p.numel() for p in model.parameters() if not p.requires_grad):,} shared parameters\n')
+
+        cum_train_loss, cum_valid_loss, cum_train_acc, cum_val_acc = 0, 0, 0, 0
 
         optimizer, lr_scheduler = self._get_optimizer(bb_to_finetune, wd=self.ftwd, milestones=[30, 60, 80])
         for epoch in range(self.ftepochs):
@@ -286,14 +298,19 @@ class SeedAppr(Inc_Learning_Appr):
             train_acc = train_hits / len(trn_loader.dataset)
             val_acc = val_hits / len(val_loader.dataset)
 
+            cum_train_loss += train_loss
+            cum_valid_loss += valid_loss
+            cum_train_acc += train_acc
+            cum_val_acc += val_acc
+
             print(f"Epoch: {epoch} Train loss: {train_loss:.2f} Val loss: {valid_loss:.2f} "
                   f"Train acc: {100 * train_acc:.2f} Val acc: {100 * val_acc:.2f}")
 
         # Put identity as fc layer for next training
         model.fc = nn.Identity()
         self.model.bbs[bb_to_finetune] = model
-        # torch.save(self.model.state_dict(), f"{self.logger.exp_path}/model_{t}.pth")
-        return old_model
+        torch.save(self.model.state_dict(), f"{self.logger.exp_path}/model_{t}.pth")
+        return old_model, cum_train_loss / self.nepochs, cum_valid_loss / self.nepochs, train_acc / self.nepochs, val_acc / self.nepochs
 
     @torch.no_grad()
     def _choose_backbone_to_finetune(self, t, trn_loader, val_loader):

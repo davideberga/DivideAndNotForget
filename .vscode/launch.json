@@ -21,7 +21,6 @@
                 "--max-experts", "1",
                 "--use-multivariate",
                 "--nepochs", "2",
-                "--nepochs", "2",
                 "--tau", "3",
                 "--batch-size", "128",
                 "--num-workers", "4",
