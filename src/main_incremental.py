@@ -107,7 +107,14 @@ def main(argv=None):
         approach = JointAppr
 
     appr_args, extra_args = approach.extra_parser(extra_args)
-    NC_FIRST_TASK = 100 if appr_args.max_experts == 1 else 20
+
+    if appr_args.max_experts == 1:
+        if args.datasets[0] == 'food101':
+            NC_FIRST_TASK = 101
+        elif args.datasets[0] == 'cifar100':
+            NC_FIRST_TASK = 100
+    else:
+        NC_FIRST_TASK = 20
 
     log.info("[blue]Using {app} approach[/]".format(app=args.approach))
 
