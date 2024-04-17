@@ -42,7 +42,7 @@ class Logger(ExperimentLogger):
     def log_result(self, array, name, step):
         if array.ndim <= 1:
             array = array[None]
-        np.savetxt(os.path.join(self.exp_path, 'results', '{}-{}.txt'.format(name, self.begin_time_str)),
+        np.savetxt(os.path.join(self.exp_path, 'results', '{}.txt'.format(name)),
                    array, '%.6f', delimiter='\t')
 
     def log_figure(self, name, iter, figure, curtime=None):
