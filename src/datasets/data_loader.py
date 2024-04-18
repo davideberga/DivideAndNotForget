@@ -61,9 +61,9 @@ def get_loaders(datasets, num_tasks, nc_first_task, batch_size, validation=.1,
 
         # loaders
         for tt in range(num_tasks):
-            trn_load.append(data.DataLoader(trn_dset[tt], batch_size=batch_size, shuffle=True ))
-            val_load.append(data.DataLoader(val_dset[tt], batch_size=batch_size, shuffle=False ))
-            tst_load.append(data.DataLoader(tst_dset[tt], batch_size=batch_size, shuffle=False ))
+            trn_load.append(data.DataLoader(trn_dset[tt], batch_size=batch_size, shuffle=True, num_workers=25 ))
+            val_load.append(data.DataLoader(val_dset[tt], batch_size=batch_size, shuffle=False, num_workers=25  ))
+            tst_load.append(data.DataLoader(tst_dset[tt], batch_size=batch_size, shuffle=False, num_workers=25  ))
     return trn_load, val_load, tst_load, taskcla, txt_classes
 
 
