@@ -64,7 +64,7 @@ def main(argv=None):
     parser.add_argument('--approach', default='seed', type=str, choices=['seed', 'joint'],
                         help='Learning approach used (default=%(default)s)', metavar="APPROACH")
     
-    # To understand
+    
     parser.add_argument('--multi-softmax', action='store_true',
                         help='Apply separate softmax for each task (default=%(default)s)')
     parser.add_argument('--fix-bn', action='store_true',
