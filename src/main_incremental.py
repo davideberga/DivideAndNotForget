@@ -224,6 +224,12 @@ def main(argv=None):
         logger.log_result(task_tag_pred, name=f"task_{t}_tag_pred_complete", step=t)
         logger.log_result(task_taw_pred, name=f"task_{t}_taw_pred_complete", step=t)
 
+        # Save losses and accuracies
+        logger.log_result(np.array(train_losses), name=f"task_train_losses", step=t)
+        logger.log_result(np.array(valid_losses), name=f"task_valid_losses", step=t)
+        logger.log_result(np.array(train_accs), name=f"task_train_accs", step=t)
+        logger.log_result(np.array(train_accs), name=f"task_valid_accs", step=t)
+
         max_label = np.max(np.concatenate((task_targets, task_tag_pred)))
 
         # Generate task confusion matrix and save them

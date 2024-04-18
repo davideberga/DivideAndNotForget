@@ -5,7 +5,7 @@ _BASE_DATA_PATH = "./data" #"/raid/NFS_SHARE/datasets/"
 dataset_config = {
     'food101': {
         'path': join(_BASE_DATA_PATH, 'food101'),
-        'resize': (32,32),
+        'resize': (224,224),
         'pad': 4,
         'crop': 32,
         'flip': True,
