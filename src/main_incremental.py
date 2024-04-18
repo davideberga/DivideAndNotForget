@@ -251,20 +251,22 @@ def main(argv=None):
 
         # Generate plot of losses and accuracies
         plt.clf()
-        plt.plot(list(range(t+1)), train_losses)
-        logger.log_figure(f'task_{t}_train_loss', t, plt)
+        plt.plot(list(range(t+1)), train_losses, label='Train loss')
+        plt.plot(list(range(t+1)), valid_losses, label='Validation loss')
+        plt.xlabel('TASK')
+        plt.legend()
+        plt.tight_layout()
+        logger.log_figure(f'task_{t}_train_valid_loss', t, plt)
 
         plt.clf()
-        plt.plot(list(range(t+1)), valid_losses)
-        logger.log_figure(f'task_{t}_valid_loss', t, plt)
-
+        plt.plot(list(range(t+1)), train_accs, label='Train accuracy')
+        plt.plot(list(range(t+1)), val_accs, label='Validation accuracy')
+        plt.xlabel('TASK')
+        plt.legend()
+        plt.tight_layout()
+        logger.log_figure(f'task_{t}_train_valid_accs', t, plt)
         plt.clf()
-        plt.plot(list(range(t+1)), train_accs)
-        logger.log_figure(f'task_{t}_train_accs', t, plt)
 
-        plt.clf()
-        plt.plot(list(range(t+1)), val_accs)
-        logger.log_figure(f'task_{t}_valid_accs', t, plt)
 
 
     
