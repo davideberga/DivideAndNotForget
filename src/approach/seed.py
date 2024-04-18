@@ -227,7 +227,7 @@ class SeedAppr(Inc_Learning_Appr):
                   f"Train acc: {100 * train_acc:.2f} Val acc: {100 * val_acc:.2f}")
         model.fc = nn.Identity()
         self.model.bbs[t] = model
-        torch.save(self.model.state_dict(), f"{self.logger.exp_path}/model_{t}.pth")
+        torch.save(self.model.state_dict(), f"{self.logger.exp_path}/models/model_{t}.pth")
         return cum_train_loss / self.nepochs, cum_valid_loss / self.nepochs, train_acc / self.nepochs, val_acc / self.nepochs
 
     # The only difference with train_backbone is  
@@ -309,7 +309,7 @@ class SeedAppr(Inc_Learning_Appr):
         # Put identity as fc layer for next training
         model.fc = nn.Identity()
         self.model.bbs[bb_to_finetune] = model
-        torch.save(self.model.state_dict(), f"{self.logger.exp_path}/model_{t}.pth")
+        torch.save(self.model.state_dict(), f"{self.logger.exp_path}/models/model_{t}.pth")
         return old_model, cum_train_loss / self.nepochs, cum_valid_loss / self.nepochs, train_acc / self.nepochs, val_acc / self.nepochs
 
     @torch.no_grad()
