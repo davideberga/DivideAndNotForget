@@ -28,18 +28,7 @@ WHAT NEED:
 3 - after all training, reload all test dataset to perform real accuracy on whole dataset
 
 
-MODEL         BASELINE        DATASET
-ResNet18        yes          CIFAR100
-ResNet18        no           CIFAR100
-ResNet18        yes          FOOD101
-ResNet18        no           FOOD101
-ResNet50        yes          CIFAR100
-ResNet50        no           CIFAR100
-ResNet50        yes          FOOD101
-ResNet50        no           FOOD101
-ResNet101       yes          CIFAR100
-ResNet101       no           CIFAR100
-ResNet101       yes          FOOD101
-ResNet101       no           FOOD101
-
+WHAT REMAINS:
+- train_loss for epoch, valid_loss for epoch
+- train_acc_agnostic for epoch, train_valid_agnostic for epoch
 

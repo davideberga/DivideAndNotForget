@@ -25,7 +25,7 @@ conda env create -f environment.yml
 `src/`
 - `approach/` : contains the actual implementation of SEED, the ensembling method proposed by the authors. It also contains a Pytorch implementation of Gaussian Mixture Models.
 - `datasets/` : contains the code to load the datasets and split them in multiple loaders (one for each task).
-    - `dataset_config.py: list of trasfomations required for each dataset
+    - `dataset_config.py`: list of trasfomations required for each dataset
     - `base_dataset.py`: class to load a directory dataset
     - `memory_dataset.py`: class to load a dataset that has already the images in numpy format
     - `data_loader.py`: create a train, val and test Pytorch dataloader for each task. It also split classes in different tasks.
@@ -35,6 +35,9 @@ conda env create -f environment.yml
 `main_incremental.py`: the main file of the project used to train and to produce results of the different experiments we prepared.
 
 `script_{MODEL}_{METHOD}_{DATASET}.py`: all experiments we performed.
+
+`create_plot.py`: allows to create plots of comparison between ResNet18, Resnet50 and ResNet101, in terms of training and validation accuracy and loss;
+futhermore there are even test accuracy aware, agnostic and precision-recall metrics. The plot are also performed in comparison between CIFAR100 and FOOD101 datasets.
 
 ## :arrow_forward: Run
 
