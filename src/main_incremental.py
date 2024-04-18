@@ -145,7 +145,7 @@ def main(argv=None):
     appr_kwargs = {**base_kwargs, **dict(logger=logger, **appr_args.__dict__)}
 
     utils.seed_everything(seed=SEED)
-    appr_kwargs['ftepochs'] = args.nepochs
+    if args.approach == 'seed': appr_kwargs['ftepochs'] = args.nepochs
     appr = approach(net, device, **appr_kwargs)
 
 
@@ -221,8 +221,8 @@ def main(argv=None):
 
         # Save stats data
         logger.log_result(task_targets, name=f"task_{t}_targets_complete", step=t)
-        logger.log_result(task_tag_pred, name=f"task_{t}_tag_complete", step=t)
-        logger.log_result(task_taw_pred, name=f"task_{t}_taw_complete", step=t)
+        logger.log_result(task_tag_pred, name=f"task_{t}_tag_pred_complete", step=t)
+        logger.log_result(task_taw_pred, name=f"task_{t}_taw_pred_complete", step=t)
 
         max_label = np.max(np.concatenate((task_targets, task_tag_pred)))
 
@@ -265,9 +265,6 @@ def main(argv=None):
         plt.clf()
         plt.plot(list(range(t+1)), val_accs)
         logger.log_figure(f'task_{t}_valid_accs', t, plt)
-
-
-    
 
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
