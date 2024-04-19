@@ -1,0 +1,761 @@
+Files already downloaded and verified
+Files already downloaded and verified
+[(0, 20), (1, 9), (2, 9), (3, 9), (4, 9), (5, 9), (6, 9), (7, 9), (8, 9), (9, 8)]
+[2;36m[13:40:01][0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=241447;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=260499;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#166\[2m166[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m Task  [1;36m0[0m                                                                                                      ]8;id=401675;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=556597;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#167\[2m167[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=654227;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=513041;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#168\[2m168[0m]8;;\
+Training backbone on task 0:
+The expert has 11,210,644 trainable parameters
+The expert has 0 shared parameters
+
+Epoch: 0 Train loss: 4.28 Val loss: 3.07 Train acc: 14.99 Val acc: 22.40
+Epoch: 1 Train loss: 2.44 Val loss: 2.12 Train acc: 26.21 Val acc: 36.70
+Epoch: 2 Train loss: 2.11 Val loss: 1.98 Train acc: 35.04 Val acc: 40.00
+Epoch: 3 Train loss: 1.98 Val loss: 1.97 Train acc: 39.07 Val acc: 36.90
+Epoch: 4 Train loss: 1.88 Val loss: 1.80 Train acc: 42.04 Val acc: 43.50
+Epoch: 5 Train loss: 1.76 Val loss: 1.72 Train acc: 45.00 Val acc: 46.40
+Epoch: 6 Train loss: 1.69 Val loss: 1.56 Train acc: 47.41 Val acc: 51.20
+Epoch: 7 Train loss: 1.59 Val loss: 1.66 Train acc: 50.26 Val acc: 48.70
+Epoch: 8 Train loss: 1.52 Val loss: 1.57 Train acc: 51.97 Val acc: 52.40
+Epoch: 9 Train loss: 1.49 Val loss: 1.52 Train acc: 53.06 Val acc: 53.20
+Epoch: 10 Train loss: 1.40 Val loss: 1.46 Train acc: 55.94 Val acc: 54.20
+Epoch: 11 Train loss: 1.34 Val loss: 1.47 Train acc: 57.84 Val acc: 53.50
+Epoch: 12 Train loss: 1.29 Val loss: 1.59 Train acc: 59.41 Val acc: 53.90
+Epoch: 13 Train loss: 1.26 Val loss: 1.49 Train acc: 60.10 Val acc: 54.00
+Epoch: 14 Train loss: 1.20 Val loss: 1.34 Train acc: 62.02 Val acc: 60.30
+Epoch: 15 Train loss: 1.15 Val loss: 1.51 Train acc: 63.77 Val acc: 57.70
+Epoch: 16 Train loss: 1.11 Val loss: 1.46 Train acc: 64.43 Val acc: 55.50
+Epoch: 17 Train loss: 1.09 Val loss: 1.40 Train acc: 65.41 Val acc: 58.90
+Epoch: 18 Train loss: 1.06 Val loss: 1.33 Train acc: 66.47 Val acc: 58.70
+Epoch: 19 Train loss: 1.03 Val loss: 1.34 Train acc: 67.14 Val acc: 61.10
+Epoch: 20 Train loss: 1.00 Val loss: 1.36 Train acc: 67.64 Val acc: 61.00
+Epoch: 21 Train loss: 0.96 Val loss: 1.47 Train acc: 69.02 Val acc: 58.50
+Epoch: 22 Train loss: 0.93 Val loss: 1.33 Train acc: 69.71 Val acc: 60.00
+Epoch: 23 Train loss: 0.91 Val loss: 1.39 Train acc: 70.67 Val acc: 59.80
+Epoch: 24 Train loss: 0.90 Val loss: 1.31 Train acc: 70.91 Val acc: 60.60
+Epoch: 25 Train loss: 0.86 Val loss: 1.32 Train acc: 71.89 Val acc: 62.40
+Epoch: 26 Train loss: 0.83 Val loss: 1.35 Train acc: 72.67 Val acc: 60.70
+Epoch: 27 Train loss: 0.79 Val loss: 1.40 Train acc: 74.24 Val acc: 61.00
+Epoch: 28 Train loss: 0.79 Val loss: 1.34 Train acc: 74.17 Val acc: 62.20
+Epoch: 29 Train loss: 0.77 Val loss: 1.41 Train acc: 74.90 Val acc: 60.50
+Epoch: 30 Train loss: 0.76 Val loss: 1.26 Train acc: 75.24 Val acc: 64.60
+Epoch: 31 Train loss: 0.71 Val loss: 1.31 Train acc: 76.47 Val acc: 62.60
+Epoch: 32 Train loss: 0.72 Val loss: 1.35 Train acc: 76.00 Val acc: 61.20
+Epoch: 33 Train loss: 0.71 Val loss: 1.40 Train acc: 76.33 Val acc: 62.20
+Epoch: 34 Train loss: 0.67 Val loss: 1.49 Train acc: 78.27 Val acc: 60.10
+Epoch: 35 Train loss: 0.67 Val loss: 1.42 Train acc: 77.99 Val acc: 63.50
+Epoch: 36 Train loss: 0.66 Val loss: 1.37 Train acc: 78.16 Val acc: 61.60
+Epoch: 37 Train loss: 0.63 Val loss: 1.33 Train acc: 79.78 Val acc: 62.90
+Epoch: 38 Train loss: 0.63 Val loss: 1.33 Train acc: 79.61 Val acc: 63.50
+Epoch: 39 Train loss: 0.62 Val loss: 1.41 Train acc: 79.87 Val acc: 61.40
+Epoch: 40 Train loss: 0.60 Val loss: 1.37 Train acc: 80.14 Val acc: 62.10
+Epoch: 41 Train loss: 0.58 Val loss: 1.35 Train acc: 80.86 Val acc: 63.50
+Epoch: 42 Train loss: 0.56 Val loss: 1.36 Train acc: 81.64 Val acc: 63.60
+Epoch: 43 Train loss: 0.57 Val loss: 1.41 Train acc: 81.09 Val acc: 63.50
+Epoch: 44 Train loss: 0.56 Val loss: 1.40 Train acc: 81.87 Val acc: 61.80
+Epoch: 45 Train loss: 0.52 Val loss: 1.44 Train acc: 82.92 Val acc: 62.40
+Epoch: 46 Train loss: 0.53 Val loss: 1.35 Train acc: 82.21 Val acc: 62.70
+Epoch: 47 Train loss: 0.52 Val loss: 1.37 Train acc: 82.90 Val acc: 65.10
+Epoch: 48 Train loss: 0.51 Val loss: 1.39 Train acc: 82.59 Val acc: 66.10
+Epoch: 49 Train loss: 0.51 Val loss: 1.36 Train acc: 83.16 Val acc: 65.30
+Creating distributions for task 0:
+[2;36m[13:42:11][0m[2;36m [0m[34mINFO    [0m ------------------------------------------------------------------------------------------------------------ ]8;id=227218;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=831116;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#179\[2m179[0m]8;;\
+>>> Test on task  0 : loss=0.000 | TAw acc= 67.0%, forg=  0.0%| TAg acc= 67.0%, forg=  0.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+[2;36m[13:42:14][0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=406964;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=903340;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#166\[2m166[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m Task  [1;36m1[0m                                                                                                      ]8;id=692655;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=187696;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#167\[2m167[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=992853;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=751493;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#168\[2m168[0m]8;;\
+Training backbone on task 1:
+The expert has 11,209,929 trainable parameters
+The expert has 0 shared parameters
+
+Epoch: 0 Train loss: 1.47 Val loss: 1.24 Train acc: 49.26 Val acc: 56.44
+Epoch: 1 Train loss: 1.01 Val loss: 1.22 Train acc: 64.59 Val acc: 59.11
+Epoch: 2 Train loss: 0.89 Val loss: 1.06 Train acc: 68.07 Val acc: 65.33
+Epoch: 3 Train loss: 0.82 Val loss: 1.02 Train acc: 71.28 Val acc: 64.67
+Epoch: 4 Train loss: 0.76 Val loss: 1.09 Train acc: 73.19 Val acc: 63.56
+Epoch: 5 Train loss: 0.72 Val loss: 1.09 Train acc: 75.78 Val acc: 64.44
+Epoch: 6 Train loss: 0.67 Val loss: 1.04 Train acc: 77.38 Val acc: 67.33
+Epoch: 7 Train loss: 0.60 Val loss: 1.08 Train acc: 78.69 Val acc: 66.67
+Epoch: 8 Train loss: 0.56 Val loss: 1.09 Train acc: 79.68 Val acc: 66.67
+Epoch: 9 Train loss: 0.52 Val loss: 1.08 Train acc: 81.90 Val acc: 65.78
+Epoch: 10 Train loss: 0.54 Val loss: 1.16 Train acc: 80.64 Val acc: 67.78
+Epoch: 11 Train loss: 0.52 Val loss: 1.08 Train acc: 81.63 Val acc: 66.44
+Epoch: 12 Train loss: 0.48 Val loss: 1.12 Train acc: 83.33 Val acc: 66.67
+Epoch: 13 Train loss: 0.49 Val loss: 1.03 Train acc: 81.75 Val acc: 67.33
+Epoch: 14 Train loss: 0.42 Val loss: 1.23 Train acc: 85.21 Val acc: 65.78
+Epoch: 15 Train loss: 0.42 Val loss: 1.08 Train acc: 85.46 Val acc: 68.00
+Epoch: 16 Train loss: 0.40 Val loss: 1.12 Train acc: 85.60 Val acc: 69.56
+Epoch: 17 Train loss: 0.38 Val loss: 1.16 Train acc: 86.32 Val acc: 68.44
+Epoch: 18 Train loss: 0.39 Val loss: 1.24 Train acc: 86.00 Val acc: 66.44
+Epoch: 19 Train loss: 0.34 Val loss: 1.25 Train acc: 87.63 Val acc: 66.89
+Epoch: 20 Train loss: 0.34 Val loss: 1.11 Train acc: 88.32 Val acc: 68.89
+Epoch: 21 Train loss: 0.34 Val loss: 1.24 Train acc: 87.65 Val acc: 68.22
+Epoch: 22 Train loss: 0.33 Val loss: 1.35 Train acc: 87.85 Val acc: 66.89
+Epoch: 23 Train loss: 0.32 Val loss: 1.17 Train acc: 88.37 Val acc: 66.67
+Epoch: 24 Train loss: 0.28 Val loss: 1.21 Train acc: 90.17 Val acc: 68.44
+Epoch: 25 Train loss: 0.29 Val loss: 1.25 Train acc: 89.83 Val acc: 68.67
+Epoch: 26 Train loss: 0.27 Val loss: 1.29 Train acc: 90.62 Val acc: 66.00
+Epoch: 27 Train loss: 0.29 Val loss: 1.17 Train acc: 89.60 Val acc: 68.67
+Epoch: 28 Train loss: 0.29 Val loss: 1.29 Train acc: 89.38 Val acc: 70.00
+Epoch: 29 Train loss: 0.29 Val loss: 1.20 Train acc: 89.93 Val acc: 67.11
+Epoch: 30 Train loss: 0.25 Val loss: 1.34 Train acc: 91.58 Val acc: 68.89
+Epoch: 31 Train loss: 0.28 Val loss: 1.11 Train acc: 90.15 Val acc: 68.22
+Epoch: 32 Train loss: 0.24 Val loss: 1.21 Train acc: 91.78 Val acc: 68.44
+Epoch: 33 Train loss: 0.25 Val loss: 1.20 Train acc: 91.46 Val acc: 69.56
+Epoch: 34 Train loss: 0.26 Val loss: 1.26 Train acc: 91.33 Val acc: 67.33
+Epoch: 35 Train loss: 0.26 Val loss: 1.31 Train acc: 90.86 Val acc: 68.67
+Epoch: 36 Train loss: 0.25 Val loss: 1.27 Train acc: 91.46 Val acc: 67.78
+Epoch: 37 Train loss: 0.22 Val loss: 1.32 Train acc: 92.22 Val acc: 67.78
+Epoch: 38 Train loss: 0.23 Val loss: 1.37 Train acc: 92.37 Val acc: 68.89
+Epoch: 39 Train loss: 0.23 Val loss: 1.22 Train acc: 92.27 Val acc: 67.78
+Epoch: 40 Train loss: 0.22 Val loss: 1.26 Train acc: 92.54 Val acc: 71.33
+Epoch: 41 Train loss: 0.22 Val loss: 1.44 Train acc: 92.54 Val acc: 66.44
+Epoch: 42 Train loss: 0.24 Val loss: 1.23 Train acc: 91.36 Val acc: 70.22
+Epoch: 43 Train loss: 0.21 Val loss: 1.26 Train acc: 92.22 Val acc: 68.22
+Epoch: 44 Train loss: 0.21 Val loss: 1.24 Train acc: 92.77 Val acc: 69.78
+Epoch: 45 Train loss: 0.21 Val loss: 1.28 Train acc: 92.79 Val acc: 69.11
+Epoch: 46 Train loss: 0.21 Val loss: 1.25 Train acc: 92.42 Val acc: 70.22
+Epoch: 47 Train loss: 0.20 Val loss: 1.35 Train acc: 93.33 Val acc: 67.33
+Epoch: 48 Train loss: 0.20 Val loss: 1.29 Train acc: 93.06 Val acc: 68.89
+Epoch: 49 Train loss: 0.20 Val loss: 1.17 Train acc: 92.86 Val acc: 70.67
+Creating distributions for task 1:
+[2;36m[13:43:57][0m[2;36m [0m[34mINFO    [0m ------------------------------------------------------------------------------------------------------------ ]8;id=491823;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=331747;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#179\[2m179[0m]8;;\
+>>> Test on task  0 : loss=0.000 | TAw acc= 67.0%, forg=  0.0%| TAg acc= 56.4%, forg= 10.7% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  1 : loss=0.000 | TAw acc= 74.6%, forg=  0.0%| TAg acc= 60.8%, forg=  0.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+[2;36m[13:44:03][0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=7989;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=445860;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#166\[2m166[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m Task  [1;36m2[0m                                                                                                      ]8;id=84742;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=484533;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#167\[2m167[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=485176;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=53810;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#168\[2m168[0m]8;;\
+Training backbone on task 2:
+The expert has 11,209,929 trainable parameters
+The expert has 0 shared parameters
+
+Epoch: 0 Train loss: 1.15 Val loss: 0.86 Train acc: 61.38 Val acc: 73.56
+Epoch: 1 Train loss: 0.70 Val loss: 0.71 Train acc: 76.59 Val acc: 76.89
+Epoch: 2 Train loss: 0.59 Val loss: 0.61 Train acc: 80.17 Val acc: 80.44
+Epoch: 3 Train loss: 0.49 Val loss: 0.62 Train acc: 82.77 Val acc: 77.78
+Epoch: 4 Train loss: 0.48 Val loss: 0.62 Train acc: 83.09 Val acc: 81.11
+Epoch: 5 Train loss: 0.43 Val loss: 0.54 Train acc: 85.56 Val acc: 82.89
+Epoch: 6 Train loss: 0.37 Val loss: 0.57 Train acc: 87.43 Val acc: 82.22
+Epoch: 7 Train loss: 0.36 Val loss: 0.68 Train acc: 88.15 Val acc: 80.89
+Epoch: 8 Train loss: 0.32 Val loss: 0.72 Train acc: 88.67 Val acc: 80.22
+Epoch: 9 Train loss: 0.32 Val loss: 0.64 Train acc: 89.38 Val acc: 80.22
+Epoch: 10 Train loss: 0.31 Val loss: 0.61 Train acc: 88.94 Val acc: 80.00
+Epoch: 11 Train loss: 0.28 Val loss: 0.60 Train acc: 89.85 Val acc: 84.00
+Epoch: 12 Train loss: 0.29 Val loss: 0.66 Train acc: 89.88 Val acc: 81.78
+Epoch: 13 Train loss: 0.28 Val loss: 0.64 Train acc: 90.69 Val acc: 84.00
+Epoch: 14 Train loss: 0.24 Val loss: 0.58 Train acc: 91.85 Val acc: 83.33
+Epoch: 15 Train loss: 0.24 Val loss: 0.72 Train acc: 91.65 Val acc: 81.56
+Epoch: 16 Train loss: 0.22 Val loss: 0.74 Train acc: 92.40 Val acc: 80.67
+Epoch: 17 Train loss: 0.22 Val loss: 0.62 Train acc: 92.27 Val acc: 82.44
+Epoch: 18 Train loss: 0.21 Val loss: 0.64 Train acc: 92.54 Val acc: 83.33
+Epoch: 19 Train loss: 0.21 Val loss: 0.66 Train acc: 92.64 Val acc: 81.78
+Epoch: 20 Train loss: 0.21 Val loss: 0.55 Train acc: 92.94 Val acc: 84.89
+Epoch: 21 Train loss: 0.22 Val loss: 0.69 Train acc: 92.10 Val acc: 80.67
+Epoch: 22 Train loss: 0.20 Val loss: 0.73 Train acc: 92.77 Val acc: 82.22
+Epoch: 23 Train loss: 0.19 Val loss: 0.70 Train acc: 93.46 Val acc: 80.00
+Epoch: 24 Train loss: 0.20 Val loss: 0.68 Train acc: 93.36 Val acc: 80.89
+Epoch: 25 Train loss: 0.17 Val loss: 0.60 Train acc: 93.88 Val acc: 84.44
+Epoch: 26 Train loss: 0.16 Val loss: 0.73 Train acc: 94.54 Val acc: 81.11
+Epoch: 27 Train loss: 0.17 Val loss: 0.60 Train acc: 93.93 Val acc: 83.33
+Epoch: 28 Train loss: 0.16 Val loss: 0.73 Train acc: 94.59 Val acc: 83.33
+Epoch: 29 Train loss: 0.17 Val loss: 0.73 Train acc: 93.95 Val acc: 80.67
+Epoch: 30 Train loss: 0.20 Val loss: 0.73 Train acc: 93.19 Val acc: 80.00
+Epoch: 31 Train loss: 0.17 Val loss: 0.64 Train acc: 94.37 Val acc: 83.11
+Epoch: 32 Train loss: 0.18 Val loss: 0.60 Train acc: 93.90 Val acc: 85.56
+Epoch: 33 Train loss: 0.15 Val loss: 0.68 Train acc: 95.09 Val acc: 84.67
+Epoch: 34 Train loss: 0.15 Val loss: 0.60 Train acc: 94.64 Val acc: 84.67
+Epoch: 35 Train loss: 0.17 Val loss: 0.68 Train acc: 94.54 Val acc: 82.22
+Epoch: 36 Train loss: 0.14 Val loss: 0.75 Train acc: 95.31 Val acc: 80.44
+Epoch: 37 Train loss: 0.14 Val loss: 0.69 Train acc: 94.96 Val acc: 82.44
+Epoch: 38 Train loss: 0.14 Val loss: 0.69 Train acc: 95.33 Val acc: 83.78
+Epoch: 39 Train loss: 0.12 Val loss: 0.70 Train acc: 95.85 Val acc: 82.22
+Epoch: 40 Train loss: 0.14 Val loss: 0.72 Train acc: 95.26 Val acc: 83.33
+Epoch: 41 Train loss: 0.15 Val loss: 0.68 Train acc: 94.99 Val acc: 83.78
+Epoch: 42 Train loss: 0.14 Val loss: 0.69 Train acc: 95.46 Val acc: 82.67
+Epoch: 43 Train loss: 0.14 Val loss: 0.75 Train acc: 94.77 Val acc: 80.00
+Epoch: 44 Train loss: 0.14 Val loss: 0.91 Train acc: 94.94 Val acc: 80.00
+Epoch: 45 Train loss: 0.15 Val loss: 0.61 Train acc: 95.23 Val acc: 84.00
+Epoch: 46 Train loss: 0.14 Val loss: 0.61 Train acc: 95.43 Val acc: 84.00
+Epoch: 47 Train loss: 0.13 Val loss: 0.78 Train acc: 95.65 Val acc: 82.22
+Epoch: 48 Train loss: 0.15 Val loss: 0.53 Train acc: 94.84 Val acc: 85.11
+Epoch: 49 Train loss: 0.13 Val loss: 0.72 Train acc: 95.56 Val acc: 81.33
+Creating distributions for task 2:
+[2;36m[13:45:54][0m[2;36m [0m[34mINFO    [0m ------------------------------------------------------------------------------------------------------------ ]8;id=965491;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=749883;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#179\[2m179[0m]8;;\
+>>> Test on task  0 : loss=0.000 | TAw acc= 67.0%, forg=  0.0%| TAg acc= 52.8%, forg= 14.2% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  1 : loss=0.000 | TAw acc= 74.6%, forg=  0.0%| TAg acc= 51.7%, forg=  9.1% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  2 : loss=0.000 | TAw acc= 84.4%, forg=  0.0%| TAg acc= 65.4%, forg=  0.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+[2;36m[13:46:02][0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=624340;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=969772;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#166\[2m166[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m Task  [1;36m3[0m                                                                                                      ]8;id=184573;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=38862;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#167\[2m167[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=717084;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=859484;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#168\[2m168[0m]8;;\
+Training backbone on task 3:
+The expert has 11,209,929 trainable parameters
+The expert has 0 shared parameters
+
+Epoch: 0 Train loss: 1.22 Val loss: 1.08 Train acc: 57.41 Val acc: 66.89
+Epoch: 1 Train loss: 0.78 Val loss: 0.76 Train acc: 71.56 Val acc: 73.56
+Epoch: 2 Train loss: 0.66 Val loss: 0.69 Train acc: 76.84 Val acc: 76.22
+Epoch: 3 Train loss: 0.62 Val loss: 0.74 Train acc: 78.47 Val acc: 76.22
+Epoch: 4 Train loss: 0.58 Val loss: 0.72 Train acc: 78.86 Val acc: 77.78
+Epoch: 5 Train loss: 0.52 Val loss: 0.72 Train acc: 82.32 Val acc: 76.22
+Epoch: 6 Train loss: 0.46 Val loss: 0.70 Train acc: 83.53 Val acc: 78.22
+Epoch: 7 Train loss: 0.46 Val loss: 0.63 Train acc: 83.28 Val acc: 79.11
+Epoch: 8 Train loss: 0.44 Val loss: 0.71 Train acc: 84.15 Val acc: 78.44
+Epoch: 9 Train loss: 0.40 Val loss: 0.81 Train acc: 85.36 Val acc: 76.67
+Epoch: 10 Train loss: 0.39 Val loss: 0.84 Train acc: 86.74 Val acc: 77.78
+Epoch: 11 Train loss: 0.36 Val loss: 0.80 Train acc: 87.46 Val acc: 76.44
+Epoch: 12 Train loss: 0.36 Val loss: 0.79 Train acc: 88.02 Val acc: 78.89
+Epoch: 13 Train loss: 0.34 Val loss: 0.69 Train acc: 87.98 Val acc: 79.11
+Epoch: 14 Train loss: 0.33 Val loss: 0.72 Train acc: 88.27 Val acc: 78.89
+Epoch: 15 Train loss: 0.34 Val loss: 0.75 Train acc: 87.80 Val acc: 78.22
+Epoch: 16 Train loss: 0.30 Val loss: 0.67 Train acc: 89.60 Val acc: 79.33
+Epoch: 17 Train loss: 0.32 Val loss: 0.64 Train acc: 88.40 Val acc: 79.56
+Epoch: 18 Train loss: 0.27 Val loss: 0.68 Train acc: 90.25 Val acc: 79.56
+Epoch: 19 Train loss: 0.29 Val loss: 0.72 Train acc: 89.31 Val acc: 77.78
+Epoch: 20 Train loss: 0.28 Val loss: 0.72 Train acc: 90.27 Val acc: 80.00
+Epoch: 21 Train loss: 0.26 Val loss: 0.69 Train acc: 90.37 Val acc: 79.56
+Epoch: 22 Train loss: 0.27 Val loss: 0.71 Train acc: 90.17 Val acc: 79.78
+Epoch: 23 Train loss: 0.27 Val loss: 0.62 Train acc: 90.12 Val acc: 81.78
+Epoch: 24 Train loss: 0.22 Val loss: 0.72 Train acc: 92.64 Val acc: 81.78
+Epoch: 25 Train loss: 0.23 Val loss: 0.67 Train acc: 91.88 Val acc: 80.89
+Epoch: 26 Train loss: 0.21 Val loss: 0.67 Train acc: 92.62 Val acc: 82.89
+Epoch: 27 Train loss: 0.21 Val loss: 0.69 Train acc: 92.64 Val acc: 79.56
+Epoch: 28 Train loss: 0.21 Val loss: 0.83 Train acc: 92.62 Val acc: 77.56
+Epoch: 29 Train loss: 0.24 Val loss: 0.62 Train acc: 91.73 Val acc: 81.56
+Epoch: 30 Train loss: 0.22 Val loss: 0.86 Train acc: 92.40 Val acc: 77.33
+Epoch: 31 Train loss: 0.20 Val loss: 0.67 Train acc: 93.21 Val acc: 81.78
+Epoch: 32 Train loss: 0.20 Val loss: 0.69 Train acc: 93.11 Val acc: 80.67
+Epoch: 33 Train loss: 0.20 Val loss: 0.74 Train acc: 92.96 Val acc: 80.00
+Epoch: 34 Train loss: 0.18 Val loss: 0.79 Train acc: 93.78 Val acc: 80.44
+Epoch: 35 Train loss: 0.20 Val loss: 0.75 Train acc: 93.31 Val acc: 80.22
+Epoch: 36 Train loss: 0.17 Val loss: 0.82 Train acc: 93.83 Val acc: 79.11
+Epoch: 37 Train loss: 0.18 Val loss: 0.80 Train acc: 93.75 Val acc: 78.44
+Epoch: 38 Train loss: 0.19 Val loss: 0.80 Train acc: 92.99 Val acc: 78.22
+Epoch: 39 Train loss: 0.23 Val loss: 0.78 Train acc: 92.10 Val acc: 79.78
+Epoch: 40 Train loss: 0.17 Val loss: 0.81 Train acc: 94.15 Val acc: 80.00
+Epoch: 41 Train loss: 0.18 Val loss: 0.79 Train acc: 93.60 Val acc: 80.67
+Epoch: 42 Train loss: 0.15 Val loss: 0.71 Train acc: 94.25 Val acc: 81.56
+Epoch: 43 Train loss: 0.16 Val loss: 0.97 Train acc: 94.79 Val acc: 79.11
+Epoch: 44 Train loss: 0.18 Val loss: 0.73 Train acc: 93.63 Val acc: 79.78
+Epoch: 45 Train loss: 0.16 Val loss: 0.85 Train acc: 93.83 Val acc: 78.67
+Epoch: 46 Train loss: 0.15 Val loss: 0.84 Train acc: 94.62 Val acc: 81.33
+Epoch: 47 Train loss: 0.18 Val loss: 0.86 Train acc: 93.73 Val acc: 78.67
+Epoch: 48 Train loss: 0.17 Val loss: 0.79 Train acc: 94.30 Val acc: 79.33
+Epoch: 49 Train loss: 0.15 Val loss: 0.70 Train acc: 94.96 Val acc: 80.22
+Creating distributions for task 3:
+[2;36m[13:48:01][0m[2;36m [0m[34mINFO    [0m ------------------------------------------------------------------------------------------------------------ ]8;id=662715;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=90197;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#179\[2m179[0m]8;;\
+>>> Test on task  0 : loss=0.000 | TAw acc= 67.0%, forg=  0.0%| TAg acc= 50.5%, forg= 16.5% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  1 : loss=0.000 | TAw acc= 74.6%, forg=  0.0%| TAg acc= 47.4%, forg= 13.3% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  2 : loss=0.000 | TAw acc= 84.4%, forg=  0.0%| TAg acc= 57.0%, forg=  8.4% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  3 : loss=0.000 | TAw acc= 79.4%, forg=  0.0%| TAg acc= 57.6%, forg=  0.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+[2;36m[13:48:12][0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=399571;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=345713;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#166\[2m166[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m Task  [1;36m4[0m                                                                                                      ]8;id=943687;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=825455;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#167\[2m167[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=270088;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=571967;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#168\[2m168[0m]8;;\
+Training backbone on task 4:
+The expert has 11,209,929 trainable parameters
+The expert has 0 shared parameters
+
+Epoch: 0 Train loss: 1.16 Val loss: 1.06 Train acc: 60.25 Val acc: 64.67
+Epoch: 1 Train loss: 0.75 Val loss: 0.81 Train acc: 74.54 Val acc: 72.22
+Epoch: 2 Train loss: 0.65 Val loss: 0.85 Train acc: 77.31 Val acc: 72.67
+Epoch: 3 Train loss: 0.59 Val loss: 0.74 Train acc: 79.65 Val acc: 76.67
+Epoch: 4 Train loss: 0.56 Val loss: 0.63 Train acc: 80.25 Val acc: 78.00
+Epoch: 5 Train loss: 0.52 Val loss: 0.87 Train acc: 81.73 Val acc: 71.78
+Epoch: 6 Train loss: 0.46 Val loss: 0.72 Train acc: 84.02 Val acc: 78.44
+Epoch: 7 Train loss: 0.41 Val loss: 0.68 Train acc: 85.58 Val acc: 78.89
+Epoch: 8 Train loss: 0.40 Val loss: 0.74 Train acc: 85.90 Val acc: 78.22
+Epoch: 9 Train loss: 0.38 Val loss: 0.67 Train acc: 86.57 Val acc: 78.00
+Epoch: 10 Train loss: 0.34 Val loss: 0.80 Train acc: 88.05 Val acc: 77.56
+Epoch: 11 Train loss: 0.36 Val loss: 0.90 Train acc: 87.41 Val acc: 73.33
+Epoch: 12 Train loss: 0.33 Val loss: 0.69 Train acc: 88.25 Val acc: 78.44
+Epoch: 13 Train loss: 0.33 Val loss: 0.76 Train acc: 88.32 Val acc: 79.78
+Epoch: 14 Train loss: 0.31 Val loss: 0.75 Train acc: 89.43 Val acc: 80.67
+Epoch: 15 Train loss: 0.32 Val loss: 0.76 Train acc: 88.37 Val acc: 78.44
+Epoch: 16 Train loss: 0.28 Val loss: 0.73 Train acc: 90.27 Val acc: 80.22
+Epoch: 17 Train loss: 0.29 Val loss: 0.82 Train acc: 90.15 Val acc: 78.22
+Epoch: 18 Train loss: 0.28 Val loss: 0.77 Train acc: 90.84 Val acc: 79.56
+Epoch: 19 Train loss: 0.28 Val loss: 0.79 Train acc: 90.02 Val acc: 79.78
+Epoch: 20 Train loss: 0.23 Val loss: 0.90 Train acc: 92.20 Val acc: 77.56
+Epoch: 21 Train loss: 0.25 Val loss: 0.75 Train acc: 91.26 Val acc: 79.56
+Epoch: 22 Train loss: 0.23 Val loss: 0.79 Train acc: 92.32 Val acc: 79.56
+Epoch: 23 Train loss: 0.22 Val loss: 0.91 Train acc: 91.93 Val acc: 78.67
+Epoch: 24 Train loss: 0.23 Val loss: 0.79 Train acc: 92.15 Val acc: 78.89
+Epoch: 25 Train loss: 0.21 Val loss: 0.81 Train acc: 91.73 Val acc: 77.78
+Epoch: 26 Train loss: 0.23 Val loss: 0.80 Train acc: 91.68 Val acc: 78.22
+Epoch: 27 Train loss: 0.23 Val loss: 0.80 Train acc: 92.00 Val acc: 77.78
+Epoch: 28 Train loss: 0.23 Val loss: 0.73 Train acc: 91.75 Val acc: 77.78
+Epoch: 29 Train loss: 0.22 Val loss: 0.84 Train acc: 92.52 Val acc: 76.00
+Epoch: 30 Train loss: 0.21 Val loss: 0.78 Train acc: 93.04 Val acc: 78.44
+Epoch: 31 Train loss: 0.18 Val loss: 0.96 Train acc: 93.78 Val acc: 76.44
+Epoch: 32 Train loss: 0.19 Val loss: 0.87 Train acc: 93.93 Val acc: 75.33
+Epoch: 33 Train loss: 0.18 Val loss: 0.95 Train acc: 93.85 Val acc: 76.67
+Epoch: 34 Train loss: 0.18 Val loss: 0.92 Train acc: 93.48 Val acc: 77.33
+Epoch: 35 Train loss: 0.19 Val loss: 0.91 Train acc: 93.26 Val acc: 78.22
+Epoch: 36 Train loss: 0.19 Val loss: 0.84 Train acc: 93.16 Val acc: 77.33
+Epoch: 37 Train loss: 0.17 Val loss: 0.73 Train acc: 94.89 Val acc: 80.00
+Epoch: 38 Train loss: 0.19 Val loss: 0.83 Train acc: 93.58 Val acc: 78.44
+Epoch: 39 Train loss: 0.17 Val loss: 0.75 Train acc: 94.40 Val acc: 80.22
+Epoch: 40 Train loss: 0.17 Val loss: 0.91 Train acc: 93.95 Val acc: 75.56
+Epoch: 41 Train loss: 0.17 Val loss: 0.88 Train acc: 93.83 Val acc: 77.78
+Epoch: 42 Train loss: 0.17 Val loss: 0.80 Train acc: 94.32 Val acc: 80.44
+Epoch: 43 Train loss: 0.18 Val loss: 0.81 Train acc: 93.65 Val acc: 81.33
+Epoch: 44 Train loss: 0.17 Val loss: 0.83 Train acc: 94.17 Val acc: 77.78
+Epoch: 45 Train loss: 0.16 Val loss: 0.91 Train acc: 94.62 Val acc: 78.89
+Epoch: 46 Train loss: 0.16 Val loss: 0.94 Train acc: 94.42 Val acc: 77.56
+Epoch: 47 Train loss: 0.16 Val loss: 0.87 Train acc: 94.84 Val acc: 77.78
+Epoch: 48 Train loss: 0.14 Val loss: 0.86 Train acc: 95.09 Val acc: 80.00
+Epoch: 49 Train loss: 0.13 Val loss: 0.86 Train acc: 95.38 Val acc: 79.78
+Creating distributions for task 4:
+[2;36m[13:50:19][0m[2;36m [0m[34mINFO    [0m ------------------------------------------------------------------------------------------------------------ ]8;id=370995;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=987079;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#179\[2m179[0m]8;;\
+>>> Test on task  0 : loss=0.000 | TAw acc= 67.0%, forg=  0.0%| TAg acc= 48.4%, forg= 18.6% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  1 : loss=0.000 | TAw acc= 74.6%, forg=  0.0%| TAg acc= 41.0%, forg= 19.8% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  2 : loss=0.000 | TAw acc= 84.4%, forg=  0.0%| TAg acc= 52.4%, forg= 13.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  3 : loss=0.000 | TAw acc= 79.4%, forg=  0.0%| TAg acc= 52.0%, forg=  5.6% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  4 : loss=0.000 | TAw acc= 80.2%, forg=  0.0%| TAg acc= 55.6%, forg=  0.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+[2;36m[13:50:35][0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=137286;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=774430;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#166\[2m166[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m Task  [1;36m5[0m                                                                                                      ]8;id=783518;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=157747;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#167\[2m167[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=101170;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=124481;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#168\[2m168[0m]8;;\
+Expert overlap: tensor([27.7352, 35.4599, 35.6789, 45.4975, 29.5801], device='cuda:0')
+Finetuning backbone 3 on task 5:
+The expert has 11,209,929 trainable parameters
+The expert has 0 shared parameters
+
+Epoch: 0 Train loss: 0.09 Val loss: 0.10 Train acc: 8.07 Val acc: 12.67
+Epoch: 1 Train loss: 0.10 Val loss: 0.08 Train acc: 11.36 Val acc: 16.22
+Epoch: 2 Train loss: 0.07 Val loss: 0.07 Train acc: 18.10 Val acc: 23.78
+Epoch: 3 Train loss: 0.07 Val loss: 0.12 Train acc: 25.58 Val acc: 27.78
+Epoch: 4 Train loss: 0.09 Val loss: 0.10 Train acc: 28.02 Val acc: 30.00
+Epoch: 5 Train loss: 0.08 Val loss: 0.11 Train acc: 29.98 Val acc: 31.78
+Epoch: 6 Train loss: 0.08 Val loss: 0.07 Train acc: 32.96 Val acc: 32.67
+Epoch: 7 Train loss: 0.07 Val loss: 0.10 Train acc: 34.05 Val acc: 34.00
+Epoch: 8 Train loss: 0.09 Val loss: 0.09 Train acc: 35.36 Val acc: 35.56
+Epoch: 9 Train loss: 0.08 Val loss: 0.08 Train acc: 38.12 Val acc: 39.11
+Epoch: 10 Train loss: 0.08 Val loss: 0.09 Train acc: 39.56 Val acc: 40.00
+Epoch: 11 Train loss: 0.08 Val loss: 0.07 Train acc: 41.11 Val acc: 38.89
+Epoch: 12 Train loss: 0.07 Val loss: 0.08 Train acc: 41.63 Val acc: 40.67
+Epoch: 13 Train loss: 0.07 Val loss: 0.07 Train acc: 41.88 Val acc: 40.44
+Epoch: 14 Train loss: 0.07 Val loss: 0.10 Train acc: 42.30 Val acc: 41.78
+Epoch: 15 Train loss: 0.07 Val loss: 0.10 Train acc: 43.26 Val acc: 40.67
+Epoch: 16 Train loss: 0.07 Val loss: 0.07 Train acc: 43.41 Val acc: 40.22
+Epoch: 17 Train loss: 0.07 Val loss: 0.07 Train acc: 43.41 Val acc: 40.67
+Epoch: 18 Train loss: 0.07 Val loss: 0.07 Train acc: 43.56 Val acc: 40.22
+Epoch: 19 Train loss: 0.07 Val loss: 0.07 Train acc: 43.88 Val acc: 42.67
+Epoch: 20 Train loss: 0.06 Val loss: 0.07 Train acc: 43.70 Val acc: 40.00
+Epoch: 21 Train loss: 0.08 Val loss: 0.08 Train acc: 44.15 Val acc: 42.22
+Epoch: 22 Train loss: 0.08 Val loss: 0.09 Train acc: 45.11 Val acc: 41.33
+Epoch: 23 Train loss: 0.07 Val loss: 0.10 Train acc: 45.51 Val acc: 40.00
+Epoch: 24 Train loss: 0.08 Val loss: 0.08 Train acc: 44.89 Val acc: 42.22
+Epoch: 25 Train loss: 0.07 Val loss: 0.06 Train acc: 44.77 Val acc: 42.22
+Epoch: 26 Train loss: 0.07 Val loss: 0.09 Train acc: 45.31 Val acc: 42.00
+Epoch: 27 Train loss: 0.07 Val loss: 0.07 Train acc: 44.15 Val acc: 43.56
+Epoch: 28 Train loss: 0.07 Val loss: 0.11 Train acc: 44.81 Val acc: 39.78
+Epoch: 29 Train loss: 0.07 Val loss: 0.10 Train acc: 45.38 Val acc: 40.89
+Epoch: 30 Train loss: 0.05 Val loss: 0.04 Train acc: 46.20 Val acc: 42.67
+Epoch: 31 Train loss: 0.03 Val loss: 0.04 Train acc: 46.64 Val acc: 42.67
+Epoch: 32 Train loss: 0.03 Val loss: 0.04 Train acc: 46.32 Val acc: 41.78
+Epoch: 33 Train loss: 0.03 Val loss: 0.03 Train acc: 46.44 Val acc: 42.22
+Epoch: 34 Train loss: 0.03 Val loss: 0.03 Train acc: 46.44 Val acc: 42.44
+Epoch: 35 Train loss: 0.03 Val loss: 0.03 Train acc: 45.46 Val acc: 43.33
+Epoch: 36 Train loss: 0.03 Val loss: 0.03 Train acc: 46.10 Val acc: 43.33
+Epoch: 37 Train loss: 0.03 Val loss: 0.03 Train acc: 46.07 Val acc: 42.22
+Epoch: 38 Train loss: 0.03 Val loss: 0.03 Train acc: 46.02 Val acc: 42.89
+Epoch: 39 Train loss: 0.03 Val loss: 0.03 Train acc: 46.72 Val acc: 42.44
+Epoch: 40 Train loss: 0.03 Val loss: 0.03 Train acc: 46.42 Val acc: 42.44
+Epoch: 41 Train loss: 0.03 Val loss: 0.03 Train acc: 46.69 Val acc: 42.67
+Epoch: 42 Train loss: 0.02 Val loss: 0.03 Train acc: 46.54 Val acc: 42.67
+Epoch: 43 Train loss: 0.02 Val loss: 0.03 Train acc: 45.63 Val acc: 42.22
+Epoch: 44 Train loss: 0.02 Val loss: 0.03 Train acc: 46.72 Val acc: 43.11
+Epoch: 45 Train loss: 0.02 Val loss: 0.03 Train acc: 46.44 Val acc: 42.89
+Epoch: 46 Train loss: 0.02 Val loss: 0.03 Train acc: 45.95 Val acc: 42.44
+Epoch: 47 Train loss: 0.02 Val loss: 0.03 Train acc: 46.86 Val acc: 42.22
+Epoch: 48 Train loss: 0.02 Val loss: 0.03 Train acc: 46.22 Val acc: 42.44
+Epoch: 49 Train loss: 0.02 Val loss: 0.03 Train acc: 46.05 Val acc: 42.44
+Creating distributions for task 5:
+[2;36m[13:53:24][0m[2;36m [0m[34mINFO    [0m ------------------------------------------------------------------------------------------------------------ ]8;id=429784;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=152579;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#179\[2m179[0m]8;;\
+>>> Test on task  0 : loss=0.000 | TAw acc= 67.0%, forg=  0.0%| TAg acc= 48.3%, forg= 18.8% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  1 : loss=0.000 | TAw acc= 74.6%, forg=  0.0%| TAg acc= 38.7%, forg= 22.1% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  2 : loss=0.000 | TAw acc= 84.4%, forg=  0.0%| TAg acc= 50.8%, forg= 14.7% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  3 : loss=0.000 | TAw acc= 79.1%, forg=  0.3%| TAg acc= 49.3%, forg=  8.2% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  4 : loss=0.000 | TAw acc= 79.9%, forg=  0.3%| TAg acc= 51.8%, forg=  3.8% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  5 : loss=0.000 | TAw acc= 67.3%, forg=  0.0%| TAg acc= 36.4%, forg=  0.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+[2;36m[13:53:43][0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=334607;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=807998;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#166\[2m166[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m Task  [1;36m6[0m                                                                                                      ]8;id=270111;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=122907;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#167\[2m167[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=711274;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=75905;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#168\[2m168[0m]8;;\
+Expert overlap: tensor([41.0693, 47.8155, 43.8651, 41.3957, 51.6184], device='cuda:0')
+Finetuning backbone 4 on task 6:
+The expert has 11,209,929 trainable parameters
+The expert has 0 shared parameters
+
+Epoch: 0 Train loss: 0.06 Val loss: 0.10 Train acc: 9.09 Val acc: 10.67
+Epoch: 1 Train loss: 0.07 Val loss: 0.11 Train acc: 14.91 Val acc: 17.33
+Epoch: 2 Train loss: 0.08 Val loss: 0.09 Train acc: 21.65 Val acc: 26.89
+Epoch: 3 Train loss: 0.07 Val loss: 0.06 Train acc: 30.72 Val acc: 32.44
+Epoch: 4 Train loss: 0.07 Val loss: 0.09 Train acc: 35.68 Val acc: 40.22
+Epoch: 5 Train loss: 0.08 Val loss: 0.08 Train acc: 41.36 Val acc: 44.00
+Epoch: 6 Train loss: 0.07 Val loss: 0.11 Train acc: 44.94 Val acc: 44.44
+Epoch: 7 Train loss: 0.07 Val loss: 0.06 Train acc: 44.00 Val acc: 47.33
+Epoch: 8 Train loss: 0.07 Val loss: 0.07 Train acc: 46.81 Val acc: 48.00
+Epoch: 9 Train loss: 0.08 Val loss: 0.07 Train acc: 45.98 Val acc: 46.67
+Epoch: 10 Train loss: 0.07 Val loss: 0.07 Train acc: 47.16 Val acc: 46.89
+Epoch: 11 Train loss: 0.07 Val loss: 0.08 Train acc: 46.99 Val acc: 47.33
+Epoch: 12 Train loss: 0.07 Val loss: 0.07 Train acc: 47.88 Val acc: 47.56
+Epoch: 13 Train loss: 0.07 Val loss: 0.06 Train acc: 47.95 Val acc: 49.33
+Epoch: 14 Train loss: 0.05 Val loss: 0.07 Train acc: 47.90 Val acc: 52.67
+Epoch: 15 Train loss: 0.07 Val loss: 0.07 Train acc: 49.26 Val acc: 49.33
+Epoch: 16 Train loss: 0.06 Val loss: 0.07 Train acc: 48.72 Val acc: 50.44
+Epoch: 17 Train loss: 0.07 Val loss: 0.08 Train acc: 49.23 Val acc: 51.78
+Epoch: 18 Train loss: 0.07 Val loss: 0.09 Train acc: 49.53 Val acc: 51.11
+Epoch: 19 Train loss: 0.06 Val loss: 0.06 Train acc: 49.56 Val acc: 50.44
+Epoch: 20 Train loss: 0.06 Val loss: 0.05 Train acc: 49.26 Val acc: 49.56
+Epoch: 21 Train loss: 0.06 Val loss: 0.08 Train acc: 48.52 Val acc: 51.11
+Epoch: 22 Train loss: 0.07 Val loss: 0.08 Train acc: 49.68 Val acc: 51.78
+Epoch: 23 Train loss: 0.07 Val loss: 0.08 Train acc: 50.59 Val acc: 49.56
+Epoch: 24 Train loss: 0.07 Val loss: 0.07 Train acc: 51.01 Val acc: 52.22
+Epoch: 25 Train loss: 0.07 Val loss: 0.07 Train acc: 50.22 Val acc: 51.78
+Epoch: 26 Train loss: 0.06 Val loss: 0.08 Train acc: 50.62 Val acc: 50.00
+Epoch: 27 Train loss: 0.07 Val loss: 0.07 Train acc: 50.30 Val acc: 52.44
+Epoch: 28 Train loss: 0.06 Val loss: 0.10 Train acc: 50.59 Val acc: 50.00
+Epoch: 29 Train loss: 0.06 Val loss: 0.08 Train acc: 51.43 Val acc: 51.11
+Epoch: 30 Train loss: 0.04 Val loss: 0.04 Train acc: 50.44 Val acc: 51.78
+Epoch: 31 Train loss: 0.03 Val loss: 0.04 Train acc: 52.44 Val acc: 52.44
+Epoch: 32 Train loss: 0.03 Val loss: 0.03 Train acc: 50.84 Val acc: 51.78
+Epoch: 33 Train loss: 0.03 Val loss: 0.03 Train acc: 50.91 Val acc: 51.78
+Epoch: 34 Train loss: 0.03 Val loss: 0.03 Train acc: 50.96 Val acc: 52.22
+Epoch: 35 Train loss: 0.03 Val loss: 0.03 Train acc: 50.91 Val acc: 52.22
+Epoch: 36 Train loss: 0.03 Val loss: 0.03 Train acc: 51.41 Val acc: 52.00
+Epoch: 37 Train loss: 0.03 Val loss: 0.03 Train acc: 51.48 Val acc: 52.44
+Epoch: 38 Train loss: 0.02 Val loss: 0.03 Train acc: 51.38 Val acc: 52.22
+Epoch: 39 Train loss: 0.02 Val loss: 0.03 Train acc: 51.60 Val acc: 52.22
+Epoch: 40 Train loss: 0.02 Val loss: 0.03 Train acc: 51.23 Val acc: 52.00
+Epoch: 41 Train loss: 0.02 Val loss: 0.03 Train acc: 51.06 Val acc: 52.22
+Epoch: 42 Train loss: 0.02 Val loss: 0.03 Train acc: 50.37 Val acc: 52.00
+Epoch: 43 Train loss: 0.02 Val loss: 0.03 Train acc: 51.23 Val acc: 52.22
+Epoch: 44 Train loss: 0.02 Val loss: 0.03 Train acc: 51.06 Val acc: 51.56
+Epoch: 45 Train loss: 0.02 Val loss: 0.03 Train acc: 50.79 Val acc: 52.00
+Epoch: 46 Train loss: 0.02 Val loss: 0.03 Train acc: 51.60 Val acc: 51.78
+Epoch: 47 Train loss: 0.02 Val loss: 0.03 Train acc: 51.38 Val acc: 52.22
+Epoch: 48 Train loss: 0.02 Val loss: 0.03 Train acc: 50.59 Val acc: 51.56
+Epoch: 49 Train loss: 0.02 Val loss: 0.03 Train acc: 51.26 Val acc: 51.56
+Creating distributions for task 6:
+[2;36m[13:56:30][0m[2;36m [0m[34mINFO    [0m ------------------------------------------------------------------------------------------------------------ ]8;id=872995;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=49993;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#179\[2m179[0m]8;;\
+>>> Test on task  0 : loss=0.000 | TAw acc= 67.0%, forg=  0.0%| TAg acc= 46.2%, forg= 20.9% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  1 : loss=0.000 | TAw acc= 74.6%, forg=  0.0%| TAg acc= 37.2%, forg= 23.6% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  2 : loss=0.000 | TAw acc= 84.4%, forg=  0.0%| TAg acc= 51.2%, forg= 14.2% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  3 : loss=0.000 | TAw acc= 79.1%, forg=  0.3%| TAg acc= 49.0%, forg=  8.6% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  4 : loss=0.000 | TAw acc= 79.3%, forg=  0.9%| TAg acc= 47.1%, forg=  8.4% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  5 : loss=0.000 | TAw acc= 67.2%, forg=  0.1%| TAg acc= 31.3%, forg=  5.1% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  6 : loss=0.000 | TAw acc= 77.0%, forg=  0.0%| TAg acc= 42.6%, forg=  0.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+[2;36m[13:56:55][0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=353112;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=862314;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#166\[2m166[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m Task  [1;36m7[0m                                                                                                      ]8;id=853214;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=388997;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#167\[2m167[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=39418;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=967873;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#168\[2m168[0m]8;;\
+Expert overlap: tensor([22.9605, 27.5737, 29.0371, 26.2107, 34.7027], device='cuda:0')
+Finetuning backbone 4 on task 7:
+The expert has 11,209,929 trainable parameters
+The expert has 0 shared parameters
+
+Epoch: 0 Train loss: 0.03 Val loss: 0.07 Train acc: 15.31 Val acc: 19.78
+Epoch: 1 Train loss: 0.06 Val loss: 0.05 Train acc: 21.65 Val acc: 25.33
+Epoch: 2 Train loss: 0.05 Val loss: 0.05 Train acc: 28.22 Val acc: 28.89
+Epoch: 3 Train loss: 0.06 Val loss: 0.07 Train acc: 33.14 Val acc: 34.67
+Epoch: 4 Train loss: 0.05 Val loss: 0.06 Train acc: 36.59 Val acc: 41.56
+Epoch: 5 Train loss: 0.06 Val loss: 0.06 Train acc: 38.81 Val acc: 41.33
+Epoch: 6 Train loss: 0.05 Val loss: 0.05 Train acc: 41.95 Val acc: 44.67
+Epoch: 7 Train loss: 0.04 Val loss: 0.03 Train acc: 42.35 Val acc: 45.11
+Epoch: 8 Train loss: 0.04 Val loss: 0.04 Train acc: 43.31 Val acc: 44.67
+Epoch: 9 Train loss: 0.03 Val loss: 0.03 Train acc: 44.27 Val acc: 46.89
+Epoch: 10 Train loss: 0.03 Val loss: 0.03 Train acc: 45.41 Val acc: 46.67
+Epoch: 11 Train loss: 0.03 Val loss: 0.04 Train acc: 45.04 Val acc: 47.56
+Epoch: 12 Train loss: 0.05 Val loss: 0.05 Train acc: 45.65 Val acc: 47.33
+Epoch: 13 Train loss: 0.05 Val loss: 0.05 Train acc: 44.81 Val acc: 48.44
+Epoch: 14 Train loss: 0.04 Val loss: 0.05 Train acc: 45.21 Val acc: 47.11
+Epoch: 15 Train loss: 0.04 Val loss: 0.03 Train acc: 46.44 Val acc: 48.00
+Epoch: 16 Train loss: 0.04 Val loss: 0.03 Train acc: 46.42 Val acc: 49.78
+Epoch: 17 Train loss: 0.03 Val loss: 0.03 Train acc: 46.69 Val acc: 48.44
+Epoch: 18 Train loss: 0.05 Val loss: 0.05 Train acc: 46.69 Val acc: 51.78
+Epoch: 19 Train loss: 0.05 Val loss: 0.06 Train acc: 45.78 Val acc: 48.44
+Epoch: 20 Train loss: 0.04 Val loss: 0.04 Train acc: 47.73 Val acc: 52.67
+Epoch: 21 Train loss: 0.03 Val loss: 0.04 Train acc: 46.79 Val acc: 49.33
+Epoch: 22 Train loss: 0.03 Val loss: 0.04 Train acc: 47.23 Val acc: 50.67
+Epoch: 23 Train loss: 0.03 Val loss: 0.03 Train acc: 46.00 Val acc: 50.22
+Epoch: 24 Train loss: 0.03 Val loss: 0.03 Train acc: 47.38 Val acc: 50.44
+Epoch: 25 Train loss: 0.03 Val loss: 0.03 Train acc: 46.59 Val acc: 48.22
+Epoch: 26 Train loss: 0.03 Val loss: 0.03 Train acc: 47.90 Val acc: 49.78
+Epoch: 27 Train loss: 0.03 Val loss: 0.03 Train acc: 47.90 Val acc: 48.89
+Epoch: 28 Train loss: 0.03 Val loss: 0.03 Train acc: 47.53 Val acc: 48.00
+Epoch: 29 Train loss: 0.03 Val loss: 0.04 Train acc: 47.16 Val acc: 50.00
+Epoch: 30 Train loss: 0.02 Val loss: 0.02 Train acc: 47.65 Val acc: 50.44
+Epoch: 31 Train loss: 0.02 Val loss: 0.02 Train acc: 47.56 Val acc: 49.78
+Epoch: 32 Train loss: 0.02 Val loss: 0.02 Train acc: 48.20 Val acc: 50.22
+Epoch: 33 Train loss: 0.02 Val loss: 0.02 Train acc: 47.46 Val acc: 50.22
+Epoch: 34 Train loss: 0.02 Val loss: 0.02 Train acc: 46.74 Val acc: 50.22
+Epoch: 35 Train loss: 0.02 Val loss: 0.02 Train acc: 47.26 Val acc: 50.22
+Epoch: 36 Train loss: 0.02 Val loss: 0.02 Train acc: 48.10 Val acc: 50.00
+Epoch: 37 Train loss: 0.02 Val loss: 0.02 Train acc: 48.47 Val acc: 50.22
+Epoch: 38 Train loss: 0.02 Val loss: 0.02 Train acc: 48.07 Val acc: 50.22
+Epoch: 39 Train loss: 0.02 Val loss: 0.02 Train acc: 47.63 Val acc: 50.00
+Epoch: 40 Train loss: 0.02 Val loss: 0.02 Train acc: 47.48 Val acc: 49.78
+Epoch: 41 Train loss: 0.02 Val loss: 0.02 Train acc: 48.54 Val acc: 49.78
+Epoch: 42 Train loss: 0.02 Val loss: 0.02 Train acc: 47.98 Val acc: 49.78
+Epoch: 43 Train loss: 0.02 Val loss: 0.02 Train acc: 48.59 Val acc: 49.78
+Epoch: 44 Train loss: 0.02 Val loss: 0.02 Train acc: 47.41 Val acc: 49.33
+Epoch: 45 Train loss: 0.02 Val loss: 0.02 Train acc: 49.26 Val acc: 49.78
+Epoch: 46 Train loss: 0.02 Val loss: 0.02 Train acc: 48.44 Val acc: 49.78
+Epoch: 47 Train loss: 0.02 Val loss: 0.02 Train acc: 47.73 Val acc: 49.33
+Epoch: 48 Train loss: 0.02 Val loss: 0.02 Train acc: 48.72 Val acc: 49.33
+Epoch: 49 Train loss: 0.02 Val loss: 0.02 Train acc: 48.02 Val acc: 50.00
+Creating distributions for task 7:
+[2;36m[13:59:42][0m[2;36m [0m[34mINFO    [0m ------------------------------------------------------------------------------------------------------------ ]8;id=808265;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=465540;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#179\[2m179[0m]8;;\
+>>> Test on task  0 : loss=0.000 | TAw acc= 67.0%, forg=  0.0%| TAg acc= 45.7%, forg= 21.3% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  1 : loss=0.000 | TAw acc= 74.6%, forg=  0.0%| TAg acc= 38.4%, forg= 22.3% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  2 : loss=0.000 | TAw acc= 84.4%, forg=  0.0%| TAg acc= 51.0%, forg= 14.4% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  3 : loss=0.000 | TAw acc= 79.1%, forg=  0.3%| TAg acc= 48.4%, forg=  9.1% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  4 : loss=0.000 | TAw acc= 79.7%, forg=  0.6%| TAg acc= 45.3%, forg= 10.2% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  5 : loss=0.000 | TAw acc= 67.3%, forg=  0.0%| TAg acc= 27.1%, forg=  9.3% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  6 : loss=0.000 | TAw acc= 76.9%, forg=  0.1%| TAg acc= 40.0%, forg=  2.6% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  7 : loss=0.000 | TAw acc= 65.3%, forg=  0.0%| TAg acc= 31.2%, forg=  0.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+[2;36m[14:00:12][0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=237026;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=685101;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#166\[2m166[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m Task  [1;36m8[0m                                                                                                      ]8;id=721296;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=755735;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#167\[2m167[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=746110;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=707051;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#168\[2m168[0m]8;;\
+Expert overlap: tensor([38.6348, 34.1313, 43.1199, 34.7009, 47.2840], device='cuda:0')
+Finetuning backbone 4 on task 8:
+The expert has 11,209,929 trainable parameters
+The expert has 0 shared parameters
+
+Epoch: 0 Train loss: 0.02 Val loss: 0.02 Train acc: 10.57 Val acc: 16.67
+Epoch: 1 Train loss: 0.02 Val loss: 0.02 Train acc: 22.96 Val acc: 27.33
+Epoch: 2 Train loss: 0.02 Val loss: 0.02 Train acc: 31.36 Val acc: 34.67
+Epoch: 3 Train loss: 0.02 Val loss: 0.02 Train acc: 40.12 Val acc: 38.67
+Epoch: 4 Train loss: 0.02 Val loss: 0.02 Train acc: 42.20 Val acc: 41.11
+Epoch: 5 Train loss: 0.02 Val loss: 0.02 Train acc: 44.02 Val acc: 45.78
+Epoch: 6 Train loss: 0.02 Val loss: 0.02 Train acc: 45.41 Val acc: 48.00
+Epoch: 7 Train loss: 0.02 Val loss: 0.01 Train acc: 45.85 Val acc: 48.44
+Epoch: 8 Train loss: 0.02 Val loss: 0.01 Train acc: 46.47 Val acc: 49.78
+Epoch: 9 Train loss: 0.02 Val loss: 0.01 Train acc: 47.33 Val acc: 50.44
+Epoch: 10 Train loss: 0.01 Val loss: 0.01 Train acc: 48.05 Val acc: 51.11
+Epoch: 11 Train loss: 0.01 Val loss: 0.01 Train acc: 48.47 Val acc: 51.11
+Epoch: 12 Train loss: 0.02 Val loss: 0.01 Train acc: 48.10 Val acc: 50.89
+Epoch: 13 Train loss: 0.01 Val loss: 0.01 Train acc: 48.59 Val acc: 51.56
+Epoch: 14 Train loss: 0.01 Val loss: 0.01 Train acc: 48.86 Val acc: 51.78
+Epoch: 15 Train loss: 0.02 Val loss: 0.01 Train acc: 49.98 Val acc: 52.22
+Epoch: 16 Train loss: 0.02 Val loss: 0.01 Train acc: 49.33 Val acc: 52.22
+Epoch: 17 Train loss: 0.01 Val loss: 0.01 Train acc: 48.79 Val acc: 52.22
+Epoch: 18 Train loss: 0.01 Val loss: 0.02 Train acc: 49.31 Val acc: 52.44
+Epoch: 19 Train loss: 0.02 Val loss: 0.02 Train acc: 48.62 Val acc: 52.22
+Epoch: 20 Train loss: 0.02 Val loss: 0.02 Train acc: 48.81 Val acc: 52.00
+Epoch: 21 Train loss: 0.02 Val loss: 0.02 Train acc: 49.46 Val acc: 52.67
+Epoch: 22 Train loss: 0.02 Val loss: 0.01 Train acc: 50.42 Val acc: 52.67
+Epoch: 23 Train loss: 0.02 Val loss: 0.02 Train acc: 49.31 Val acc: 52.89
+Epoch: 24 Train loss: 0.02 Val loss: 0.02 Train acc: 50.57 Val acc: 53.78
+Epoch: 25 Train loss: 0.02 Val loss: 0.02 Train acc: 50.52 Val acc: 52.44
+Epoch: 26 Train loss: 0.02 Val loss: 0.02 Train acc: 49.95 Val acc: 53.33
+Epoch: 27 Train loss: 0.02 Val loss: 0.02 Train acc: 50.32 Val acc: 54.44
+Epoch: 28 Train loss: 0.02 Val loss: 0.02 Train acc: 49.93 Val acc: 54.22
+Epoch: 29 Train loss: 0.02 Val loss: 0.02 Train acc: 49.65 Val acc: 53.56
+Epoch: 30 Train loss: 0.02 Val loss: 0.01 Train acc: 49.90 Val acc: 54.22
+Epoch: 31 Train loss: 0.01 Val loss: 0.01 Train acc: 50.57 Val acc: 54.00
+Epoch: 32 Train loss: 0.01 Val loss: 0.01 Train acc: 50.69 Val acc: 54.00
+Epoch: 33 Train loss: 0.01 Val loss: 0.01 Train acc: 50.79 Val acc: 54.00
+Epoch: 34 Train loss: 0.01 Val loss: 0.01 Train acc: 50.47 Val acc: 54.00
+Epoch: 35 Train loss: 0.01 Val loss: 0.01 Train acc: 50.40 Val acc: 54.00
+Epoch: 36 Train loss: 0.01 Val loss: 0.01 Train acc: 50.99 Val acc: 54.00
+Epoch: 37 Train loss: 0.01 Val loss: 0.01 Train acc: 50.12 Val acc: 54.00
+Epoch: 38 Train loss: 0.01 Val loss: 0.01 Train acc: 50.62 Val acc: 54.00
+Epoch: 39 Train loss: 0.01 Val loss: 0.01 Train acc: 49.09 Val acc: 54.00
+Epoch: 40 Train loss: 0.01 Val loss: 0.01 Train acc: 49.58 Val acc: 54.00
+Epoch: 41 Train loss: 0.01 Val loss: 0.01 Train acc: 50.37 Val acc: 54.00
+Epoch: 42 Train loss: 0.01 Val loss: 0.01 Train acc: 50.25 Val acc: 54.00
+Epoch: 43 Train loss: 0.01 Val loss: 0.01 Train acc: 49.78 Val acc: 54.00
+Epoch: 44 Train loss: 0.01 Val loss: 0.01 Train acc: 50.49 Val acc: 54.00
+Epoch: 45 Train loss: 0.01 Val loss: 0.01 Train acc: 50.02 Val acc: 54.00
+Epoch: 46 Train loss: 0.01 Val loss: 0.01 Train acc: 50.74 Val acc: 54.00
+Epoch: 47 Train loss: 0.01 Val loss: 0.01 Train acc: 51.04 Val acc: 54.00
+Epoch: 48 Train loss: 0.01 Val loss: 0.01 Train acc: 50.17 Val acc: 54.00
+Epoch: 49 Train loss: 0.01 Val loss: 0.01 Train acc: 50.15 Val acc: 54.22
+Creating distributions for task 8:
+[2;36m[14:03:00][0m[2;36m [0m[34mINFO    [0m ------------------------------------------------------------------------------------------------------------ ]8;id=459407;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=788011;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#179\[2m179[0m]8;;\
+>>> Test on task  0 : loss=0.000 | TAw acc= 67.0%, forg=  0.0%| TAg acc= 45.4%, forg= 21.6% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  1 : loss=0.000 | TAw acc= 74.6%, forg=  0.0%| TAg acc= 38.3%, forg= 22.4% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  2 : loss=0.000 | TAw acc= 84.4%, forg=  0.0%| TAg acc= 50.3%, forg= 15.1% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  3 : loss=0.000 | TAw acc= 79.1%, forg=  0.3%| TAg acc= 48.4%, forg=  9.1% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  4 : loss=0.000 | TAw acc= 79.6%, forg=  0.7%| TAg acc= 42.7%, forg= 12.9% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  5 : loss=0.000 | TAw acc= 67.0%, forg=  0.3%| TAg acc= 26.2%, forg= 10.2% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  6 : loss=0.000 | TAw acc= 76.9%, forg=  0.1%| TAg acc= 39.9%, forg=  2.7% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  7 : loss=0.000 | TAw acc= 65.4%, forg= -0.1%| TAg acc= 27.6%, forg=  3.7% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  8 : loss=0.000 | TAw acc= 72.2%, forg=  0.0%| TAg acc= 32.4%, forg=  0.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+[2;36m[14:03:38][0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=951747;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=268658;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#166\[2m166[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m Task  [1;36m9[0m                                                                                                      ]8;id=718073;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=917077;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#167\[2m167[0m]8;;\
+[2;36m          [0m[2;36m [0m[34mINFO    [0m ************************************************************************************************************ ]8;id=133463;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=974998;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#168\[2m168[0m]8;;\
+Expert overlap: tensor([33.5789, 38.8937, 43.7140, 38.1646, 50.4864], device='cuda:0')
+Finetuning backbone 4 on task 9:
+The expert has 11,209,864 trainable parameters
+The expert has 0 shared parameters
+
+Epoch: 0 Train loss: 0.02 Val loss: 0.02 Train acc: 20.47 Val acc: 37.50
+Epoch: 1 Train loss: 0.02 Val loss: 0.02 Train acc: 41.11 Val acc: 49.75
+Epoch: 2 Train loss: 0.02 Val loss: 0.01 Train acc: 47.75 Val acc: 52.25
+Epoch: 3 Train loss: 0.01 Val loss: 0.01 Train acc: 50.03 Val acc: 54.25
+Epoch: 4 Train loss: 0.01 Val loss: 0.01 Train acc: 50.97 Val acc: 54.00
+Epoch: 5 Train loss: 0.01 Val loss: 0.01 Train acc: 50.94 Val acc: 55.50
+Epoch: 6 Train loss: 0.01 Val loss: 0.01 Train acc: 52.44 Val acc: 55.75
+Epoch: 7 Train loss: 0.01 Val loss: 0.01 Train acc: 52.42 Val acc: 56.25
+Epoch: 8 Train loss: 0.01 Val loss: 0.01 Train acc: 52.53 Val acc: 56.00
+Epoch: 9 Train loss: 0.01 Val loss: 0.01 Train acc: 52.72 Val acc: 56.75
+Epoch: 10 Train loss: 0.01 Val loss: 0.01 Train acc: 53.33 Val acc: 57.25
+Epoch: 11 Train loss: 0.01 Val loss: 0.01 Train acc: 54.08 Val acc: 57.25
+Epoch: 12 Train loss: 0.01 Val loss: 0.01 Train acc: 53.89 Val acc: 57.25
+Epoch: 13 Train loss: 0.01 Val loss: 0.01 Train acc: 54.44 Val acc: 57.75
+Epoch: 14 Train loss: 0.01 Val loss: 0.01 Train acc: 54.97 Val acc: 58.25
+Epoch: 15 Train loss: 0.01 Val loss: 0.01 Train acc: 54.03 Val acc: 58.25
+Epoch: 16 Train loss: 0.01 Val loss: 0.01 Train acc: 54.61 Val acc: 58.50
+Epoch: 17 Train loss: 0.01 Val loss: 0.01 Train acc: 54.28 Val acc: 58.00
+Epoch: 18 Train loss: 0.01 Val loss: 0.01 Train acc: 55.50 Val acc: 58.75
+Epoch: 19 Train loss: 0.01 Val loss: 0.01 Train acc: 54.33 Val acc: 58.25
+Epoch: 20 Train loss: 0.01 Val loss: 0.01 Train acc: 56.31 Val acc: 58.75
+Epoch: 21 Train loss: 0.01 Val loss: 0.01 Train acc: 55.42 Val acc: 58.75
+Epoch: 22 Train loss: 0.01 Val loss: 0.01 Train acc: 55.75 Val acc: 58.75
+Epoch: 23 Train loss: 0.02 Val loss: 0.02 Train acc: 55.08 Val acc: 59.25
+Epoch: 24 Train loss: 0.01 Val loss: 0.01 Train acc: 56.83 Val acc: 58.50
+Epoch: 25 Train loss: 0.01 Val loss: 0.01 Train acc: 55.69 Val acc: 58.25
+Epoch: 26 Train loss: 0.01 Val loss: 0.02 Train acc: 56.08 Val acc: 59.00
+Epoch: 27 Train loss: 0.02 Val loss: 0.02 Train acc: 56.50 Val acc: 57.00
+Epoch: 28 Train loss: 0.02 Val loss: 0.02 Train acc: 55.97 Val acc: 60.25
+Epoch: 29 Train loss: 0.02 Val loss: 0.02 Train acc: 56.08 Val acc: 59.25
+Epoch: 30 Train loss: 0.01 Val loss: 0.01 Train acc: 56.11 Val acc: 58.50
+Epoch: 31 Train loss: 0.01 Val loss: 0.01 Train acc: 57.06 Val acc: 59.50
+Epoch: 32 Train loss: 0.01 Val loss: 0.01 Train acc: 56.75 Val acc: 59.25
+Epoch: 33 Train loss: 0.01 Val loss: 0.01 Train acc: 56.44 Val acc: 59.50
+Epoch: 34 Train loss: 0.01 Val loss: 0.01 Train acc: 56.69 Val acc: 59.25
+Epoch: 35 Train loss: 0.01 Val loss: 0.01 Train acc: 57.44 Val acc: 59.50
+Epoch: 36 Train loss: 0.01 Val loss: 0.01 Train acc: 57.25 Val acc: 59.25
+Epoch: 37 Train loss: 0.01 Val loss: 0.01 Train acc: 56.53 Val acc: 58.50
+Epoch: 38 Train loss: 0.01 Val loss: 0.01 Train acc: 57.03 Val acc: 59.00
+Epoch: 39 Train loss: 0.01 Val loss: 0.01 Train acc: 56.69 Val acc: 59.00
+Epoch: 40 Train loss: 0.01 Val loss: 0.01 Train acc: 57.08 Val acc: 58.75
+Epoch: 41 Train loss: 0.01 Val loss: 0.01 Train acc: 56.69 Val acc: 58.75
+Epoch: 42 Train loss: 0.01 Val loss: 0.01 Train acc: 56.44 Val acc: 59.25
+Epoch: 43 Train loss: 0.01 Val loss: 0.01 Train acc: 56.03 Val acc: 58.50
+Epoch: 44 Train loss: 0.01 Val loss: 0.01 Train acc: 56.53 Val acc: 59.00
+Epoch: 45 Train loss: 0.01 Val loss: 0.01 Train acc: 56.58 Val acc: 59.00
+Epoch: 46 Train loss: 0.01 Val loss: 0.01 Train acc: 56.11 Val acc: 59.00
+Epoch: 47 Train loss: 0.01 Val loss: 0.01 Train acc: 56.69 Val acc: 59.00
+Epoch: 48 Train loss: 0.01 Val loss: 0.01 Train acc: 56.64 Val acc: 59.25
+Epoch: 49 Train loss: 0.01 Val loss: 0.01 Train acc: 56.39 Val acc: 59.25
+Creating distributions for task 9:
+[2;36m[14:06:15][0m[2;36m [0m[34mINFO    [0m ------------------------------------------------------------------------------------------------------------ ]8;id=305012;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py\[2mmain_incremental.py[0m]8;;\[2m:[0m]8;id=429216;file:///mnt/c/Users/alber/Desktop/UNIVERSITA/Anno_1/Advanced_Programming_for_AI/cv-project/src/main_incremental.py#179\[2m179[0m]8;;\
+>>> Test on task  0 : loss=0.000 | TAw acc= 67.0%, forg=  0.0%| TAg acc= 45.1%, forg= 22.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  1 : loss=0.000 | TAw acc= 74.6%, forg=  0.0%| TAg acc= 38.3%, forg= 22.4% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  2 : loss=0.000 | TAw acc= 84.4%, forg=  0.0%| TAg acc= 49.4%, forg= 16.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  3 : loss=0.000 | TAw acc= 79.1%, forg=  0.3%| TAg acc= 48.0%, forg=  9.6% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  4 : loss=0.000 | TAw acc= 79.4%, forg=  0.8%| TAg acc= 40.2%, forg= 15.3% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  5 : loss=0.000 | TAw acc= 67.1%, forg=  0.2%| TAg acc= 25.1%, forg= 11.3% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  6 : loss=0.000 | TAw acc= 76.9%, forg=  0.1%| TAg acc= 38.3%, forg=  4.2% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  7 : loss=0.000 | TAw acc= 65.2%, forg=  0.2%| TAg acc= 27.1%, forg=  4.1% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  8 : loss=0.000 | TAw acc= 72.0%, forg=  0.2%| TAg acc= 31.3%, forg=  1.1% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+>>> Test on task  9 : loss=0.000 | TAw acc= 79.6%, forg=  0.0%| TAg acc= 43.2%, forg=  0.0% <<<
+Save at results/cifar100_seed_exp_SEED_res18_cifar100
+************************************************************************************************************
+TAw Acc
+	 67.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 67.0% 
+	 67.0%  74.6%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 70.8% 
+	 67.0%  74.6%  84.4%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 75.3% 
+	 67.0%  74.6%  84.4%  79.4%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 76.4% 
+	 67.0%  74.6%  84.4%  79.4%  80.2%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 77.1% 
+	 67.0%  74.6%  84.4%  79.1%  79.9%  67.3%   0.0%   0.0%   0.0%   0.0% 	Avg.: 75.4% 
+	 67.0%  74.6%  84.4%  79.1%  79.3%  67.2%  77.0%   0.0%   0.0%   0.0% 	Avg.: 75.5% 
+	 67.0%  74.6%  84.4%  79.1%  79.7%  67.3%  76.9%  65.3%   0.0%   0.0% 	Avg.: 74.3% 
+	 67.0%  74.6%  84.4%  79.1%  79.6%  67.0%  76.9%  65.4%  72.2%   0.0% 	Avg.: 74.0% 
+	 67.0%  74.6%  84.4%  79.1%  79.4%  67.1%  76.9%  65.2%  72.0%  79.6% 	Avg.: 74.5% 
+Average incremental: 74.1% 
+************************************************************************************************************
+TAg Acc
+	 67.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 67.0% 
+	 56.4%  60.8%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 58.6% 
+	 52.8%  51.7%  65.4%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 56.6% 
+	 50.5%  47.4%  57.0%  57.6%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 53.1% 
+	 48.4%  41.0%  52.4%  52.0%  55.6%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 49.9% 
+	 48.3%  38.7%  50.8%  49.3%  51.8%  36.4%   0.0%   0.0%   0.0%   0.0% 	Avg.: 45.9% 
+	 46.2%  37.2%  51.2%  49.0%  47.1%  31.3%  42.6%   0.0%   0.0%   0.0% 	Avg.: 43.5% 
+	 45.7%  38.4%  51.0%  48.4%  45.3%  27.1%  40.0%  31.2%   0.0%   0.0% 	Avg.: 40.9% 
+	 45.4%  38.3%  50.3%  48.4%  42.7%  26.2%  39.9%  27.6%  32.4%   0.0% 	Avg.: 39.0% 
+	 45.1%  38.3%  49.4%  48.0%  40.2%  25.1%  38.3%  27.1%  31.3%  43.2% 	Avg.: 38.6% 
+Average incremental: 49.3% 
+************************************************************************************************************
+TAw Forg
+	  0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 38.6% 
+	  0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.:  0.0% 
+	  0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.:  0.0% 
+	  0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.:  0.0% 
+	  0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.:  0.0% 
+	  0.0%   0.0%   0.0%   0.3%   0.3%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.:  0.1% 
+	  0.0%   0.0%   0.0%   0.3%   0.9%   0.1%   0.0%   0.0%   0.0%   0.0% 	Avg.:  0.2% 
+	  0.0%   0.0%   0.0%   0.3%   0.6%   0.0%   0.1%   0.0%   0.0%   0.0% 	Avg.:  0.1% 
+	  0.0%   0.0%   0.0%   0.3%   0.7%   0.3%   0.1%  -0.1%   0.0%   0.0% 	Avg.:  0.2% 
+	  0.0%   0.0%   0.0%   0.3%   0.8%   0.2%   0.1%   0.2%   0.2%   0.0% 	Avg.:  0.2% 
+************************************************************************************************************
+TAg Forg
+	  0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.:  0.2% 
+	 10.7%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 10.7% 
+	 14.2%   9.1%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 11.7% 
+	 16.5%  13.3%   8.4%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 12.8% 
+	 18.6%  19.8%  13.0%   5.6%   0.0%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 14.2% 
+	 18.8%  22.1%  14.7%   8.2%   3.8%   0.0%   0.0%   0.0%   0.0%   0.0% 	Avg.: 13.5% 
+	 20.9%  23.6%  14.2%   8.6%   8.4%   5.1%   0.0%   0.0%   0.0%   0.0% 	Avg.: 13.5% 
+	 21.3%  22.3%  14.4%   9.1%  10.2%   9.3%   2.6%   0.0%   0.0%   0.0% 	Avg.: 12.8% 
+	 21.6%  22.4%  15.1%   9.1%  12.9%  10.2%   2.7%   3.7%   0.0%   0.0% 	Avg.: 12.2% 
+	 22.0%  22.4%  16.0%   9.6%  15.3%  11.3%   4.2%   4.1%   1.1%   0.0% 	Avg.: 11.8% 
+************************************************************************************************************
+[Elapsed time = 0.5 h]
+Done!
