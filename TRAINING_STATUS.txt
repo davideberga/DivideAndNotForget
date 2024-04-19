@@ -1,0 +1,9 @@
+
+
+CIFAR BASELINE RESNET18     --->      V
+CIFAR BASELINE RESNET50     --->      V
+CIFAR BASELINE RESNET101    --->      V
+CIFAR SEED RESNET18         --->      V
+CIFAR SEED RESNET50         --->      V
+CIFAR SEED RESNET101        --->   IN PROGRESS
+

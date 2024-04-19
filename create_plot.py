@@ -2,11 +2,13 @@
 
 import os
 import re
-import shutil
 
 import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.metrics import precision_score, recall_score
+
+import warnings
+warnings.filterwarnings('ignore')
 
 def plot_accuracy_or_loss(current_directory, paths, type_plot, dataset, method):
 
@@ -16,15 +18,23 @@ def plot_accuracy_or_loss(current_directory, paths, type_plot, dataset, method):
         type_plot_name = 'Accuracy'
 
 
-    colors = [('red','lightcoral'),('blue', 'navy'), ('green', 'lime')]
+    colors = [('red','lightcoral'),('navy', 'lightskyblue'), ('green', 'palegreen')]
 
     path_file = os.path.join(current_directory, paths[0], 'results', f'task_train_{type_plot}.txt')
     file = np.loadtxt(path_file)
-    number_tasks = file.shape[0]
-    number_epochs = file.shape[1] * number_tasks
+    if method == 'BASELINE':
+        number_tasks = (file.shape[1] if len(file.shape) > 1 else 1)
+        number_epochs = file.shape[0] * number_tasks
 
-    custom_ticks = [25 + tick * (number_epochs/number_tasks) for tick in range(number_tasks)]
-    custom_labels = [ f'T{tick+1}' for tick in range(number_tasks)]
+        custom_ticks = [number_epochs/2]
+        custom_labels = [f'T{tick + 1}' for tick in range(number_tasks)]
+
+    else:
+        number_tasks = file.shape[0]
+        number_epochs = (file.shape[1] if len(file.shape) > 1 else 1) * number_tasks
+
+        custom_ticks = [25 + tick * (number_epochs/number_tasks) for tick in range(number_tasks)]
+        custom_labels = [ f'T{tick+1}' for tick in range(number_tasks)]
 
     fig, ax = plt.subplots()
 
@@ -53,7 +63,11 @@ def plot_accuracy_or_loss(current_directory, paths, type_plot, dataset, method):
         ax.text(i, -y_label, label, ha='center')
 
     plt.title(f'Train and Validation {type_plot_name}')
-    plt.xticks(np.arange(1,number_epochs+1,number_epochs/number_tasks))
+    if method == 'BASELINE':
+        plt.xticks(np.arange(0,number_epochs+1,number_epochs/10))
+    else:
+        plt.xticks(np.arange(0,number_epochs+1,number_epochs/number_tasks))
+
     plt.tight_layout()
     plt.legend()
     # plt.show()
@@ -68,7 +82,8 @@ def plot_test_accuracy_aware(current_directory, paths, dataset, method):
     file = np.loadtxt(path_file)
     number_tasks = file.shape[0]
 
-    colors = ['red', 'blue', 'green']
+    colors = ['red', 'navy', 'green']
+
 
     for i, path in enumerate(paths):
         model_name = path.split('_')[-2]
@@ -87,7 +102,7 @@ def plot_test_accuracy_aware(current_directory, paths, dataset, method):
         final_accuracy = np.round(np.array(final_accuracy).astype(float), decimals=4)
         plt.plot(final_accuracy, label=f'Accuracy Aware {model_name}', color=colors[i])
 
-    plt.xticks(np.arange(1,number_tasks,1))
+    plt.xticks(np.arange(0,number_tasks,1))
     plt.title('Test Accuracy Aware')
     plt.xlabel('TASK')
     plt.ylabel('ACCURACY')
@@ -106,7 +121,7 @@ def plot_test_accuracy_agnostic(current_directory, paths, dataset, method):
     number_tasks = file.shape[0]
 
 
-    colors = [('red','lightcoral'),('blue', 'navy'), ('green', 'lime')]
+    colors = [('red','lightcoral'),('navy', 'lightskyblue'), ('green', 'palegreen')]
 
 
     for i, path in enumerate(paths):
@@ -132,8 +147,8 @@ def plot_test_accuracy_agnostic(current_directory, paths, dataset, method):
         plt.plot(accuracy_by_task, label=f'Accuracy after each task {model_name}', color=colors[i][0])
         plt.plot(final_accuracy, label=f'Accuracy after training {model_name}', color=colors[i][1])
 
-    plt.xticks(np.arange(1,number_tasks,1))
-    plt.title('Accuracy Agnostic')
+    plt.xticks(np.arange(0,number_tasks,1))
+    plt.title('Test Accuracy Agnostic')
     plt.xlabel('TASK')
     plt.ylabel('ACCURACY')
     plt.legend()
@@ -148,9 +163,9 @@ def plot_test_precision_recall(current_directory, paths, dataset, method):
 
     path_file = os.path.join(current_directory, paths[0], 'results', f'acc_tag.txt')
     file = np.loadtxt(path_file)
-    number_tasks = file.shape[0]
+    number_tasks = 1 if file.shape == () else file.shape[0]
 
-    colors = [('red','lightcoral'),('blue', 'navy'), ('green', 'lime')]
+    colors = [('red','lightcoral'),('navy', 'lightskyblue'), ('green', 'palegreen')]
 
     for i, path in enumerate(paths):
         model_name = path.split('_')[-2]
@@ -180,7 +195,7 @@ def plot_test_precision_recall(current_directory, paths, dataset, method):
         plt.plot(precision_agnostic, label=f'Precision {model_name}', color=colors[i][0])
         plt.plot(recall_agnostic, label=f'Recall {model_name}', color=colors[i][1])
 
-    plt.xticks(np.arange(1,number_tasks,1))
+    plt.xticks(np.arange(0,number_tasks,1))
     plt.title('Precision-Recall Agnostic')
     plt.xlabel('TASK')
     plt.legend()
@@ -192,7 +207,7 @@ def plot_test_precision_recall(current_directory, paths, dataset, method):
 def save_plot(current_directory, paths, dataset, method):
 
     # sort the Resnet model 18,50,101
-    paths.sort(key=lambda x: int(re.match(r'.*_res(\d+).*', x).group(1)))
+    paths.sort(key=lambda x: int(re.search(r'.*_res(\d+).*', x).group(1)))
 
     # LOSS
     plot_accuracy_or_loss(current_directory=current_directory, paths=paths, type_plot='losses',
@@ -202,17 +217,18 @@ def save_plot(current_directory, paths, dataset, method):
     plot_accuracy_or_loss(current_directory=current_directory, paths=paths, type_plot='accs',
                           dataset=dataset, method=method)
 
-    # TEST ACCURACY AWARE
-    plot_test_accuracy_aware(current_directory=current_directory, paths=paths,
-                          dataset=dataset, method=method)
+    if method == 'SEED':
+        # TEST ACCURACY AWARE
+        plot_test_accuracy_aware(current_directory=current_directory, paths=paths,
+                              dataset=dataset, method=method)
 
-    # TEST ACCURACY AGNOSTIC
-    plot_test_accuracy_agnostic(current_directory=current_directory, paths=paths,
-                          dataset=dataset, method=method)
+        # TEST ACCURACY AGNOSTIC
+        plot_test_accuracy_agnostic(current_directory=current_directory, paths=paths,
+                              dataset=dataset, method=method)
 
-    # TEST PRECISIOM-RECALL
-    plot_test_precision_recall(current_directory=current_directory, paths=paths,
-                          dataset=dataset, method=method)
+        # TEST PRECISIOM-RECALL
+        plot_test_precision_recall(current_directory=current_directory, paths=paths,
+                              dataset=dataset, method=method)
 
 
 if __name__ == "__main__":
@@ -232,14 +248,15 @@ if __name__ == "__main__":
 
     # iterate over datasets
     for dataset in datasets:
-        paths = []
         # iterate over methods
         for method in methods:
+            paths = []
             for dir in folder_in_directory:
                 match = re.search(f'{dataset}.*{method}', dir)
                 if match is not None:
                     paths.append(dir)
             current_method = method
 
-        os.makedirs(os.path.join(current_directory, f'{dataset}_{method}'), exist_ok=True)
-        save_plot(current_directory=current_directory, paths=paths, dataset=dataset, method=method)
+            if len(paths) != 0:
+                os.makedirs(os.path.join(current_directory, f'{dataset}_{method}'), exist_ok=True)
+                save_plot(current_directory=current_directory, paths=paths, dataset=dataset, method=method)
