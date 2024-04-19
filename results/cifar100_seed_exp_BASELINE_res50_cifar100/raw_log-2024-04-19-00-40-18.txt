@@ -1,0 +1,5 @@
+{"group": "test", "iter": 0, "name": "loss", "task": 0, "time": "2024-04-19-03-21", "value": 0.0}
+{"group": "test", "iter": 0, "name": "acc_taw", "task": 0, "time": "2024-04-19-03-21", "value": 62.69}
+{"group": "test", "iter": 0, "name": "acc_tag", "task": 0, "time": "2024-04-19-03-21", "value": 62.69}
+{"group": "test", "iter": 0, "name": "forg_taw", "task": 0, "time": "2024-04-19-03-21", "value": 0.0}
+{"group": "test", "iter": 0, "name": "forg_tag", "task": 0, "time": "2024-04-19-03-21", "value": 0.0}
