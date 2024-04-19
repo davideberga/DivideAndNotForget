@@ -5,7 +5,7 @@ python3 src/main_incremental.py \
     --max-experts 1 \
     --use-multivariate \
     --nepochs 200 \
-    --batch-size 128 \
+    --batch-size 64 \
     --datasets food101 \
     --num-tasks 1 \
     --lr 0.05 \
