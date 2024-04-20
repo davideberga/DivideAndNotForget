@@ -1,4 +1,4 @@
-#!/bin/bash
++#!/bin/bash
 python3 src/main_incremental.py \
     --approach seed \
     --gmms 1 \
