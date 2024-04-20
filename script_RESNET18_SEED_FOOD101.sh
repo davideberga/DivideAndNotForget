@@ -4,7 +4,7 @@ python3 src/main_incremental.py \
     --gmms 1 \
     --max-experts 5 \
     --use-multivariate \
-    --nepochs 50 \
+    --nepochs 20 \
     --batch-size 128 \
     --datasets food101 \
     --num-tasks 10 \
