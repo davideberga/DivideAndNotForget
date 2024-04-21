@@ -1,0 +1,40 @@
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:264: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:272: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:264: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:272: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:264: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:272: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:264: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:272: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:264: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:272: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:264: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:272: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:264: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:272: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:264: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:272: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:264: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:272: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:264: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
+/home/berga/development/repos/DivideAndNotForget/src/main_incremental.py:272: UserWarning: Tight layout not applied. The bottom and top margins cannot be made large enough to accommodate all axes decorations.
+  plt.tight_layout()
